@@ -1,0 +1,37 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Inscription séance{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">S'inscrire à {{seance.getName()}} </p>
+            
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                    <div class="lieu my-5">
+                        {{ form_label(form.lieu, ' Ou voulez vous participer à la formation ?', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.lieu) }}
+                        {{ form_widget(form.lieu) }}
+                        {{ form_help(form.lieu) }}
+                    </div>
+                
+
+                    <div class="attente my-5">
+                        {{ form_label(form.attente, ' Attentes vis à vis de la formation  ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.attente) }}
+                        {{ form_widget(form.attente) }}
+                        {{ form_help(form.attente) }}
+                    </div>
+    
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

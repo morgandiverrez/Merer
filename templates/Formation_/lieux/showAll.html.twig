@@ -1,0 +1,47 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste Lieux{% endblock %}
+
+
+
+
+
+{% block body %}
+   <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center"> Liste des lieux
+            {% if is_granted('ROLE_BF') %}
+                 <a href="/lieux/new"><i class="fa-solid fa-plus align-right"></i></a>
+            {% endif %}
+            </p>
+            <form action="{{ path('lieux_showAll') }}" method="post">
+               <p class="text-center">
+                    <input type="text" id="name" name="name" placeholder="Nom"/>
+                    <input type="text" id="ville" name="ville" placeholder="Ville"/>
+                    <button class="btn btn-primary" type="submit" >Rechercher</button>
+                </p>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Salle</th>
+                        <th scope="col">Ville</th>
+                        <th scope="col">Détails</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                {% for lieu in lieux %} 
+                <tr>
+                    <td>{{lieu.getName()}}</td>
+                    <td>{{lieu.getSalle()}}</td>
+                    <td>{{lieu.getVille()}}</td>
+                    <td><a href="/lieux/show/{{lieu.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td>
+               </tr> {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

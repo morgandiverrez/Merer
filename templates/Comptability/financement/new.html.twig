@@ -1,0 +1,182 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Nouveau Financeur{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Ajouter un nouveau financeur</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="financeur my-5">
+                        {{ form_label(form.financeur, 'Financeur ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.financeur) }}
+                        {{ form_widget(form.financeur) }}
+                        {{ form_help(form.financeur) }}
+                    </div>
+
+                    <div class="amount my-5">
+                        {{ form_label(form.amount, ' Montant ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.amount) }}
+                        {{ form_widget(form.amount) }}
+                        {{ form_help(form.amount) }}
+                    </div>
+
+                    <div class="pluriannuel my-5">
+                        {{ form_label(form.pluriannuel, 'Pluriannuel', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.pluriannuel) }}
+                        {{ form_widget(form.pluriannuel) }}
+                        {{ form_help(form.pluriannuel) }}
+                    </div>
+
+                    <div class="dateVersement my-5">
+                        {{ form_label(form.dateVersement, ' Date de Versement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.dateVersement) }}
+                        {{ form_widget(form.dateVersement) }}
+                        {{ form_help(form.dateVersement) }}
+                    </div>
+
+                    <div class="dateSignature my-5">
+                        {{ form_label(form.dateSignature, ' Date de signature ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.dateSignature) }}
+                        {{ form_widget(form.dateSignature) }}
+                        {{ form_help(form.dateSignature) }}
+                    </div>
+
+                    <div class="flechee my-5">
+                        {{ form_label(form.flechee, ' Flechée ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.flechee) }}
+                        {{ form_widget(form.flechee) }}
+                        {{ form_help(form.flechee) }}
+                    </div>
+
+                      {% set compteur = 0 %}
+                            {% for financementLine in form.financementLines %}
+                                <div class="financementLine my-5">
+                                <p class="display-5 no-wrap text-center"> Ligne {{compteur}} </p>
+                                    <div class="libellee my-5">
+                                        {{ form_label(financementLine.libellee, 'Libellée ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(financementLine.libellee) }}
+                                        {{ form_widget(financementLine.libellee)}}
+                                        {{ form_help(financementLine.libellee) }}
+                                    </div>
+
+                                    <div class="amount my-5">
+                                        {{ form_label(financementLine.amount, 'montant ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(financementLine.amount) }}
+                                        {{ form_widget(financementLine.amount)}}
+                                        {{ form_help(financementLine.amount) }}
+                                    </div>
+
+                                    <div class="description my-5">
+                                        {{ form_label(financementLine.description, 'Description ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(financementLine.description) }}
+                                        {{ form_widget(financementLine.description)}}
+                                        {{ form_help(financementLine.description) }}
+                                    </div>
+
+                                    <div class="reporter my-5">
+                                        {{ form_label(financementLine.reporter, 'reporter ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(financementLine.reporter) }}
+                                        {{ form_widget(financementLine.reporter)}}
+                                        {{ form_help(financementLine.reporter) }}
+                                    </div>
+                                </div>
+                                {% set compteur = compteur + 1 %}
+                            {% endfor %}
+
+                     <div class="financementLine2 my-5" data-prototype="{{ form_widget(form.financementLines.vars.prototype)|e('html_attr') }}">
+                    </div>
+                    
+                    <button type="button" class="btn btn-success add_item_link" data-collection-holder-class="financementLine2">Ajouter une ligne</button>
+
+                    <br>
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      
+        jQuery(document).ready(
+        function() {
+
+            // Get the ul that holds the collection of tags
+            var $invoiceLinesCollectionHolder = $('ul.financementLine2');
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $invoiceLinesCollectionHolder.data('index', $invoiceLinesCollectionHolder.find('input').length);
+
+            $('body').on('click', '.add_item_link', function(e) {
+                var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+                // add a new tag form (see next code block)
+                addFormToCollection($collectionHolderClass);
+            })
+        });
+
+        function addFormToCollection($collectionHolderClass) {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder = $('.' + $collectionHolderClass);
+
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+             newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newLabel = $("<h3  class='my-3'>Nouvelle Ligne de financement</h3>");
+            $collectionHolder.append($newLabel)
+            var $newForm = $('<div></div>').append(newForm);
+            // Add the new form at the end of the list
+            $collectionHolder.append($newForm)
+            addTagFormDeleteLink($newForm,$newLabel);
+        }
+
+        function addTagFormDeleteLink($newForm,$newLabel) {
+            var $removeFormButton = $('<button type="button" class="btn btn-danger">Retirer cette ligne</button>');
+            $newForm.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the tag form
+                $newForm.remove();
+                $newLabel.remove();
+            });
+        }
+
+
+     
+    </script>
+{% endblock %}
+

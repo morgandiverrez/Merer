@@ -1,0 +1,84 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}demande formation{% endblock %}
+
+{% block body %}
+   <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Formulaire de demande de formation</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                    <div class="name my-5">
+                    {{ form_label(form.name, 'Quel est le nom de l\'événement ?', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="association my-5">
+                        {{ form_label(form.association, 'Est ce que c\'est pour une association ? Si oui, laquelle', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.association) }}
+                        {{ form_widget(form.association) }}
+                        {{ form_help(form.association) }}
+                    </div>
+
+                    <div class="equipeElu my-5">
+                        {{ form_label(form.equipeElu, 'Est ce que c\'est pour une équipe d\'élu.e.s  ? Si oui, laquelle', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.equipeElu) }}
+                        {{ form_widget(form.equipeElu) }}
+                        {{ form_help(form.equipeElu) }}
+                    </div>
+
+                    <div class="dateDebut my-5">
+                        {{ form_label(form.dateDebut, 'À quelle date souhaites-tu faire cette formation ? ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.dateDebut) }}
+                        {{ form_widget(form.dateDebut) }}
+                        {{ form_help(form.dateDebut) }}
+                    </div>
+
+                    <div class="dateFin my-5">
+                        {{ form_label(form.dateFin, 'Si celle-ci se déroule sur plusieurs jours, quelle est la date de fin de formation ?', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.dateFin) }}
+                        {{ form_widget(form.dateFin) }}
+                        {{ form_help(form.dateFin) }}
+                    </div>
+
+                    <div class="nombrePersonne my-5">
+                        {{ form_label(form.nombrePersonne, 'À combien de personnes est-elle destinée ? ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.nombrePersonne) }}
+                        {{ form_widget(form.nombrePersonne) }}
+                        {{ form_help(form.nombrePersonne) }}
+                    </div>
+
+                    <div class="formation my-5">
+                        {{ form_label(form.formation, ' Que souhaites-tu comme formation ? ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.formation) }}
+                        {{ form_widget(form.formation) }}
+                        {{ form_help(form.formation) }}
+                    </div>
+
+                    <div class="planning my-5">
+                        {{ form_label(form.planning, 'As-tu déjà créé un planning ?  ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.planning) }}
+                        {{ form_widget(form.planning) }}
+                        {{ form_help(form.planning) }}
+                    </div>
+
+                    <div class="doubleMaillage my-5">
+                        {{ form_label(form.doubleMaillage, ' Es-tu rentré.e en contact avec ta fédération de filière ?  ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.doubleMaillage) }}
+                        {{ form_widget(form.doubleMaillage) }}
+                        {{ form_help(form.doubleMaillage) }}
+                    </div>
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

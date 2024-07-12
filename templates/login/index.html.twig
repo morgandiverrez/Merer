@@ -3,33 +3,37 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-     <div class=" text-center container-fluid">
+     <div class="text-center" >
         {% if error %}
             <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
         <p class="display-6 no-wrap text-center">Connexion</p>
-        
+        <div class="mx-auto mt-5 mb-5 ">
             <form action="{{ path('login') }}" method="post">
-            <div class="mx-auto mt-5 mb-5 ">
 
                 <div class=" name my-5">
-                    <label for="username">Email:</label>
+                    <label for="username">Email :</label>
                     <input type="text" id="username" name="_username" value="{{ last_username }}"/>
                 </div>
 
                 <div class="  mx-auto mt-5 mb-5">
-                    <label for="password">Mot de passe:</label>
+                    <label for="password">Mot de passe :</label>
                     <input type="password" id="password" name="_password"/>
                 </div>
 
                 {# If you want to control the URL the user is redirected to on success #}
-                <input type="hidden" name="_target_path" value="{{ app.request.headers.get('referer') }}"> 
+                
                 {# protection contre les attaques CSRF, (code mis dans les reponses) via des jetons taken #}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                 <button class="btn btn-primary" type="submit" >Connexion</button>
             </form>
+            <br>
+                <a href="/register/"> s'inscrire </a> 
+            <br>
+            <a href="/reset-password">mot de passe oublié ?</a> 
 
         </div>
+      
     </div>
 {% endblock %}

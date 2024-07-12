@@ -1,0 +1,79 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier équipe d'élu {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Modifier l'équipe d'élu.e.s {{equipeElu.getName()}}</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="categorie my-5">
+                        {{ form_label(form.categorie, 'Catégorie ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.categorie) }}
+                        {{ form_widget(form.categorie) }}
+                        {{ form_help(form.categorie) }}
+                    </div>
+
+                    <div class="description my-5">
+                        {{ form_label(form.description, 'Description ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_help(form.description) }}
+                    </div>
+
+                    <div class="adresse_mail my-5">
+                        {{ form_label(form.adresse_mail, 'Adresse mail ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.adresse_mail) }}
+                        {{ form_widget(form.adresse_mail) }}
+                        {{ form_help(form.adresse_mail) }}
+                    </div>
+
+                    <div class="etablissement my-5">
+                        {{ form_label(form.etablissement, ' Etablissement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.etablissement) }}
+                        {{ form_widget(form.etablissement) }}
+                        {{ form_help(form.etablissement) }}
+                    </div>
+
+                      <div class="fede_filliere my-5">
+                        {{ form_label(form.fede_filliere, 'Fédé Fillière ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.fede_filliere) }}
+                        {{ form_widget(form.fede_filliere) }}
+                        {{ form_help(form.fede_filliere) }}
+                    </div>
+
+                    <div class="date_election my-5">
+                        {{ form_label(form.date_election, ' date de l\'élection ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.date_election) }}
+                        {{ form_widget(form.date_election) }}
+                        {{ form_help(form.date_election) }}
+                    </div>
+
+                    <div class="duree_mandat my-5">
+                        {{ form_label(form.duree_mandat, ' duree de mandat (an) ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.duree_mandat) }}
+                        {{ form_widget(form.duree_mandat) }}
+                        {{ form_help(form.duree_mandat) }}
+                    </div>
+
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

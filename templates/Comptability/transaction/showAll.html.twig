@@ -1,0 +1,56 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}liste transaction{% endblock %}
+
+
+
+
+{% block body %}
+  <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">Tables des Transactions
+                <a href="/transaction/new"><i class="fa-solid fa-plus align-left"></i></a>
+            </p>
+                <form action="{{ path('transaction_showAll') }}" method="post">
+                    <p class="text-center" >
+                        
+                        <input type="text" id="code" name="code" placeholder="Code"/>
+                        <select name="cloture" id="cloture" >
+                            <option select value='tous' >tous</option>
+                            <option  value='1'>cloturé</option>
+                            <option  value='0'>pas cloturé</option>
+                        </select>
+                        <input type="text" id="commentaire" name="commentaire" placeholder="commentaire"/>
+                        <button class="btn btn-primary" type="submit" >Rechercher</button>
+                     </p>
+                </form>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Cloturé</th>
+                    <th scope="col">Commentaire</th>
+                    <th scope="col">Show</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for transaction in transactions %} <tr>
+                    <td>{{transaction.code}}</td>
+                    {% if transaction.closure == true %}
+                        <td><a href="/transaction/unclosure/{{ transaction.id }}"><i class="fa-solid fa-circle-check" style="color: green;"></i></a></td>
+                    {% else %}
+                        <td><a href="/transaction/closure/{{ transaction.id }}"><i class="fa-solid fa-circle-xmark" style="color: red;"></i></a></td>
+                    {% endif %}
+                    <td>{{transaction.quote}}</td>
+                    <td><a href="/transaction/show/{{ transaction.id }}"><i class = "fa-solid fa-eye"></i></a></td>
+
+                </tr> {% endfor %}
+                </tbody>
+            </table>
+
+          
+        </div>
+    </div>
+{% endblock %}
+

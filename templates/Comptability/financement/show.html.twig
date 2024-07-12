@@ -1,0 +1,78 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails Financement{% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5"> Détails du financement {{financement.getName()}}</p>
+            <div class=" d-flex justify-content-center text-center align-center">
+                <div class="card" style="width: 18rem;">
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{financement.getName()}}</h5>
+                        <p class="card-title">Financeur : {{financement.getFinanceur()}}</p>
+                        <p class="card-text">Montant : {{financement.getAmount()}} €</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Date Versement : {% if financement.getDateVersement() is null %}0 {% else %} {{financement.getDateVersement().format("d/m/y")}} {% endif %} </li>
+                        <li class="list-group-item">Date Signature : {% if financement.getDateSignature() is null %}0 {% else %} {{financement.getDateSignature().format("d/m/y")}} {% endif %} </li>
+                        <li class="list-group-item">Pluriannuel : {{financement.pluriannuel}}</li>  
+                        <li class="list-group-item"> {% if financement.isFlechee() %} financement fléchée {% else %} financement non fléchée {% endif %} </li>  
+
+                    </ul>
+                    <div class="card-body">
+                        <a href="/financement/edit/{{ financement.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/financement/delete/{{ financement.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>
+                        <a href="/financement/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <p class="display-6 no-wrap text-center">Ligne de financement </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Libellée</th>
+                        <th scope="col">Momtant + report</th>
+                        <th scope="col">Avancement</th>
+                        <th scope="col">Reste</th>
+                        <th scope="col">Show</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set totalMontant = 0 %}
+                    {% set totalAvancement = 0 %}
+                    {% set totalReste = 0 %}
+                    {% for financementLine in financement.getFinancementLines() %} 
+                        <tr>
+                            <td>{{financementLine.libellee}}</td>
+                            {% set montant =  financementLine.amount + financementLine.reporter %}
+                            <td>{{montant}} €</td>
+                             {% set totalMontant = totalMontant + montant %}
+                            <td>{{total[financementLine.id]}} €</td>
+                            {% set totalAvancement = totalAvancement + total[financementLine.id] %}
+                            {% set reste =  montant - total[financementLine.id] %}
+                            <td>{{reste}} €</td>
+                            {% set totalReste = totalReste + reste %}
+                            <td><a href="/financementLine/show/{{ financementLine.id }}"><i class = "fa-solid fa-eye"></i></a></td>
+                        </tr> 
+                    {% endfor %}
+                </tbody> 
+                <tfoot>
+                    <th></th>
+                    <th>{{totalMontant}} €</th>
+                    <th>{{totalAvancement}} €</th>
+                    <th>{{totalReste}} €</th>
+                    <th></th>
+                </tfoot>
+            </table>
+             <div class="text-center">
+                <a href="/financementLine/new/{{ financement.id }}"><button class="btn btn-success mt-3 mb-3" type="submit" name="show">{{ button_label|default('Ajouter une ligne ') }}<i class = "fa text-light fa-plus-square me-2"></i></button></a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

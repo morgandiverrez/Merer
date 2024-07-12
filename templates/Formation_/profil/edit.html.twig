@@ -1,0 +1,73 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier son profil{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Modifier son profil</p>
+            
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Prénom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="last_name my-5">
+                        {{ form_label(form.last_name, 'Nom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.last_name) }}
+                        {{ form_widget(form.last_name) }}
+                        {{ form_help(form.last_name) }}
+                    </div>
+
+                    <div class="pronom my-5">
+                        {{ form_label(form.pronom, 'Pronom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.pronom) }}
+                        {{ form_widget(form.pronom) }}
+                        {{ form_help(form.pronom) }}
+                    </div>
+
+
+                    <div class="date_of_birth my-5">
+                        {{ form_label(form.date_of_birth, 'Date de naissance ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.date_of_birth) }}
+                        {{ form_widget(form.date_of_birth) }}
+                        {{ form_help(form.date_of_birth) }}
+                    </div>
+
+                    <div class="telephone my-5">
+                        {{ form_label(form.telephone, ' numéro de téléphone ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.telephone) }}
+                        {{ form_widget(form.telephone) }}
+                        {{ form_help(form.telephone) }}
+                    </div>
+
+                    <div class="equipeElu my-5">
+                        {{ form_label(form.equipeElu, ' Equipe d élu.e.s ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.equipeElu) }}
+                        {{ form_widget(form.equipeElu) }}
+                        {{ form_help(form.equipeElu) }}
+                    </div>
+
+                    <div class="association my-5">
+                        {{ form_label(form.association, ' Association.s ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.association) }}
+                        {{ form_widget(form.association) }}
+                        {{ form_help(form.association) }}
+                    </div>
+    
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,51 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Edition Transaction{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="form-control form-control-lg mx-auto corps text-center">
+            {{ form_start(form) }}
+            <p class="display-4 no-wrap text-center mt-3">Edition Ligne de Financement </p>
+
+            <div class="libellee my-5">
+                {{ form_label(form.libellee, 'Libellée ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.libellee) }}
+                {{ form_widget(form.libellee)}}
+                {{ form_help(form.libellee) }}
+            </div>
+
+            <div class="amount my-5">
+                {{ form_label(form.amount, 'montant ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.amount) }}
+                {{ form_widget(form.amount)}}
+                {{ form_help(form.amount) }}
+            </div>
+
+            <div class="description my-5">
+                {{ form_label(form.description, 'Description ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.description) }}
+                {{ form_widget(form.description)}}
+                {{ form_help(form.description) }}
+            </div>
+
+            <div class="reporter my-5">
+                {{ form_label(form.reporter, 'reporter ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.reporter) }}
+                {{ form_widget(form.reporter)}}
+                {{ form_help(form.reporter) }}
+            </div>
+
+
+            <br>
+            <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+

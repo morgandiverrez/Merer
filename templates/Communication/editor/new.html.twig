@@ -1,0 +1,73 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Nouveau editeur{% endblock %}
+
+{% block body %}
+   <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Ajouter un nouveau editeur</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+
+                    <div class="logo my-5">
+                        {{ form_label(form.logo, 'Logo ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.logo) }}
+                        {{ form_widget(form.logo) }}
+                        {{ form_help(form.logo) }}
+                    </div>
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="description my-5">
+                        {{ form_label(form.description, 'Description ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_help(form.description) }}
+                    </div>
+
+                     <div class="mail my-5">
+                        {{ form_label(form.mail, 'Mail public ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.mail) }}
+                        {{ form_widget(form.mail) }}
+                        {{ form_help(form.mail) }}
+                    </div>
+
+                     <div class="instagram my-5">
+                        {{ form_label(form.instagram, 'Instagram ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.instagram) }}
+                        {{ form_widget(form.instagram) }}
+                        {{ form_help(form.instagram) }}
+                    </div>
+
+                          <div class="facebook my-5">
+                        {{ form_label(form.facebook, 'Facebook ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.facebook) }}
+                        {{ form_widget(form.facebook) }}
+                        {{ form_help(form.facebook) }}
+                    </div>
+
+                          <div class="adress my-5">
+                        {{ form_label(form.adress, 'Adresse ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.adress) }}
+                        {{ form_widget(form.adress) }}
+                        {{ form_help(form.adress) }}
+                    </div>
+
+                  
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,53 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste demande{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Liste des demandes de formation 
+                <a href="/demande/new"><i class="fa-solid fa-plus align-right"></i></a>
+                 </p>
+       
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Association / Equipe Elu.es</th>
+                    <th scope="col">date de début</th>
+                    <th scope="col">date de fin</th>
+                    <th scope="col">nombre de personnes</th>
+                    <th scope="col">Détails</th>
+                    
+                 </tr>
+                </thead>
+
+                <tbody>
+                 {% set verif= false %}
+                {% for demande in demandes %} 
+                    {% if demande.getDateDebut() <= date() and verif == false %}
+                        <tr>
+                            <td colspan="5" style=" font-weight: bold;" align="center"> Demande passée </td>
+                        <tr>
+                        {% set verif = true %}
+                    {% endif %}
+                    <tr>
+                        <td>
+                            {% for equipeElu in demande.getEquipeElu() %}{{equipeElu.getName()}}<br> {% endfor %} 
+                            {% for association in  demande.getAssociation() %} {{association.getName()}}<br> {%  endfor %}
+                        </td>  
+                        <td> 
+                            {% if demande.getDateDebut() is  null %} - {% else %} {{demande.getDateDebut().format('d/m/y H:i')}} {% endif %}   
+                        </td>
+                        <td>{% if demande.getDateFin() is null %}  - {% else %} {{demande.getDateFin().format('d/m/y H:i')}} {% endif %}  </td>
+                        <td>{{demande.getNombrePersonne()}}</td>
+                        <td><a href="/demande/show/{{demande.getId()}}"><i class="fa-solid fa-eye"></i></a></td> 
+                     </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

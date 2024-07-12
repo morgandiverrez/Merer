@@ -1,0 +1,49 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste Projet{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">Liste des projets 
+                    <a href="/event/new"><i class="fa-solid fa-plus align-left"></i></a>
+            </p>
+                <form action="{{ path('event_showAll') }}" method="post">
+                <p style="flex-wrap : wrap;" class="text-center justify-content-center">
+                    <input type="text" id="name" name="name" placeholder="Nom"/>
+                    <button class="btn btn-primary" type="submit" >Rechercher</button>
+                </form>
+            </p>
+            <table class="table table-striped">                   
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Date début</th>
+                    <th scope="col">Date fin</th>
+                    <th scope="col">Montant</th>
+                    <th scope="col">Total dépensé</th>
+                    <th scope="col">Reste</th>
+                    <th scope="col">Détails</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %} 
+                        <tr>
+                            <td>{{event.getName()}}</td> 
+                            <td>{% if event.getStartDate() is null %}0 {% else %} {{event.getStartDate().format(" d/m/y H:i")}} {% endif %}</td>
+                            <td>{% if event.getEndDate() is null %}0 {% else %} {{event.getEndDate().format("d/m/y H:i")}} {% endif %}</td>
+                            <td>{{event.amount}} €</td>
+                            <td>{{totals[event.id]}} €</td>
+                            {% set reste = event.amount - totals[event.id] %}
+                            <td>{{reste}} €</td>
+                            <td><a href="/event/show/{{event.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}échéancier de paiment{% endblock %}
+
+{% block body %}
+      <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Définissez votre échéancier de paiment</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+                    <div class="expectedAmount my-5">
+                        {{ form_label(form.expectedAmount, 'Montant ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.expectedAmount) }}
+                        {{ form_widget(form.expectedAmount) }}
+                        {{ form_help(form.expectedAmount) }}
+                    </div>
+
+                    <div class="expectedPaymentDate my-5">
+                        {{ form_label(form.expectedPaymentDate, 'Date de paiment ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.expectedPaymentDate) }}
+                        {{ form_widget(form.expectedPaymentDate) }}
+                        {{ form_help(form.expectedPaymentDate) }}
+                    </div>
+
+
+                    <div class="expectedMeans my-5">
+                        {{ form_label(form.expectedMeans, 'Moyen de paiment ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.expectedMeans) }}
+                        {{ form_widget(form.expectedMeans) }}
+                        {{ form_help(form.expectedMeans) }}
+                    </div>
+                    <button class="btn btn-success mt-3 mb-3"><i class = "fa text-light fa-save me-2"></i>{{ button_label|default('Suivant') }}</button>
+                </div>
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

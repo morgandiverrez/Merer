@@ -31,7 +31,7 @@ class FormationFixtures extends Fixture implements DependentFixtureInterface
             
             
             $manager->persist($formation);
-            $manager->flush();
+            $manager->flush(); 
         }
     }
 

@@ -2,10 +2,4 @@ framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
 
-        # envelope:
-        #     sender: 'no-reply@fedeb.net'
-        #     recipients: ['foo@example.com', 'bar@example.com']
-        # headers:
-        #     From: 'no-reply <no-reply@fedeb.net>'
-        #     Bcc: 'baz@example.com'
-        #     X-Custom-Header: 'foobar'
+    

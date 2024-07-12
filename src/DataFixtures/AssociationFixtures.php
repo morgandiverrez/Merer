@@ -19,10 +19,9 @@ class AssociationFixtures extends Fixture
             $association->setImage($this->faker->mimeType());
             $association->setName('Association' . $i);
             $association->setSigle($this->faker->regexify('[A-Z]{6}'));
-            $association->setCategorie($this->faker->randomElement(['fillière', 'inter asso', 'trandversale']));
             $association->setDescription($this->faker->paragraph());
             $association->setFedeFilliere($this->faker->randomElement(['ARES', 'ANEMF', 'AFNEUS', 'BNEI', 'FNAEL', 'UNECD']));
-            $association->setFedeTerritoire('Fédé B');
+            $association->setFedeTerritoire('******');
             $association->setLocal($this->faker->regexify('[A-Z]{1}-[0-9]{2}'));
             $association->setAdresseMail($this->faker->email());
             $association->setDateElection($this->faker->dateTime());

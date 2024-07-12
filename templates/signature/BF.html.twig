@@ -3,80 +3,84 @@
 {% block title %}Signature BF{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <p  class="display-6 no-wrap text-center">Générateur de signature mail de la Fédé B</p>
-        <form>
-            
-            <div class="form-group">
-                <label for="poste">Poste</label>
-                <input class="form-control" id="poste" type="text" placeholder="Poste">
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <div class="container">
+                <p  class="display-6 no-wrap text-center">Générateur de signature mail de la ******</p>
+                <form>
+                    
+                    <div class="form-group">
+                        <label for="poste">Poste</label>
+                        <input class="form-control" id="poste" type="text" placeholder="Poste">
+                    </div>
+                    <div class="form-group">
+                        <label for="postebreton">Poste Breton</label>
+                        <input class="form-control" id="postebreton" type="text" placeholder="Poste Breton">
+                        <small id="poste-breton-help" class="form-text text-muted">Pour traduire voir le tableau en bas de page</small>
+                    </div>
+                
+                </form>
+                <button onclick="generate()" class="btn btn-primary">Générer</button>
             </div>
-            <div class="form-group">
-                <label for="postebreton">Poste Breton</label>
-                <input class="form-control" id="postebreton" type="text" placeholder="Poste Breton">
-                <small id="poste-breton-help" class="form-text text-muted">Pour traduire voir le tableau en bas de page</small>
+            <div class="container">
+                <h3>signature à copier</h3>
+                <div id="res"></div>
             </div>
-           
-        </form>
-        <button onclick="generate()" class="btn btn-primary">Générer</button>
+            <div class="container">
+                <h2>Liste des traductions breton</h2>
+                <table class="table-striped">
+                    <tr><td>Fédération des Associations Etudiantes de Bretagne Occidentale</td><td>Kevread ar C’hevredigezhioù Studier e Breizh Izel</td></tr>
+                    <tr><td>Affaire suivie par</td><td>Afer heuliet digant</td></tr>
+                    <tr><td>Président(e)</td><td>prezidant(ez)</td></tr>
+                    <tr><td>Déléguée Général(e)</td><td>Kannad(ez)-(v)meur</td></tr>
+                    <tr><td>Trésorier(e)</td><td>Teñzorour(ez)</td></tr>
+                    <tr><td>Secrétaire Général(e)</td><td>Sekretour(ez)-(v)meur</td></tr>
+                    <tr><td>Secrétaire Général(e)</td><td>Sekretour(ez)-(v)meur</td></tr>
+
+                    <tr><td>En charge de</td><td>e karg eus</td></tr>
+
+                    <tr><td>1er(e) Vice-Président</td><td>besprezidant(ez) (G)Kentañ</td></tr>
+                    <tr><td>Vice-Président(e)</td><td>besprezidant(ez)</td></tr>
+                    <tr><td>De la culture étudiante</td><td>eus ar sevenadur studier</td></tr>
+                    <tr><td>De l’innovation sociale</td><td>eus an neveziñ sokial</td></tr>
+                    <tr><td>Du suivi du réseau et de la formation</td><td>eus heuliañ ar rouedad hag ar stummadur</td></tr>
+                    <tr><td>De la représentation</td><td>eus ar c’hannaderezh</tr>
+                    <tr><td>Des outils numériques et de la communication</td><td>eus an oustilhoù niverel hag eus ar c’hehentiñ</td></tr>
+
+                    <tr><td>Chargé de mission</td><td>kargad a gefridi</td></tr>
+                    <tr><td>Du suivi des élus</td><td>eus heuliañ an dilennidi</td></tr>
+                    <tr><td>Du suivi des élus de résidence</td><td>eus heuliañ dilennidi an annezlec’h</td></tr>
+                    <tr><td>De l’animation et de la culture</td><td>eus ar vuheziñ hag ar sevenadur</td></tr>
+                    <tr><td>Des pétarinettes</td><td>eus ar Pétarinettes</td></tr>
+                    <tr><td>De l’AGORAé</td><td>eus an AGORAé</td></tr>
+                    <tr><td>Du bien être étudiant</td><td>eus hevoud ar studierien</td></tr>
+                    <tr><td>De l’international</td><td>eus an etrebroadel</td></tr>
+                    <tr><td>Des partenariats</td><td>eus ar c’hevelerezh</td></tr>
+                    <tr><td>Organisation étudiante représentative à l’UBO et au CROUS de Rennes-Bretagne</td><td>Aozadur Studier dileuriañ e Skol-Veur Breizh Izel hag e CROUS Roazhon-Breizh</td></tr>
+                    <tr><td>Chargé de mission en défense des droits</td><td>Kargad(ez) a gefridi difenn ar gwirioù</td></tr>
+                    <tr><td>Affaires Sociales</td><td>aferioù sossial</td></tr>
+                    <tr><td>Développement Durable</td><td>Diorren Padus</td></tr>
+                    <tr><td>Égalité</td><td>Kevatalded</td></tr>
+
+                    <tr><td>Coordinateur réseau Saint-Brieuc</td><td>Kenurzhier(ez) rouedad St Brieg</td></tr>
+
+                    <tr><td>Coordinateur réseau Quimper</td><td>Kenurzhier(ez) rouedad Kemper</td></tr>
+                    <tr><td>Suivi des élus</td><td>Heuliañ an dilennidi</td></tr>
+                </table>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script>
+                function generate(){
+                    let signature = "<table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td width=\"150\" style=\"vertical-align: middle;\"><span class=\"sc-TOsTZ kjYrri\" style=\"margin-right: 20px; display: block;\"><img width=\"130\" src=\"https://******.net/wp-content/uploads/2018/03/******-Logo.png\" role=\"presentation\" class=\"sc-kjoXOD hpTAeq\"></span></td><td style=\"vertical-align: middle;\"> <h3 color=\"#000000\" class=\"sc-jhAzac hmXDXQ\" style=\"margin: 0px; font-size: 16px; color: rgb(0, 0, 0);\"><span>{{app.user.profil.getLastName()}}</span><span>&nbsp;</span><span>{{app.user.profil.getName()}}</span></h3> <p color=\"#000000\" font-size=\"small\" class=\"sc-fBuWsC eeihxG\" style=\"margin: 0px; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;\"><span>@@poste@@</span></p><p color=\"#000000\" font-size=\"small\" class=\"sc-fMiknA bxZCMx\" style=\"margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;\"><span>@@postebreton@@</span></p></td><td width=\"30\"> <div style=\"width: 30px;\"></div></td><td width=\"1\" color=\"#f0ad42\" direction=\"vertical\" class=\"sc-hzDkRC kpsoyz\" style=\"width: 1px; border-bottom-style: none; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(240, 173, 66);\"></td><td width=\"30\"> <div style=\"width: 30px;\"></div></td><td style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr height=\"25\" style=\"vertical-align: middle;\"> <td width=\"30\" style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td style=\"vertical-align: bottom;\"><span width=\"11\" color=\"#f0ad42\" class=\"sc-iRbamj blSEcj\" style=\"display: block; background-color: rgb(240, 173, 66);\"><img width=\"13\" src=\"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png\" color=\"#f0ad42\" class=\"sc-gPEVay eQYmiW\" style=\"display: block; background-color: rgb(240, 173, 66);\"></span></td></tr></tbody> </table> </td><td style=\"padding: 0px; color: rgb(0, 0, 0);\"><a href=\"tel:(+33) 2 98 01 29 36\" color=\"#000000\" class=\"sc-jlyJG bbyJzT\" style=\"text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;\"><span>(+33) 2 98 01 29 36</span></a> | <a href=\"tel:{{app.user.profil.getTelephone}}\" color=\"#000000\" class=\"sc-jlyJG bbyJzT\" style=\"text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;\"><span>{{app.user.profil.getTelephone()}}</span></a></td></tr><tr height=\"25\" style=\"vertical-align: middle;\"> <td width=\"30\" style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td style=\"vertical-align: bottom;\"><span width=\"11\" color=\"#f0ad42\" class=\"sc-iRbamj blSEcj\" style=\"display: block; background-color: rgb(240, 173, 66);\"><img width=\"13\" src=\"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png\" color=\"#f0ad42\" class=\"sc-gPEVay eQYmiW\" style=\"display: block; background-color: rgb(240, 173, 66);\"></span></td></tr></tbody> </table> </td><td style=\"padding: 0px;\"><a href=\"mailto:{{app.user.getEmail()}}\" color=\"#000000\" class=\"sc-jlyJG bbyJzT\" style=\"text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;\"><span>{{app.user.getEmail()}}</span></a></td></tr><tr height=\"25\" style=\"vertical-align: middle;\"> <td width=\"30\" style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td style=\"vertical-align: bottom;\"><span width=\"11\" color=\"#f0ad42\" class=\"sc-iRbamj blSEcj\" style=\"display: block; background-color: rgb(240, 173, 66);\"><img width=\"13\" src=\"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png\" color=\"#f0ad42\" class=\"sc-gPEVay eQYmiW\" style=\"display: block; background-color: rgb(240, 173, 66);\"></span></td></tr></tbody> </table> </td><td style=\"padding: 0px;\"><a href=\"//******.net\" color=\"#000000\" class=\"sc-jlyJG bbyJzT\" style=\"text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;\"><span>******.net</span></a></td></tr><tr height=\"25\" style=\"vertical-align: middle;\"> <td width=\"30\" style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td style=\"vertical-align: bottom;\"><span width=\"11\" color=\"#f0ad42\" class=\"sc-iRbamj blSEcj\" style=\"display: block; background-color: rgb(240, 173, 66);\"><img width=\"13\" src=\"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png\" color=\"#f0ad42\" class=\"sc-gPEVay eQYmiW\" style=\"display: block; background-color: rgb(240, 173, 66);\"></span></td></tr></tbody> </table> </td><td style=\"padding: 0px;\"><span color=\"#000000\" class=\"sc-gipzik iyhjGb\" style=\"font-size: 12px; color: rgb(0, 0, 0);\"><span>6, avenue Victor le Gorgeu , CS 93837 , 29238 Brest Cedex 3</span></span> </td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody></table>";
+                    
+                    signature = signature.replace("@@poste@@", document.getElementById("poste").value);
+                    signature = signature.replace("@@postebreton@@", document.getElementById("postebreton").value);
+                    document.getElementById("res").innerHTML = signature;
+                }
+            </script>
+        </div>
     </div>
-    <div class="container">
-        <h3>signature à copier</h3>
-        <div id="res"></div>
-    </div>
-    <div class="container">
-        <h2>Liste des traductions breton</h2>
-        <table class="table-striped">
-            <tr><td>Fédération des Associations Etudiantes de Bretagne Occidentale</td><td>Kevread ar C’hevredigezhioù Studier e Breizh Izel</td></tr>
-            <tr><td>Affaire suivie par</td><td>Afer heuliet digant</td></tr>
-            <tr><td>Président(e)</td><td>prezidant(ez)</td></tr>
-            <tr><td>Déléguée Général(e)</td><td>Kannad(ez)-(v)meur</td></tr>
-            <tr><td>Trésorier(e)</td><td>Teñzorour(ez)</td></tr>
-            <tr><td>Secrétaire Général(e)</td><td>Sekretour(ez)-(v)meur</td></tr>
-            <tr><td>Secrétaire Général(e)</td><td>Sekretour(ez)-(v)meur</td></tr>
-
-            <tr><td>En charge de</td><td>e karg eus</td></tr>
-
-            <tr><td>1er(e) Vice-Président</td><td>besprezidant(ez) (G)Kentañ</td></tr>
-            <tr><td>Vice-Président(e)</td><td>besprezidant(ez)</td></tr>
-            <tr><td>De la culture étudiante</td><td>eus ar sevenadur studier</td></tr>
-            <tr><td>De l’innovation sociale</td><td>eus an neveziñ sokial</td></tr>
-            <tr><td>Du suivi du réseau et de la formation</td><td>eus heuliañ ar rouedad hag ar stummadur</td></tr>
-            <tr><td>De la représentation</td><td>eus ar c’hannaderezh</tr>
-            <tr><td>Des outils numériques et de la communication</td><td>eus an oustilhoù niverel hag eus ar c’hehentiñ</td></tr>
-
-            <tr><td>Chargé de mission</td><td>kargad a gefridi</td></tr>
-            <tr><td>Du suivi des élus</td><td>eus heuliañ an dilennidi</td></tr>
-            <tr><td>Du suivi des élus de résidence</td><td>eus heuliañ dilennidi an annezlec’h</td></tr>
-            <tr><td>De l’animation et de la culture</td><td>eus ar vuheziñ hag ar sevenadur</td></tr>
-            <tr><td>Des pétarinettes</td><td>eus ar Pétarinettes</td></tr>
-            <tr><td>De l’AGORAé</td><td>eus an AGORAé</td></tr>
-            <tr><td>Du bien être étudiant</td><td>eus hevoud ar studierien</td></tr>
-            <tr><td>De l’international</td><td>eus an etrebroadel</td></tr>
-            <tr><td>Des partenariats</td><td>eus ar c’hevelerezh</td></tr>
-            <tr><td>Organisation étudiante représentative à l’UBO et au CROUS de Rennes-Bretagne</td><td>Aozadur Studier dileuriañ e Skol-Veur Breizh Izel hag e CROUS Roazhon-Breizh</td></tr>
-            <tr><td>Chargé de mission en défense des droits</td><td>Kargad(ez) a gefridi difenn ar gwirioù</td></tr>
-            <tr><td>Affaires Sociales</td><td>aferioù sossial</td></tr>
-            <tr><td>Développement Durable</td><td>Diorren Padus</td></tr>
-            <tr><td>Égalité</td><td>Kevatalded</td></tr>
-
-            <tr><td>Coordinateur réseau Saint-Brieuc</td><td>Kenurzhier(ez) rouedad St Brieg</td></tr>
-
-            <tr><td>Coordinateur réseau Quimper</td><td>Kenurzhier(ez) rouedad Kemper</td></tr>
-            <tr><td>Suivi des élus</td><td>Heuliañ an dilennidi</td></tr>
-        </table>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>
-        function generate(){
-            let signature = "<table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td width=\"150\" style=\"vertical-align: middle;\"><span class=\"sc-TOsTZ kjYrri\" style=\"margin-right: 20px; display: block;\"><img width=\"130\" src=\"https://fedeb.net/wp-content/uploads/2018/03/FEDEB-Logo.png\" role=\"presentation\" class=\"sc-kjoXOD hpTAeq\"></span></td><td style=\"vertical-align: middle;\"> <h3 color=\"#000000\" class=\"sc-jhAzac hmXDXQ\" style=\"margin: 0px; font-size: 16px; color: rgb(0, 0, 0);\"><span>{{app.user.profil.getLastName()}}</span><span>&nbsp;</span><span>{{app.user.profil.getName()}}</span></h3> <p color=\"#000000\" font-size=\"small\" class=\"sc-fBuWsC eeihxG\" style=\"margin: 0px; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;\"><span>@@poste@@</span></p><p color=\"#000000\" font-size=\"small\" class=\"sc-fMiknA bxZCMx\" style=\"margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;\"><span>@@postebreton@@</span></p></td><td width=\"30\"> <div style=\"width: 30px;\"></div></td><td width=\"1\" color=\"#f0ad42\" direction=\"vertical\" class=\"sc-hzDkRC kpsoyz\" style=\"width: 1px; border-bottom-style: none; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(240, 173, 66);\"></td><td width=\"30\"> <div style=\"width: 30px;\"></div></td><td style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr height=\"25\" style=\"vertical-align: middle;\"> <td width=\"30\" style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td style=\"vertical-align: bottom;\"><span width=\"11\" color=\"#f0ad42\" class=\"sc-iRbamj blSEcj\" style=\"display: block; background-color: rgb(240, 173, 66);\"><img width=\"13\" src=\"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png\" color=\"#f0ad42\" class=\"sc-gPEVay eQYmiW\" style=\"display: block; background-color: rgb(240, 173, 66);\"></span></td></tr></tbody> </table> </td><td style=\"padding: 0px; color: rgb(0, 0, 0);\"><a href=\"tel:(+33) 2 98 01 29 36\" color=\"#000000\" class=\"sc-jlyJG bbyJzT\" style=\"text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;\"><span>(+33) 2 98 01 29 36</span></a> | <a href=\"tel:{{app.user.profil.getTelephone}}\" color=\"#000000\" class=\"sc-jlyJG bbyJzT\" style=\"text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;\"><span>{{app.user.profil.getTelephone()}}</span></a></td></tr><tr height=\"25\" style=\"vertical-align: middle;\"> <td width=\"30\" style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td style=\"vertical-align: bottom;\"><span width=\"11\" color=\"#f0ad42\" class=\"sc-iRbamj blSEcj\" style=\"display: block; background-color: rgb(240, 173, 66);\"><img width=\"13\" src=\"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png\" color=\"#f0ad42\" class=\"sc-gPEVay eQYmiW\" style=\"display: block; background-color: rgb(240, 173, 66);\"></span></td></tr></tbody> </table> </td><td style=\"padding: 0px;\"><a href=\"mailto:{{app.user.getEmail()}}\" color=\"#000000\" class=\"sc-jlyJG bbyJzT\" style=\"text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;\"><span>{{app.user.getEmail()}}</span></a></td></tr><tr height=\"25\" style=\"vertical-align: middle;\"> <td width=\"30\" style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td style=\"vertical-align: bottom;\"><span width=\"11\" color=\"#f0ad42\" class=\"sc-iRbamj blSEcj\" style=\"display: block; background-color: rgb(240, 173, 66);\"><img width=\"13\" src=\"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png\" color=\"#f0ad42\" class=\"sc-gPEVay eQYmiW\" style=\"display: block; background-color: rgb(240, 173, 66);\"></span></td></tr></tbody> </table> </td><td style=\"padding: 0px;\"><a href=\"//fedeb.net\" color=\"#000000\" class=\"sc-jlyJG bbyJzT\" style=\"text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;\"><span>fedeb.net</span></a></td></tr><tr height=\"25\" style=\"vertical-align: middle;\"> <td width=\"30\" style=\"vertical-align: middle;\"> <table cellpadding=\"0\" cellspacing=\"0\" class=\"sc-jDwBTQ dWtMUn\" style=\"vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;\"> <tbody> <tr> <td style=\"vertical-align: bottom;\"><span width=\"11\" color=\"#f0ad42\" class=\"sc-iRbamj blSEcj\" style=\"display: block; background-color: rgb(240, 173, 66);\"><img width=\"13\" src=\"https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png\" color=\"#f0ad42\" class=\"sc-gPEVay eQYmiW\" style=\"display: block; background-color: rgb(240, 173, 66);\"></span></td></tr></tbody> </table> </td><td style=\"padding: 0px;\"><span color=\"#000000\" class=\"sc-gipzik iyhjGb\" style=\"font-size: 12px; color: rgb(0, 0, 0);\"><span>6, avenue Victor le Gorgeu , CS 93837 , 29238 Brest Cedex 3</span></span> </td></tr></tbody> </table> </td></tr></tbody> </table> </td></tr></tbody></table>";
-            
-            signature = signature.replace("@@poste@@", document.getElementById("poste").value);
-            signature = signature.replace("@@postebreton@@", document.getElementById("postebreton").value);
-            document.getElementById("res").innerHTML = signature;
-        }
-    </script>
 
 {% endblock %}

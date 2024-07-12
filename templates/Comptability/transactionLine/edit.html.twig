@@ -1,0 +1,67 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Edition Transaction{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="form-control form-control-lg mx-auto corps text-center">
+            {{ form_start(form) }}
+            <p class="display-4 no-wrap text-center mt-3">Edition TransactionLine </p>
+
+            <div class="label">
+                {{ form_label(form.label, 'Label ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.label) }}
+                {{ form_widget(form.label)}}
+                {{ form_help(form.label) }}
+            </div>
+            
+            
+            <div class="date">
+                {{ form_label(form.date, 'Date ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.date) }}
+                {{ form_widget(form.date)}}
+                {{ form_help(form.date) }}
+            </div>
+
+            <div class="amount">
+                {{ form_label(form.amount, 'Montant ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.amount) }}
+                {{ form_widget(form.amount)}}
+                {{ form_help(form.amount) }}
+            </div>
+
+            <div class="urlProof">
+                {{ form_label(form.urlProof, 'document justificatif ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.urlProof) }}
+                {{ form_widget(form.urlProof)}}
+                {{ form_help(form.urlProof) }}
+            </div>
+
+            <div class="quote">
+                {{ form_label(form.quote, 'Commentaire ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.quote) }}
+                {{ form_widget(form.quote)}}
+                {{ form_help(form.quote) }}
+            </div>
+
+            <div class="chartOfAccounts">
+                {{ form_label(form.chartOfAccounts, 'PCG ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.chartOfAccounts) }}
+                {{ form_widget(form.chartOfAccounts)}}
+                {{ form_help(form.chartOfAccounts) }}
+                 <a href="/chartOfAccounts/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+            </div>
+
+
+            <br>
+            <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,60 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier contact {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Modifier le contact {{contact.getName()}}</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Prénom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="lastName my-5">
+                        {{ form_label(form.lastName, 'Nom de famille ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.lastName) }}
+                        {{ form_widget(form.lastName) }}
+                        {{ form_help(form.lastName) }}
+                    </div>
+
+                    <div class="civility my-5">
+                        {{ form_label(form.civility, 'Civilité ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.civility) }}
+                        {{ form_widget(form.civility) }}
+                        {{ form_help(form.civility) }}
+                    </div>
+
+                    <div class="mail my-5">
+                        {{ form_label(form.mail, 'Adresse mail ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.mail) }}
+                        {{ form_widget(form.mail) }}
+                        {{ form_help(form.mail) }}
+                    </div>
+
+                    <div class="phone my-5">
+                        {{ form_label(form.phone, ' Numéro de Téléphone ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.phone) }}
+                        {{ form_widget(form.phone) }}
+                        {{ form_help(form.phone) }}
+                    </div>
+
+                
+
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

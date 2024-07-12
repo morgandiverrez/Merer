@@ -92,6 +92,42 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+     public function findByMail($value): ?array
+    {
+        return $this->createQueryBuilder('user')
+            ->andWhere('user.email = :val')
+            ->setParameter('val', $value)
+            // ->orderBy('formation.id', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+    }
+
+     public function findAllIfProfil(): ?array
+    {
+        return $this->createQueryBuilder('user')
+            ->andWhere('user.profil != :val')
+            ->setParameter('val', null)
+            ->orderBy('user.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+            
+    }
+
+
+    public function findAllUserWithProfilAndFormateurice()
+    {
+
+         return $this->createQueryBuilder('u')
+                    ->orderBy('u.email', 'ASC')
+                    ->andWhere('u.roles LIKE :val0 OR  u.roles LIKE :val1')
+                    ->setParameter('val0', '%'.'ROLE_FORMATEURICE'.'%')
+                    ->setParameter('val1', '%' . 'ROLE_BF' . '%')
+                    ->getQuery()
+                     ->getResult();
+    }
+    
+    
     
 
 }

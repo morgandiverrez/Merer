@@ -6,6 +6,7 @@
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
+/Merer.code-workspace
 /vendor/
 ###< symfony/framework-bundle ###
 
@@ -25,3 +26,7 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> phpmyadmin ###
+ /phpMyAdmin/
+###< phpmyadmin ###

@@ -1,0 +1,73 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails ligne BP{% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div  style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center align-center mb-5"> Détails de la ligne {{bp.getDesignation()}}</p>
+            <div class=" d-flex text-center justify-content-evenly">
+                <div class="card justify-content-start" style="width: 18rem;">
+                    <div class=" card-body ">
+                        <h5 class="card-text">{{bp.getCategorie()}}</h5>
+                        <h3 class="card-title">{{bp.getDesignation()}}</h3>
+                        <p class="card-title">Montant initial :{{bp.getExpectedAmount()}} €</p>
+                        <p class="card-title">Montant réalloué :{{bp.getReallocateAmount()}} €</p>
+                        <p class="card-title">Total avancé : {{ total }} €</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="/bp/edit/{{ bp.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>      
+                        <a href="/bp/delete/{{ bp.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>   
+                        <a href="/bp/exercice/{{date('Y').format('Y')}}" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+                <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+                    <p class="display-6 no-wrap text-center">Liste des transactions de cette Ligne de budget </p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Code</th>
+                                <th scope="col">Cloturé</th>
+                                <th scope="col">Commentaire</th>
+                                <th scope="col">Montant</th>
+                                <th scope="col">Show</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set totalAmount = 0 %}
+                            {% for transaction in bp.getTransactions() %} 
+                                <tr>
+                                    <td>{{transaction.code}}</td>
+                                    {% if transaction.closure == true %}
+                                        <td>Oui</td>
+                                    {% else %}
+                                        <td>Non</td>
+                                    {% endif %}
+                                    <td>{{transaction.quote}}</td>
+                                     <td>{{totalsTransactions[transaction.id()]}} €</th>
+                                      {% set totalAmount = totalAmount + totalImpression[transaction.getId()] %} </tr>
+                                    <td><a href="/transaction/show/{{ transaction.id }}"><i class = "fa-solid fa-eye"></i></a></td>
+                                </tr> 
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr> 
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                                <th>{{ totalAmount }} € </th>
+                                <th> </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                 </div>  
+            </div> 
+        </div>
+    </div>
+
+
+{% endblock %}

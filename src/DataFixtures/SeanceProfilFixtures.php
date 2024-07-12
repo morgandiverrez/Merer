@@ -30,9 +30,6 @@ class SeanceProfilFixtures extends Fixture implements DependentFixtureInterface
                     
             $seanceProfil->setAttente($this->faker->sentence());            
             $seanceProfil->setLieu($this->getRandomReference('LIEU'));
-            $seanceProfil->setAutorisationPhoto($this->faker->boolean());
-            $seanceProfil->setModePaiement($this->faker->word());
-            $seanceProfil->setCovoiturage($this->faker->boolean());
             
             $this->addReference('SEANCEPROFIL_'.$i, $seanceProfil);
             

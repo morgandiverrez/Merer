@@ -1,0 +1,116 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails Evènement{% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5"> Détails de l'évenement {{event.getName()}}</p>
+            <div class=" d-flex justify-content-center text-center align-center">
+                <div class="card" style="width: 18rem;">
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{event.getName()}}</h5>
+                        <p class="card-text">{{event.getDescription()}}</p>
+                        <p class="card-text">Code :{{event.getCode()}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Date Début : {% if event.getStartDate() is null %}0 {% else %} {{event.getStartDate().format("d/m/y H:i")}} {% endif %} </li>
+                        <li class="list-group-item">Date Fin : {% if event.getEndDate() is null %}0 {% else %} {{event.getEndDate().format("d/m/y H:i")}} {% endif %} </li>
+                    </ul>
+                    <ul>
+                       <li class="list-group-item">Lieu : {{event.getLocation()}} </li>
+                       <li class="list-group-item">Financement : {% if event.getFinancementLine() %} <a href="/financementLine/show/{{ event.getFinancementLine().getId() }}"  class="card-link">  {{event.getFinancementLine().__toString()}}</a>{% else %} pas de financement définit {% endif %}</li>
+                    </ul>
+                    <ul>
+                        <li class="list-group-item">Montant alloué : {{event.amount}} €</li>
+                        <li class="list-group-item">Total dépensé : {{total}} €</li>  
+                        {% set reste = event.amount - total %}
+                        <li class="list-group-item">Reste : {{reste}} €</li>  
+                    </ul>
+                    <div class="card-body">
+                        <a href="/event/edit/{{ event.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/event/delete/{{ event.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>     
+                        <a href="/event/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+             <p class="display-6 no-wrap text-center">Liste des transactions de ce projet </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Cloturé</th>
+                        <th scope="col">Commentaire</th>
+                        <th scope="col">Montant</th>
+                        <th scope="col">Show</th>
+                    </tr>
+                </thead>
+                <tbody>
+                     {% set totalAmount = 0 %}
+                    {% for transaction in event.getTransactions() %} 
+                        <tr>
+                            <td>{{transaction.code}}</td>
+                            {% if transaction.closure == true %}
+                                <td>Oui</td>
+                            {% else %}
+                                <td>Non</td>
+                            {% endif %}
+                            <td>{{transaction.quote}}</td>
+                             <td>{{totalTransaction[transaction.getId()]}} €</td>
+                             {% set totalAmount = totalAmount + totalTransaction[transaction.getId()] %} 
+                            <td><a href="/transaction/show/{{ transaction.id }}"><i class = "fa-solid fa-eye"></i></a></td>
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+                 <tfoot>
+                    <tr> 
+                        <th> </th>
+                        <th> </th>
+                         <th> </th>
+                        <th>{{ totalAmount }} € </th>
+                       <th> </th>
+                    </tr>
+                </tfoot>
+            </table>
+            <br>
+             <p class="display-6 no-wrap text-center">Liste des impressions de ce projet </p>
+             <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Horrodataire</th>
+                        <th scope="col">imprimeur</th>
+                        <th scope="col">format</th>
+                        <th scope="col">quantité</th>
+                         <th scope="col">prix</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                 {% set totalAmount = 0 %}
+                {% for impression in event.getImpressions() %} 
+                    <tr>
+                        <td>{{impression.getDatetime().format("d/m/Y H:i")}}</td>
+                        <td>{{impression.getName()}}</td>
+                        <td>{{impression.getFormat()}}{% if impression.isRectoVerso() %} RV {% endif %} {% if impression.isCouleur() %} Couleur {% else %} NB {% endif %} </td>
+                        <td>{{impression.getQuantite()}}</td>
+                        <td> {{totalImpression[impression.getId()]}}€</td>
+                          {% set totalAmount = totalAmount + totalImpression[impression.getId()] %} </tr>
+                {% endfor %}
+                </tbody>
+                 <tfoot>
+                    <tr> 
+                        <th> </th>
+                         <th> </th>
+                         <th> </th>
+                         <th> </th>
+                        <th>{{ totalAmount }} € </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

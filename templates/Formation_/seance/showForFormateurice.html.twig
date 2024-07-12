@@ -1,0 +1,128 @@
+{% extends 'base_user.html.twig' %}
+
+
+{% block title %}Détails Séance{% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <h1 class="display-6 no-wrap text-center mb-5"> Seance </h1>
+            
+            <h2 class="display-8 no-wrap text-center mb-5"> Details Séance </h2>
+            <div class=" d-flex text-center justify-content-evenly">
+                 <div class="card justify-content-start" style="width: 18rem;">
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{seance.getName()}}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% if seance.getEvenement() is not null %}
+                            <li class="list-group-item">Evènement :<a href="/evenement/show/{{seance.getEvenement().getId()}}" class="card-link"> {{seance.getEvenement()}}</a></li>
+                         {% endif %}
+                        <li class="list-group-item">Date et Heure : {% if seance.getDateTime() is null %} - {% else %} {{seance.getDatetime().format("d/m/Y H:i")}} {% endif %}</li>
+                        <li class="list-group-item">Nombre de Place Maximum : {{seance.getNombrePlace()}}</li>   
+                        {% for formateurice in seance.getProfil() %}
+                            <li class="list-group-item">Formateurice :<a href="/account/show/{{formateurice.getId()}}" class="card-link"> {{formateurice.getName()}} {{formateurice.getLastName()}}</a></li>
+                        {% endfor %}
+                         <li class="list-group-item"> QR code inscription : <a href="/inscription/QRCodeGen/{{seance.getId()}}" class="card-link"><i class="fa-solid fa-qrcode"></a></i>
+                         <li class="list-group-item"> QR code retour : <a href="/retour/QRCodeGen/{{seance.getId()}}" class="card-link"><i class="fa-solid fa-qrcode"></a></i>
+                    </ul>  
+                </div>
+            </div>
+             <br>
+            {# début information formation #}
+            {% if seance.formation %}
+                <h2 class="display-8 no-wrap text-center mb-5"> Details Formation </h2>
+                <div class=" d-flex text-center justify-content-evenly">
+                    <div class="card justify-content-start" style="width: 18rem;">
+                        <div class=" card-body ">
+                            <p class="card-text">{{seance.formation.getDescription()}}</p>
+                            <p class="card-text">OPG :{{seance.formation.getOpg()}}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Pré-requis : {{seance.formation.getPreRequis()}}</li>
+                            <li class="list-group-item">Durée : {% if seance.formation.getDuration() is null %}0 {% else %} {{seance.formation.getDuration().format("H:i")}} {% endif %} </li>
+                            <li class="list-group-item">Public Cible : {{seance.formation.getPublicCible()}}</li>                         
+                        </ul>
+                        
+                        {% if is_granted('ROLE_BF')%}
+                            <div class="card-body">
+                                <a href="/catalogue/edit/{{ seance.formation.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div> 
+             {% endif %}
+             {# fin information formation #}
+            <br>
+            {# début information lieux #}
+            <h2 class="display-8 no-wrap text-center mb-5"> Details du (des) lieu(x) </h2>
+            <div class=" d-flex text-center justify-content-evenly">
+                 <div class="card justify-content-start" style="width: 18rem;">
+                    {% for lieu in seance.getLieux() %}
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{lieu.getName()}}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Salle : {{lieu.getSalle()}}</li>
+                        <li class="list-group-item">Adresse : {{lieu.getAdresse()}}</li>
+                        <li class="list-group-item">Code Postale : {{lieu.getCodePostale()}}</li>
+                        <li class="list-group-item">ville : {{lieu.getVille()}}</li>                          
+                    </ul>
+                    <div class="card-body">
+                       {% if is_granted('ROLE_BF')%}
+                             <a href="/lieux/edit/{{ lieu.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                       {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {# fin information lieux #}
+            <br>
+            <div> {# début liste inscrit #}
+            <h2 class="display-8 no-wrap text-center mb-5"> Liste inscrit </h2>
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Profil</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%if seance.getSeanceProfil() is null %} 
+                                Aucun.e  inscrit.e pour le moment sur cette formation
+                        {% else %} 
+                            {% for seanceProfil in seance.getSeanceProfil() %}
+                                <tr>
+                                    <td>{{seanceProfil.profil.getName()}}</td>
+                                    <td>{{seanceProfil.profil.getLastName()}}</td>
+                                    <td><a href="/account/show/{{seanceProfil.profil.getId()}}"><i class="fa-solid fa-eye"></i></a></td> 
+                                </tr> 
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                    <tfoot>
+                        <th></th>
+                        <th><a  href="/seance/liste_inscrit/{{seance.getID()}}"><i class="fa-solid fa-list"></i></a></th> 
+                        <th></th>
+                    </tfoot>
+                </table>
+            </div>  {# fin listing inscrit#}
+        </div>
+    </div>
+    <footer class="d-flex justify-content-center" >
+        {% if is_granted('ROLE_BF')%}
+            <a  class="btn btn-primary" href="/seance/edit/{{seance.getId()}}">Modifier la Seance</i></a>
+            <a class="btn btn-primary"  href="/seance/delete/{{seance.getId()}}">Supprimé</a>
+        {% endif %}
+        <br>    
+        <br>
+        {% if app.user.getProfil() in seance.getProfil() or is_granted("ROLE_BF")%}
+            <a  class="btn btn-primary" href="/retour/resultat/{{seance.getId()}}">voir les retours</i></a>
+        {% endif %}
+    </footer>
+
+
+{% endblock %}

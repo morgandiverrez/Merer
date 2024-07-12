@@ -1,0 +1,106 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Inscription évènement{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center"> Inscription {{evenement.getName()}} </p>
+          <div>
+            {{evenement.getDescription()}}
+          </div > 
+          <div class="table-responsive ">
+                <form action="{{ path('inscription_evenement',{'evenementID' : evenement.getId()})}}" method="post">
+                    <table style="justify-content:center"  class=" table align-middle table-success table-striped-columns" > 
+                        <thead>
+                            <tr>
+                                {% for parcours in evenement.getParcours() %}
+                                    <th scope="col">{{parcours}}
+                                        {% if  evenement.isParcoursObligatoire()  %}
+                                            <li class="list-group-item"> S'inscrire :   <input type="radio" id="inscription" value='{{parcours}}' name="inscription"/></li>
+                                        {% endif %}
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for formation in seanceByCreneauAndParcours %} 
+                                {% set length = 1 %}
+                                {% set x = true %}
+                                {# on itere tt les horaires  #}
+                                <tr>              
+                                    {% for  parcours in evenement.getParcours() %}
+                                    {# on itere tt les parcours #}
+                                        {% if x %}      
+                                            {% if formation[parcours] is defined %}
+                                                {% if formation[parcours].getParcours() == null %}
+                                                    {% set length = evenement.getParcours()|length %}
+                                                    {% set x = false %}  
+                                                {% endif %} 
+                                                <td colspan="{{length}}" >
+                                                    <div class="card" style=" justify-content-center width: 18rem;">
+                                                        <div class="card-header">
+                                                        {{formation[parcours].getName()}} 
+                                                        </div>
+                                                        <ul class="list-group list-group-flush">
+                                                            <li class="list-group-item">{{formation[parcours].formation.getDescription()}}</li>
+                                                            <li class="list-group-item">Début de la séance :   {{formation[parcours].getDatetime().format('d/m/y H:i')}}</li>
+                                                            <li style="justify-content:center" class="list-group-item">Attentes vis à vis de cette formation :   <input type="text" id="attente" name="attentes_{{formation[parcours].getId()}}"   placeholder="Attentes "/></li>
+                                                            {% if restePlace[formation[parcours].getId()] and not evenement.isParcoursObligatoire()  %}
+                                                                 <li class="list-group-item">S'inscrire :   <input type="radio" id="inscription" value='{{formation[parcours].getId()}}' name="inscription_{{formation[parcours].getDatetime().format('d/m/y H:i:s')}}"/></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div> 
+                                                </td >
+                                            {% else %}
+                                                <td></td>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody> 
+                
+                        <tfoot>
+                            {% set length = 3 * (evenement.getParcours()|length) %}   
+                            {% if evenement.isAutorisationPhoto() %}>
+                            <tr >       
+                                <th colspan="{{length}}" >
+                                     Autoriser vous l'organisation à prendre des photos durant l'évènement ?    
+                                    <input type="checkbox" id="autorisation_photo" name="autorisation_photo"  />
+                                   
+                                </th> 
+                            </tr>
+                            {% endif %}
+                            {% if evenement.isCovoiturage() %}>
+                            <tr >       
+                                <th colspan="{{length}}" >
+                                    Souhaitez vous participez au covoiturage ?  
+                                    <input type="checkbox" id="participation_covoiturage" name="participation_covoiturage" />
+                                    
+                                </th> 
+                            </tr>
+                            {% endif %}
+                            {% if evenement.getModePaiement() != [] %}>
+                                <tr >       
+                                    <th colspan="{{length}}" >Comment souhaitez vous payer l'évènement ?
+                                        <select name="mode_paiement" id="mode_paiement"> 
+                                            {% for modePaiement in evenement.getModePaiement() %}
+                                                <option value={{modePaiement}}>{{modePaiement}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </th> 
+                                </tr>
+                            {% endif %}
+                            <tr >       
+                                <th colspan="{{length}}" ><button class="btn btn-primary" type="submit" >Valider</button></th> 
+                            </tr>
+                        </tfoot> 
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

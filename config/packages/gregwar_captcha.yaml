@@ -1,0 +1,47 @@
+gregwar_captcha:
+    # configure the width of the generated image
+    width: 130
+    # configure the height of the generated image
+    height: 50
+    # # configure the font size
+    # font_size: 25
+    # configure the length of the generated string
+    length: 4
+    # configure the charset used for the generation
+    charset: 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+    # configure the image quality (0-100)
+    quality: 100
+    # # configure the image format (png or jpeg)
+    # format: jpeg
+    # configure the image background color
+    background_color: [255, 255, 255]
+    # configure the text color
+    text_color: [0, 0, 0]
+    # # configure the image margin
+    # margin: 2
+    # # configure the image noise
+    # noise_level: 0
+    # # configure the noise color
+    # noise_color: [0, 0, 0]
+    # # configure the number of lines to be drawn over the image
+    # lines: 0
+    # # configure the color of the lines
+    # lines_color: [0, 0, 0]
+    # configure the distortion of the image
+    distortion: true
+    # # configure the distortion level (0-1)
+    # distortion_level: 0.3
+    # configure the image folder
+    web_path: '%kernel.project_dir%/public/captcha'
+    # # configure the image URL
+    # route_name: 'captcha'
+    # configure the image reload
+    reload: false
+    # # configure the garbage collector
+    # garbage_collector:
+    #     # enabled the garbage collector
+    #     enabled: true
+    #     # configure the garbage collector probability (0-100)
+    #     probability: 30
+    #     # configure the garbage collector timespan (in minutes)
+    #     timespan: 1440

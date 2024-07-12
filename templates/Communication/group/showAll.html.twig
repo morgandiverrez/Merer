@@ -1,0 +1,38 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste Groupe diffusion{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Liste des groupes de diffusion
+            {% if is_granted('ROLE_BF')%}
+                 <a href="/group/new"><i class="fa-solid fa-plus align-right"></i></a>
+            {% endif %}
+            </p>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Sur-groupe</th>
+                    <th scope="col">Modifier</th>
+                    <th scope="col">Supprimer</th>       
+                 </tr>
+                </thead>
+                <tbody>
+                    {% for group in groups %} 
+                        <tr>
+                            <td>{{group.getName()}}</td>
+                            <td>{{group.getDescription()}}</td>
+                            <td> {% if group.getInclude() %} {{group.getInclude().getName()}} {% endif %} </td>
+                            <td><a href="/group/edit/{{group.getId()}}"><i class="fa-solid fa-pen-to-square"></i></i></a></td> 
+                            <td><a href="/group/delete/{{group.getId()}}"><i class="fa-solid fa-trash-can"></i></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

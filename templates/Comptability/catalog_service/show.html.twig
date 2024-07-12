@@ -1,0 +1,34 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails service{% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div  style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center align-center mb-5"> Détails du service {{service.getName()}}</p>
+            <div class=" d-flex text-center justify-content-evenly">
+                <div class="card justify-content-start" style="width: 18rem;">
+            
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{service.getName()}}</h5>
+                        <p class="card-text">{{service.getDescription()}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">montant HT : {{service.getAmountHt()}}€ </li>
+                        <li class="list-group-item">taux TVA : {{service.getTvaRate()}} %</li>
+                        <li class="list-group-item">montant TTC  : {{service.getAmountTtc()}}€</li>                         
+                    </ul>
+                    <div class="card-body">         
+                        <a href="/service/edit/{{ service.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>  
+                        <a href="/service/delete/{{ service.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>     
+                        <a href="/service/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

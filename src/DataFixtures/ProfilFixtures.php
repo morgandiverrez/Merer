@@ -37,9 +37,8 @@ class ProfilFixtures extends Fixture implements DependentFixtureInterface
             $profil ->setCode($this->faker->regexify('[A-Z]{3}-[0-9]{2}'));
             $profil->setLastName($this->faker -> lastName());
             $profil->setName($this->faker -> lastName());
-            $profil->setPronom($this->faker->randomElements(['il', 'iel', 'elle']));
+            $profil->setPronom($this->faker->randomElement(['il', 'iel', 'elle']));
             $profil->setDateOfBirth($this->faker->dateTime());
-            $profil->setScore($this->faker->numberBetween(0, 400));
             $profil->setTelephone($this->faker->phoneNumber());
             for($k=0; $k <= $this->faker->numberBetween(0, 3); $k++){
                  $profil->addEquipeElu($this->getRandomReference('EQUIPEELU'));
@@ -63,54 +62,83 @@ class ProfilFixtures extends Fixture implements DependentFixtureInterface
 
         $profil2 = new Profil();
         $user2 = new User();
-        $profil2->setCode($this->faker->regexify('[A-Z]{3}-[0-9]{2}'));
-        $profil2->setLastName('FORMATION');
-        $profil2->setName('VP');
+        $profil2->setCode('ADMIN');
+        $profil2->setLastName('PRESIDENCE');
+        $profil2->setName('PAUL');
+        $profil2->setPronom($this->faker->randomElement(['il', 'iel', 'elle']));
         $profil2->setDateOfBirth($this->faker->dateTime());
-        $profil2->setScore($this->faker->numberBetween(0, 400));
         $profil2->setTelephone($this->faker->phoneNumber());
-        for ($k = 0; $k <= $this->faker->numberBetween(0, 3); $k++) {
-            $profil2->addEquipeElu($this->getRandomReference('EQUIPEELU'));
-        }
-        for ($k = 0; $k <= $this->faker->numberBetween(0, 2); $k++) {
-            $profil2->addAssociation($this->getRandomReference('ASSOCIATION'));
-        }
-        $this->addReference('PROFIL_2b', $profil2);
+        $this->addReference('PROFIL_PREZ', $profil2);
 
-        $user2->setEMail('admin@fedeb.net');
+        $user2->setEMail('presidence@*****.net');
         $user2->setProfil($profil2);
         $user2->setRoles(['ROLE_ADMIN']);
         $password = $this->hasher->hashPassword($user, 'password');
         $user2->setPassword($password);
-        $this->addReference('USER_2b', $user2);
+        $this->addReference('USER_PREZ', $user2);
 
 
         $entityManager->persist($profil2);
         $entityManager->persist($user2);
 
+        $profil2a = new Profil();
+        $user2a = new User();
+        $profil2a->setCode('TRESO');
+        $profil2a->setPronom($this->faker->randomElement(['il', 'iel', 'elle']));
+        $profil2a->setLastName('TRESO');
+        $profil2a->setName('Paul');
+        $profil2a->setDateOfBirth($this->faker->dateTime());
+        $profil2a->setTelephone($this->faker->phoneNumber());
+        $this->addReference('PROFIL_TRESO', $profil2a);
+
+        $user2a->setEMail('treso@*****.net');
+        $user2a->setProfil($profil2a);
+        $user2a->setRoles(['ROLE_TRESO']);
+        $user2a->setPassword($password);
+        $this->addReference('USER_TRESO', $user2a);
+
+
+        $entityManager->persist($profil2a);
+        $entityManager->persist($user2a);
+
+        $profil2b = new Profil();
+        $user2b = new User();
+        $profil2b->setCode('FORMA');
+        $profil2b->setLastName('FORMA');
+        $profil2b->setName('Paul');
+        $profil2b->setPronom($this->faker->randomElement(['il', 'iel', 'elle']));
+        $profil2b->setDateOfBirth($this->faker->dateTime());
+        $profil2b->setTelephone($this->faker->phoneNumber());
+        $this->addReference('PROFIL_FORMA', $profil2b);
+
+        $user2b->setEMail('formation@*****.net');
+        $user2b->setProfil($profil2b);
+        $user2b->setRoles(['ROLE_FORMA']);
+        $user2b->setPassword($password);
+        $this->addReference('USER_FORMA', $user2b);
+
+
+        $entityManager->persist($profil2b);
+        $entityManager->persist($user2b);
+
 
         $profil3 = new Profil();
         $user3 = new User();
-        $profil3->setCode($this->faker->regexify('[A-Z]{2}-[0-9]{2}'));
-        $profil3->setLastName('DIVERREZ');
-        $profil3->setName('Formateur');
+        $profil3->setCode('FORMATEURICE');
+        $profil3->setLastName('FORMATEURICE');
+        $profil3->setName('LE');
+        $profil3->setPronom($this->faker->randomElement(['il', 'iel', 'elle']));
         $profil3->setDateOfBirth($this->faker->dateTime());
-        $profil3->setScore($this->faker->numberBetween(0, 400));
-        $profil3->setTelephone('0651812671');
-        for ($k = 0; $k <= $this->faker->numberBetween(0, 3); $k++) {
-            $profil3->addEquipeElu($this->getRandomReference('EQUIPEELU'));
-        }
-        for ($k = 0; $k <= $this->faker->numberBetween(0, 2); $k++) {
-            $profil3->addAssociation($this->getRandomReference('ASSOCIATION'));
-        }
-        $this->addReference('PROFIL_3b', $profil3);
+        $profil3->setTelephone($this->faker->phoneNumber());
+  
+        $this->addReference('PROFIL_FORMATEURICE', $profil3);
 
 
-        $user3->setEMail('formateurice@fedeb.net');
+        $user3->setEMail('formateurice@*****.net');
         $user3->setProfil($profil3);
         $user3->setRoles(['ROLE_FORMATEURICE']);
         $user3->setPassword($password);
-        $this->addReference('USER_3b', $user3);
+        $this->addReference('USER_FORMATEURICE', $user3);
 
         $entityManager->persist($profil3);
         $entityManager->persist($user3);
@@ -121,24 +149,19 @@ class ProfilFixtures extends Fixture implements DependentFixtureInterface
         $user4 = new User();
         $profil4->setCode($this->faker->regexify('[A-Z]{2}-[0-9]{2}'));
         $profil4->setLastName('DIVERREZ');
+        $profil4->setPronom($this->faker->randomElement(['il', 'iel', 'elle']));
         $profil4->setName('Morgan');
         $profil4->setDateOfBirth($this->faker->dateTime());
-        $profil4->setScore($this->faker->numberBetween(0, 400));
         $profil4->setTelephone('0651812671');
-        for ($k = 0; $k <= $this->faker->numberBetween(0, 3); $k++) {
-            $profil4->addEquipeElu($this->getRandomReference('EQUIPEELU'));
-        }
-        for ($k = 0; $k <= $this->faker->numberBetween(0, 2); $k++) {
-            $profil4->addAssociation($this->getRandomReference('ASSOCIATION'));
-        }
-        $this->addReference('PROFIL_4b', $profil4);
+       
+        $this->addReference('PROFIL_USER', $profil4);
 
 
-        $user4->setEMail('user@fedeb.net');
+        $user4->setEMail('user@*****.net');
         $user4->setProfil($profil4);
         $user4->setRoles(['ROLE_USER']);
         $user4->setPassword($password);
-        $this->addReference('USER_4b', $user4);
+        $this->addReference('USER_USER', $user4);
 
         $entityManager->persist($profil4);
         $entityManager->persist($user4);
@@ -147,24 +170,19 @@ class ProfilFixtures extends Fixture implements DependentFixtureInterface
         $profil5 = new Profil();
         $user5 = new User();
         $profil5->setCode($this->faker->regexify('[A-Z]{3}-[0-9]{2}'));
-        $profil5->setLastName('DIVERREZ');
-        $profil5->setName('BF');
+        $profil5->setLastName('BF');
+        $profil5->setName('EQUIPE');
+        $profil5->setPronom($this->faker->randomElement(['il', 'iel', 'elle']));
         $profil5->setDateOfBirth($this->faker->dateTime());
-        $profil5->setScore($this->faker->numberBetween(0, 400));
-        $profil5->setTelephone('0651812671');
-        for ($k = 0; $k <= $this->faker->numberBetween(0, 3); $k++) {
-            $profil5->addEquipeElu($this->getRandomReference('EQUIPEELU'));
-        }
-        for ($k = 0; $k <= $this->faker->numberBetween(0, 2); $k++) {
-            $profil5->addAssociation($this->getRandomReference('ASSOCIATION'));
-        }
+        $profil5->setTelephone($this->faker->phoneNumber());
+      
         $this->addReference('PROFIL_5b', $profil5);
 
-        $user5->setEMail('bf@fedeb.net');
+        $user5->setEMail('bf@*****.net');
         $user5->setProfil($profil5);
         $user5->setRoles(['ROLE_BF']);
         $user5->setPassword($password);
-        $this->addReference('USER_5b', $user5);
+        $this->addReference('USER_BF', $user5);
 
         $entityManager->persist($profil5);
         $entityManager->persist($user5);

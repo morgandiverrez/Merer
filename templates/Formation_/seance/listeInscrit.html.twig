@@ -1,0 +1,52 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste Inscrits{% endblock %}
+
+
+{% block body %}
+  <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">Liste des inscrits pour la formation {{seance.getName()}} du {{seance.getDatetime().format("d/m/Y H:i")}} 
+            <a  href="/seance/liste_inscrit/pdf/{{seance.getId()}}"><i class="fa-solid fa-download"></i></a>
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Heure inscription</th> 
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Association</th>
+                        <th scope="col">Equipe d'élu</th>
+                        <th scope="col">Détails</th>
+                        {% if is_granted('ROLE_BF')%}
+                                <th scope="col">Désinscrire</th>
+                        {% endif %}   
+                    </tr>
+                </thead>
+                <tbody>
+                {% for seanceProfil in seance.getSeanceProfil() %} 
+                    <tr>
+                        <td>{{seanceProfil.getHorrodateur().format("d/m/Y H:i")}}</td>
+                        <td>{{seanceProfil.profil.getLastName()}}</td>
+                        <td>{{seanceProfil.profil.getName()}}</td>
+                        <td>
+                        {% for association in seanceProfil.profil.getAssociation() %}
+                            {{association }}
+                        {% endfor %}
+                        </td>
+                        <td>
+                        {% for equipeElu in seanceProfil.profil.getEquipeElu() %}
+                            {{equipeElu }}
+                        {% endfor %}
+                        </td>
+                        <td><a href="/account/show/{{seanceProfil.profil.getId()}}"><i class="fa-solid fa-eye"></i></a></td>
+                        {% if is_granted('ROLE_BF')%}
+                            <td><a href="/inscription/delete/{{seance.getId()}}/{{seanceProfil.profil.id}}"><i class="fa-solid fa-trash-can"></i></a></td> 
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

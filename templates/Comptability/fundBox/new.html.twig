@@ -1,0 +1,152 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Nouvelle caisse{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Création d'une caisse</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom de la caisse ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="description my-5">
+                        {{ form_label(form.description, 'Description ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_help(form.description) }}
+                    </div>
+
+                    <div class="onecent my-5">
+                        {{ form_label(form.onecent, '0,01€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.onecent) }}
+                        {{ form_widget(form.onecent) }}
+                        {{ form_help(form.onecent) }}
+                    </div>
+
+                    <div class="twocent my-5">
+                        {{ form_label(form.twocent, '0,02€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.twocent) }}
+                        {{ form_widget(form.twocent) }}
+                        {{ form_help(form.twocent) }}
+                    </div>
+
+                    <div class="fivecent my-5">
+                        {{ form_label(form.fivecent, '0,05€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.fivecent) }}
+                        {{ form_widget(form.fivecent) }}
+                        {{ form_help(form.fivecent) }}
+                    </div>
+
+                    <div class="tencent my-5">
+                        {{ form_label(form.tencent, '0,10€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.tencent) }}
+                        {{ form_widget(form.tencent) }}
+                        {{ form_help(form.tencent) }}
+                    </div>
+
+                    <div class="twentycent my-5">
+                        {{ form_label(form.twentycent, '0,20€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.twentycent) }}
+                        {{ form_widget(form.twentycent) }}
+                        {{ form_help(form.twentycent) }}
+                    </div>
+
+                    <div class="fiftycent my-5">
+                        {{ form_label(form.fiftycent, '0,50€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.fiftycent) }}
+                        {{ form_widget(form.fiftycent) }}
+                        {{ form_help(form.fiftycent) }}
+                    </div>
+
+                    <div class="oneeuro my-5">
+                        {{ form_label(form.oneeuro, '1€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.oneeuro) }}
+                        {{ form_widget(form.oneeuro) }}
+                        {{ form_help(form.oneeuro) }}
+                    </div>
+
+                    <div class="twoeuro my-5">
+                        {{ form_label(form.twoeuro, '2€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.twoeuro) }}
+                        {{ form_widget(form.twoeuro) }}
+                        {{ form_help(form.twoeuro) }}
+                    </div>
+
+                    <div class="fiveeuro my-5">
+                        {{ form_label(form.fiveeuro, '5€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.fiveeuro) }}
+                        {{ form_widget(form.fiveeuro) }}
+                        {{ form_help(form.fiveeuro) }}
+                    </div>
+
+                    <div class="teneuro my-5">
+                        {{ form_label(form.teneuro, '10€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.teneuro) }}
+                        {{ form_widget(form.teneuro) }}
+                        {{ form_help(form.teneuro) }}
+                    </div>
+
+                        <div class="twentyeuro my-5">
+                        {{ form_label(form.twentyeuro, '20€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.twentyeuro) }}
+                        {{ form_widget(form.twentyeuro) }}
+                        {{ form_help(form.twentyeuro) }}
+                    </div>
+
+                    <div class="fiftyeuro my-5">
+                        {{ form_label(form.fiftyeuro, '50€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.fiftyeuro) }}
+                        {{ form_widget(form.fiftyeuro) }}
+                        {{ form_help(form.fiftyeuro) }}
+                    </div>
+
+                    <div class="hundredeuro my-5">
+                        {{ form_label(form.hundredeuro, '100€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.hundredeuro) }}
+                        {{ form_widget(form.hundredeuro) }}
+                        {{ form_help(form.hundredeuro) }}
+                    </div>
+
+                    <div class="twohundredeuro my-5">
+                        {{ form_label(form.twohundredeuro, '200€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.twohundredeuro) }}
+                        {{ form_widget(form.twohundredeuro) }}
+                        {{ form_help(form.twohundredeuro) }}
+                    </div>
+
+                    
+                    <div class="fivehundredeuro my-5">
+                        {{ form_label(form.fivehundredeuro, '500€ ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.fivehundredeuro) }}
+                        {{ form_widget(form.fivehundredeuro) }}
+                        {{ form_help(form.fivehundredeuro) }}
+                    </div>
+
+       
+
+                    <div class="location my-5">
+                        {{ form_label(form.location, 'lieu de stockage ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.location) }}
+                        {{ form_widget(form.location) }}
+                        {{ form_help(form.location) }}
+                         <a href="/location/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

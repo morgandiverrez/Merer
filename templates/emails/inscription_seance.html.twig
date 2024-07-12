@@ -1,0 +1,11 @@
+<p>Bonjour,</p>
+
+<p>Voici le récapitulatif de votre inscription à la séance {{seance.getName()}}.</p>
+<p> La séance aura lieu le  {% if seance.getDateTime() is null %} - {% else %} {{seance.getDatetime().format("d/m/Y à H:i")}} {% endif %}. 
+    Cette séance durera  {% if seance.formation.getDuration() is null %} - {% else %} {{seance.formation.getDuration().format("H:i")}} {% endif %}. 
+    Elle aura lieu à {{inscription.lieu.getName()}}, {{inscription.lieu.getSalle()}} {{inscription.lieu.getAdresse()}}{{inscription.lieu.getCodePostale()}}{{inscription.lieu.getVille()}}.                         
+</p>
+
+<p> voici les attentes dont vous avez fait part : {{inscription.attente}}</p>
+
+<p>Lien pour vous connecter à la plateforme Merer <a href="https://15.236.191.187/">Merer - ******</a>.</p>

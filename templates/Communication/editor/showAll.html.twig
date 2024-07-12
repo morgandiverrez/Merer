@@ -1,0 +1,38 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste Editeur{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Liste des Editeurs
+            {% if is_granted('ROLE_COM')%}
+                 <a href="/editor/new"><i class="fa-solid fa-plus align-right"></i></a>
+            {% endif %}
+            </p>
+             
+           
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Détail</th>       
+                 </tr>
+                </thead>
+                <tbody>
+                    {% for editor in editors %} 
+                        <tr>
+                            <td>{{editor.getName()}}</td>
+                            <td>{{editor.getDescription()}}</td>
+                            <td>{{editor.getMail()}}</td>
+                            <td><a href="/editor/show/{{editor.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

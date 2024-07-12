@@ -1,0 +1,11 @@
+{% extends 'base_email.html.twig' %}
+
+{% block body %}
+<p>Bonjour,</p>
+
+<p>Vous recevez cet email, c'est que vous avez été désigné comme formateurice pour la séance  {{seance.getName()}} qui aura lieu le  {% if seance.getDateTime() is null %} - {% else %} {{seance.getDatetime().format("d/m/Y à H:i")}} {% endif %}.</p>
+<p> Si vous avez déjà reçu cet email précédemment pour la même séance, c'est que celle-ci a été modifiée.</p>
+<p> vous pouvez voir les détails de la séance en vous connectant à la plateforme <a href="https://15.236.191.187/seance/showForFormateurice/{{seance.getId()}}"> Merer</a>.</p>
+
+<p>Lien pour vous connecter à la plateforme Merer <a href="https://15.236.191.187/">Merer - ******</a>.</p>
+{% endblock %}

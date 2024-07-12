@@ -1,0 +1,39 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails Compte Bancaire {% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div  style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center align-center mb-5"> Détails Compte Bancaire</p>
+            
+            <div class=" d-flex text-center justify-content-evenly">
+                <div class="card justify-content-start" style="width: 18rem;">
+            
+                    <div class=" card-body ">
+                        <h5 class="card-title">Numéro compte : {{bankAccount.getAccountNumber()}}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">                       
+                        <li class="list-group-item"> RIB code banque : {{bankAccount.getRibBankCode()}}</li>
+                        <li class="list-group-item"> RIB code branche : {{bankAccount.getRibBranchCode()}}</li>
+                        <li class="list-group-item"> RIB code compte : {{bankAccount.getRibBankCode()}}</li>
+                        <li class="list-group-item"> RIB Clé : {{bankAccount.getRibKey()}}</li>
+                        <li class="list-group-item"> IBAN : {{bankAccount.getIban()}}</li>
+                        <li class="list-group-item"> BIC : {{bankAccount.getBic()}}</li>
+                        <li class="list-group-item">Dernier comptage :   {% if bankAccount.getLastCountDate() is not null %} {{bankAccount.getLastCountDate().format('d/m/y')}} {% endif %}</li>
+                        <li class="list-group-item">Localisation :  {% if bankAccount.getLocation() %} <a href="/location/show/{{ bankAccount.getLocation().getId() }}" class="card-link">  {{bankAccount.getLocation().getName()}}</a>   {% endif %} </li>
+                        <li class="list-group-item">Compte associé : {% if bankAccount.getChartOfAccounts() %}<a href="/chartOfAccounts/show/{{ bankAccount.getChartOfAccounts().getId() }}" class="card-link">  {{bankAccount.getChartOfAccounts().getName()}} | {{bankAccount.getChartOfAccounts().getCode()}}</a> {% endif %} </li>                   
+                    </ul>
+                    <div class="card-body">             
+                        <a href="/bankAccount/edit/{{ bankAccount.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>       
+                        <a href="/bankAccount/delete/{{ bankAccount.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>   
+                         <a href="/bankAccount/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+             
+    </div>
+{% endblock %}

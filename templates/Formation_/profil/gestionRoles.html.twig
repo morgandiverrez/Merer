@@ -1,0 +1,50 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Gestion Rôle{% endblock %}
+
+{% block body %}
+       <div class="container-fluid">
+            <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+                <form action="{{ path('profil_roles') }}" method="post">
+                <p class="display-6 no-wrap text-center"> Gestionnaire de Rôle  
+                <button class="btn btn-primary" type="submit" >valider</button></p>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Formateurice</th>
+                                <th scope="col">Bureau ******</th>
+                                <th scope="col">Détails</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users  %}
+                                <tr>
+                                    <td>{{user.profil.getName()}}</td>
+                                    <td>{{user.profil.getLastName()}}</td>
+                                    <td>
+                                        {% if "ROLE_FORMATEURICE" in user.getRoles()  %}
+                                            <input type="checkbox" id="formateurice" name="{{user.getId()}}_formateurice"  checked />
+                                        {% else %}
+                                            <input type="checkbox" id="formateurice" name="{{user.getId()}}_formateurice" />
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if "ROLE_BF" in user.getRoles()  %}
+                                            <input type="checkbox" id="bf" name="{{user.getId()}}_bf"  checked />
+                                        {% else %}
+                                            <input type="checkbox" id="bf" name="{{user.getId()}}_bf" />
+                                        {% endif %}
+                                    </td>
+                                    <td><a href="/account/show/{{user.profil.getId()}}"><i class="fa-solid fa-eye"></i></a></td> 
+                                </tr> 
+                            {% endfor %}
+                        </tbody>
+                    </table> 
+                </form>
+            </div>
+        </div>              
+    </div>
+{% endblock %}
+

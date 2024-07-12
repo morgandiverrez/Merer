@@ -1,0 +1,50 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste profil{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Liste des Utilisateurs de la plateforme</p>
+            <form action="{{ path('profil_showAll') }}" method="post">
+                <p class="text-center">
+                    <input type="text" id="name" name="name" placeholder="Prénom"/>
+                    <input type="text" id="last_name" name="last_name" placeholder="Nom"/>
+                    <input type="text" id="association" name="association" placeholder="Association"/>
+                    <input type="text" id="equipeElu" name="equipeElu" placeholder="equipe d'élu"/>
+                    <input type="text" id="badge" name="badge" placeholder="badge"/>
+                    <br>
+                
+                    date naissance minimum : <input type="date" id="DOBmin" name="DOBmin" min="00:15" max="48:00"  />
+                    date naissance maximum : <input type="date" id="DOBmax" name="DOBmax" min="00:15" max="48:00"  />
+                    <button class="btn btn-primary" type="submit" >Rechercher</button>
+                </p>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Equipe d'élu.e</th>
+                        <th scope="col">Association</th>
+                        <th scope="col">Détails</th> 
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for profil in profils %} 
+                        <tr>
+                            <td>{{profil.getName()}}</td>
+                            <td>{{profil.getLastName()}}</td>
+                            <td>{% if profil.getEquipeElu() is null %}- {% else %}  {% for equipeElu in profil.getEquipeElu() %}{{equipeElu.getName()}} {% endfor %}{% endif %}</td>
+                            <td>{% if profil.getAssociation() is null %}- {% else %} {% for association in profil.getAssociation() %}{{association.getSigle()}} {% endfor %} {% endif %}</td>
+                            <td><a href="/account/show/{{profil.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

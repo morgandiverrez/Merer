@@ -1,0 +1,31 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+ <div class="container-fluid">
+        <div class="text-center" style = "  margin-left: auto ; margin-right: auto ; max-width : 900px;">
+			<div class="container">
+                <p class="display-6 no-wrap text-center">Formulaire de support</p>
+                <form name="contact_form" method="post" action="{{ path('support') }}">
+                    
+                    <label for="nom">Nom *</label>
+                    
+                    
+                    <input  type="text" class="form-control" name="nom" maxlength="50" size="30">
+                    <label for="prenom">Prénom *</label>
+                    <input  type="text" class="form-control" name="prenom" maxlength="50" size="30" >   
+                    <label for="email">Email Addresse *</label>
+                    <input  type="text" class="form-control" name="email" maxlength="80" size="30" >
+                    <label for="telephone">Téléphone</label>
+                    <input  type="text" class="form-control" name="telephone" maxlength="30" size="30" >
+                    <br><br>
+                    <label for="commentaire">Commentaire *</label>
+                    <textarea class="form-control" name="commentaire" cols="28" rows="10"></textarea>
+                    <br>
+                    <button class="btn btn-primary" type="submit" >valider</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

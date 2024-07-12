@@ -1,0 +1,79 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier évènement{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Modifier  l' évènement {{event.name}}</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                <div class="exercice my-5">
+                        {{ form_label(form.exercice, 'Exercice affecté ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.exercice) }}
+                        {{ form_widget(form.exercice) }}
+                        {{ form_help(form.exercice) }}
+                    </div>
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom de l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="code my-5">
+                        {{ form_label(form.code, 'Code ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.code) }}
+                        {{ form_widget(form.code) }}
+                        {{ form_help(form.code) }}
+                    </div>
+
+                    <div class="amount my-5">
+                        {{ form_label(form.amount, 'Montant ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.amount) }}
+                        {{ form_widget(form.amount) }}
+                        {{ form_help(form.amount) }}
+                    </div>
+
+                    <div class="startDate my-5">
+                        {{ form_label(form.startDate, 'Date de début ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.startDate) }}
+                        {{ form_widget(form.startDate) }}
+                        {{ form_help(form.startDate) }}
+                    </div>
+
+                    <div class="endDate my-5">
+                        {{ form_label(form.endDate, ' Date de fin ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.endDate) }}
+                        {{ form_widget(form.endDate) }}
+                        {{ form_help(form.endDate) }}
+                    </div>
+
+                    <div class="description my-5">
+                        {{ form_label(form.description, ' Description ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_help(form.description) }}
+                    </div>
+
+                    <div class="location my-5">
+                        {{ form_label(form.location, ' Lieu ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.location) }}
+                        {{ form_widget(form.location) }}
+                        {{ form_help(form.location) }}
+                         <a href="/location/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

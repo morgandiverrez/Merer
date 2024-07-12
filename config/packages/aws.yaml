@@ -1,0 +1,4 @@
+aws:
+    version: latest
+    region: eu-west-3
+    credentials: ~

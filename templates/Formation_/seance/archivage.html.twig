@@ -1,0 +1,89 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Archive Séance{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5"> Liste des Séances
+               {% if is_granted('ROLE_BF')%}
+                    <a href="/seance/new"><i class="fa-solid fa-plus align-left"></i></a>
+                {% endif %}
+            </p>
+            <form action="{{ path('seance_archivage') }}" method="post">
+                <p style="flex-wrap : wrap;" class="text-center justify-content-center">
+                    <input type="text" id="name" name="name" placeholder="Nom"/>
+                    <input type="text" id="formation" name="formation" placeholder="formation"/>
+                    <input type="text" id="nom_lieu" name="nom_lieu" placeholder="nom lieu"/>
+                    <input type="text" id="ville" name="ville" placeholder="ville"/>
+                   
+                     date de début : <input type="date" id="datedebut" name="datedebut"/>
+                     date de fin : <input type="date" id="datefin" name="datefin"/>
+                     <br>
+                    <button class="btn btn-primary" type="submit" >Rechercher</button>
+                </p>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Date et Heure</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Durée</th>
+                        <th scope="col">Ville</th>
+                        {% if is_granted('ROLE_FORMA')%}
+                            <th scope="col">Visible</th>
+                        {% endif %}
+                        <th scope="col">Détails</th>
+                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% set verif = false %}
+                {% for seance in seances %} 
+                    {% if seance.getDatetime() <= date() and verif == false %}
+                        <tr>
+                            {% if is_granted('ROLE_FORMA')%}
+                                <td colspan="6" align="center" style="font-weight:bold;"> Séance passée </td>
+                            {% else %}
+                                <td colspan="5" align="center" style="font-weight:bold;"> Séance passée </td>
+                            {% endif %}
+                            
+                        <tr>
+                        {% set verif = true %}
+                    {% endif %}
+                    <tr> 
+                        <td>{% if seance.getDatetime()  %}{{seance.getDatetime().format("d/m/Y H:i")}}{% endif %}</td>
+                        <td>{{seance.getName()}}</td>
+                        <td>{% if seance.formation %}{{seance.formation.getDuration().format("H:i")}}{% endif %}</td>
+                        <td>
+                        {% if seance.getLieux() is not null %}
+                            {% for lieu in seance.getLieux() %}
+                                {{lieu.getVille()}} 
+                            {% endfor %}
+                        {% else %}
+                            -
+                        {% endif %}
+                        </td>
+                        {% if is_granted('ROLE_FORMA')%}
+                        <td>
+                            {% if seance.visible == FALSE %}
+                                <a href="/seance/visible/{{ seance.iD }}" >
+                                    <i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;" ></i>
+                                </a>
+                            {% else %}
+                                <a href="/seance/unvisible/{{ seance.iD }}" >
+                                    <i class="fa-sharp fa-solid fa-circle-check" style="color: green;"></i>
+                                </a>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        <td><a href="/seance/showForFormateurice/{{seance.getId()}}"><i class="fa-solid fa-eye"></i></a></td>
+                    </tr>
+               {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

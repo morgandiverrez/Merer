@@ -1,0 +1,227 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails client {% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div  style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center align-center mb-5"> Détails du client {{customer.getName()}}</p>
+            <div class=" d-flex text-center justify-content-evenly">
+                <div class="card justify-content-start" style="width: 18rem;">
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{customer.getName()}}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">                       
+                        <li class="list-group-item">APE :{% if customer.getAdministrativeIdentifier() %} {{customer.getAdministrativeIdentifier().getAPE()}} {% endif %}</li>
+                         <li class="list-group-item">SIRET : {% if customer.getAdministrativeIdentifier() %}{{customer.getAdministrativeIdentifier().getSiret()}}{% endif %}</li>
+                        <li class="list-group-item"> Localisation :{% if customer.getLocation() %} <a href="/location/show/{{customer.getLocation().getId()}}">  {{customer.getLocation().getName()}}</a>{% endif %}</li>
+                        <li class="list-group-item">Compte associé :{% if customer.getChartOfAccounts() %}<a href="/chartOfAccounts/show/{{customer.getChartOfAccounts().getId()}}">   {{customer.getChartOfAccounts().getName()}} | {{customer.getChartOfAccounts().getCode()}}</a>{% endif %}</li>                   
+                        {% if customer.getUser()  is null %}
+                            <li class="list-group-item">créer les accès au compte <a href="/reset-password/createNewUserProfileForCustomer/{{customer.getId()}}" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></a></li>                   
+                         {% endif %}           
+                    </ul>
+                    <div class="card-body"> 
+                        <a href="/customer/edit/{{ customer.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>       
+                        <a href="/customer/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% if customer.getBankDetails() %}
+                <div class="d-flex text-center justify-content-evenly">
+                    {% for bankDetail in  customer.getBankDetails() %} 
+                    <div class="card justify-content-start" style="width: 18rem;">
+
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">IBAN : {{bankDetail.IBAN}}</li>
+                            <li class="list-group-item">BIC : {{bankDetail.BIC}}</li></ul>
+                        
+                        <div class="card-body ">
+                            <a class="card-link" href="/bankDetail/edit/{{bankDetail.getId()}}"><i class="fa-solid fa-pen-to-square"></i></a> 
+                        </div>
+                    </div>
+                    {% endfor  %}                   
+                </div>
+            {% endif %}
+            <p class="display-6 no-wrap text-center">Liste des factures de ce client </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Numéro</th>
+                        <th scope="col">Montant</th>
+                        <th scope="col">Total Payé</th>
+                        <th scope="col">Reste à charge</th>
+                        <th scope="col">Chèque</th>
+                        <th scope="col">Show</th>
+                        <th scope="col">Comfirmer</th>
+                        <th scope="col">Visible</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 {% set totaux = 0 %}
+                  {% set totauxPayés = 0 %}
+                    {% for invoice in customer.getInvoices() %} 
+                        <tr>
+                            {% if invoice.comfirm == true %}
+                                <td>Fact-{{ invoice.code }}</td>
+                            {% else %}
+                                {% if invoice.category == "Fin Mois"%}
+                                    <td>Fact en  cours -{{ invoice.code }}</td>
+                                {% else %}
+                                    <td>Dev-{{ invoice.code }}</td>
+                                {% endif %}
+                            {% endif %}
+                            <td>{{ totals[loop.index - 1] }} €</td>
+                             {% set totaux = totaux + totals[loop.index - 1] %}
+                            {% set total = 0 %}
+                            {% for paymentdeadline in  invoice.paymentdeadlines %}
+                                {% if paymentdeadline.actualPaymentDate is not null %}
+                                    {% set total = total + paymentdeadline.actualAmount %}
+                                {% endif %}
+                            {% endfor %}
+                            <td>{{ total }} €</td>
+                             {% set totauxPayés = totauxPayés + total %}
+                            <td>{{ totals[loop.index-1] - total }} €</td>
+                            {% set cheque = 0 %}
+                            {% if invoice.transaction is not null %}
+                                {% for transactionline in invoice.transaction.transactionlines %}
+                                    {% if transactionline.chartofaccounts.code==51120 or transactionline.chartofaccounts.code==51121 or transactionline.chartofaccounts.code==51122 %}
+                                        {% set cheque=cheque+transactionline.amount %}
+                                    {% endif %}
+                                    {% if "REM CHQ" in transactionline.label %}
+                                        {% set cheque=cheque+transactionline.amount %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            <td>{{ cheque }}</td>
+                            <td><a href="/invoice/pdf/{{ invoice.iD }}" target="_blank"><i class="fa-solid fa-eye"></i></a></td>
+                            <td>
+                                {% if invoice.comfirm == FALSE %}
+                                    <a href="/invoice/comfirm/{{ invoice.iD }}" >
+                                        <i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;" ></i>
+                                    </a>
+                                {% else %}
+                                    <i class="fa-sharp fa-solid fa-circle-check" style="color: green;"></i>
+                                {% endif %} 
+                            </td>
+                            <td>
+                                {% if invoice.ready == true %}
+                                    <a href="/invoice/unready/{{ invoice.id }}">
+                                        <i class="fa-solid fa-circle-check" style="color: green;"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="/invoice/ready/{{ invoice.id }}">
+                                        <i class="fa-solid fa-circle-xmark" style="color: red;"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                        <th></th>
+                        <th></th>
+                        <th>{{totaux}} €</th>
+                        <th>{{totauxPayés}} €</th>
+                        <th>{{ totaux - totauxPayés }} €</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tfoot>
+            </table>
+
+            <p class="display-6 no-wrap text-center">Liste des impressions de ce client </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Horrodataire</th>
+                        <th scope="col">imprimeur</th>
+                        <th scope="col">Format</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Supprimer</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for impression in customer.getImpressions() %} 
+                    <tr>
+                        <td>{{impression.getDatetime().format("d/m/Y H:i")}}</td>  
+                        <td>{{impression.getName()}}</td>
+                        <td>{{impression.getFormat()}}{% if impression.isRectoVerso() %} RV {% endif %} {% if impression.isCouleur() %} Couleur {% else %} NB {% endif %} </td>
+                         <td>{{impression.getQuantite()}}</td>
+                        <td><a href="/impression/delete/{{impression.getId()}}"><i class="fa-solid fa-trash-can"></i></a></td> 
+                     </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if customer.supplier %}
+                <p class="display-6 no-wrap text-center mb-5">Liste des notes de frais de ce client</p>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Montant</th>
+                        <th scope="col">Comfirmer</th>
+                        <th scope="col">Détails</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                        {% set totaux = 0 %}
+                        {% for expenseReport in customer.supplier.getExpenseReports() %} 
+                            <tr>
+                                <td>{{ expenseReport.code }}</td>
+                                <td>{{ expenseReport.date.format('d/m/y') }}</td>
+                                <td>{{ totalExpenseReports[loop.index - 1] }} €</td>
+                                {% set totaux = totaux + totalExpenseReports[loop.index - 1] %}
+                                <td>
+                                    {% if expenseReport.comfirm == FALSE %}
+                                        <a href="/expenseReport/comfirm/{{ expenseReport.iD }}" >
+                                            <i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;" ></i>
+                                        </a>
+                                    {% else %}
+                                        <i class="fa-sharp fa-solid fa-circle-check" style="color: green;"></i>
+                                    {% endif %} 
+                                </td>
+                                <td><a href="/expenseReport/show/{{ expenseReport.iD }}" ><i class = "fa-solid fa-eye"></i></a></td>
+                            </tr> 
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>{{totaux}} €</th>
+                        <th></th>
+                        <th></th>
+                    </tfoot>
+                </table>
+            {% endif %}
+            <p class="display-6 no-wrap text-center">Liste des contacts de ce client </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Civilité</th>
+                        <th scope="col">Détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in customer.getContacts() %} 
+                        <tr>
+                            <td>{{contact.getName()}}</td>   
+                            <td>{{contact.getLastName()}}</td>   
+                            <td>{{contact.getCivility()}}</td>
+                            <td><a href="/contact/show/{{contact.getId()}}"><i class="fa-solid fa-eye"></i></a></td> 
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

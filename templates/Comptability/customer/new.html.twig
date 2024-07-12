@@ -1,0 +1,63 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Nouveau client{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Création d'un nouveau client</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                
+            
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="impressionAccess my-5">
+                        {{ form_label(form.impressionAccess, ' indiquer dans les choix de client pour les impressions ? ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.impressionAccess) }}
+                        {{ form_widget(form.impressionAccess) }}
+                        {{ form_help(form.impressionAccess) }}
+                    </div>
+
+                    <div class="location my-5">
+                        {{ form_label(form.location, 'Lieux ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.location) }}
+                        {{ form_widget(form.location) }}
+                        {{ form_help(form.location) }}
+                          <a href="/location/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></a>
+                    </div>
+
+                    <div class="administrativeIdentifier my-5">
+                        {{ form_label(form.administrativeIdentifier, ' Indentifiant administratif ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.administrativeIdentifier) }}
+                        {{ form_widget(form.administrativeIdentifier) }}
+                        {{ form_help(form.administrativeIdentifier) }}
+                        <a href="/administrativeIdentifier/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></a>
+                    </div>
+
+
+
+                     <div class="contacts my-5">
+                        {{ form_label(form.contacts, ' contacts ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.contacts) }}
+                        {{ form_widget(form.contacts) }}
+                        {{ form_help(form.contacts) }}
+                          <a href="/contact/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></a>
+                    </div>
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

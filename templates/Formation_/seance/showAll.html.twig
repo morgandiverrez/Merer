@@ -1,0 +1,90 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Prochaine Séance{% endblock %}
+
+{% block body %}
+   <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">Séances à venir
+            {% if is_granted('ROLE_BF')%}
+                <a href="/seance/new"><i class="fa-solid fa-plus align-left"></i></a>
+            {% endif %}
+            </p>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Date et Heure</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Détails</th>
+                 </tr>
+                </thead>
+                <tbody>
+                    {% if seances is empty %}
+                        <tr>
+                            <td colspan="5" align="center"> Aucune formation n'est programmée pour le moment</td>
+                        </tr>
+                    {% else %}
+                        {% for seance in seances %}        
+                            <tr>
+                                <td>{{seance.getDatetime().format("d/m/Y H:i")}}</td>
+                                <td>{{seance.getName()}}</td>
+                                <td>{% if formation.getDuration()  %}{{seance.formation.getDuration().format("H:i")}}  {% endif %}</td>
+                                <td>
+                                {% if seance.getLieux() is not null %}
+                                    {% for lieu in seance.getLieux() %}
+                                        {{lieu.getVille()}}
+                                    {% endfor %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                                </td>
+                                <td><a href="/seance/show/{{seance.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <p class="display-6 no-wrap text-center mb-5">Evenements de Formation à venir
+                {% if is_granted('ROLE_BF') %}
+                    <a href="/evenement/new"><i class="fa-solid fa-plus align-left"></i></a>
+                {% endif %}
+            </p>
+             <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Début</th>
+                    <th scope="col">Fin</th>
+                    <th scope="col">Fin des Inscriptions</th>
+                    <th scope="col">Ville</th>
+                    <th scope="col">Détails</th> 
+                 </tr>
+                </thead>
+                <tbody>
+                    {% if evenements is empty %}
+                        <tr>
+                            <td colspan="6" align="center"> Aucun évènement de formation n'est programmé pour le moment</td>
+                        </tr>
+                    {% else %}
+                        {% for evenement in evenements %} 
+                                <tr>
+                                    <td>{{evenement.getName()}}</td>
+                                    <td>{{evenement.getDateDebut().format("d/m/y H:i")}}</td>
+                                    <td>{{evenement.getDateFin().format("d/m/y H:i")}}</td>
+                                    <td>{{evenement.getDateFinInscription().format("d/m/y H:i")}}</td>
+                                    <td>{{evenement.getLieu().getVille()}}</td>
+                                    <td><a href="/evenement/show/{{evenement.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td>
+                                </tr>
+                            
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
+

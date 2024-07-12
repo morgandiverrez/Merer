@@ -1,0 +1,55 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier BP {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Modifier ligne du BP</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                    <div class="mx-auto mt-5 mb-5">
+                        <div class="exercice my-5">
+                            {{ form_label(form.exercice, 'exercice ', {'label_attr': {'class': 'foo'}}) }}
+                            {{ form_errors(form.exercice) }}
+                            {{ form_widget(form.exercice) }}
+                            {{ form_help(form.exercice) }}
+                        </div>
+
+                        <div class="categorie my-5">
+                            {{ form_label(form.categorie, 'Catégorie ', {'label_attr': {'class': 'foo'}}) }}
+                            {{ form_errors(form.categorie) }}
+                            {{ form_widget(form.categorie) }}
+                            {{ form_help(form.categorie) }}
+                        </div>
+
+                        <div class="designation my-5">
+                            {{ form_label(form.designation, 'designation ', {'label_attr': {'class': 'foo'}}) }}
+                            {{ form_errors(form.designation) }}
+                            {{ form_widget(form.designation) }}
+                            {{ form_help(form.designation) }}
+                        </div>
+
+                        <div class="expectedAmount my-5">
+                            {{ form_label(form.expectedAmount, 'Montant Alloué ', {'label_attr': {'class': 'foo'}}) }}
+                            {{ form_errors(form.expectedAmount) }}
+                            {{ form_widget(form.expectedAmount) }}
+                            {{ form_help(form.expectedAmount) }}
+                        </div>
+
+                        <div class="reallocateAmount my-5">
+                            {{ form_label(form.reallocateAmount, 'Montant Réalloué ', {'label_attr': {'class': 'foo'}}) }}
+                            {{ form_errors(form.reallocateAmount) }}
+                            {{ form_widget(form.reallocateAmount) }}
+                            {{ form_help(form.reallocateAmount) }}
+                        </div>
+
+                        <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

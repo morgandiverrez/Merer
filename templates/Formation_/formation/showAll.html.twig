@@ -1,0 +1,50 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">Catalogue des formations 
+                {% if is_granted('ROLE_BF')%}
+                    <a href="/catalogue/new"><i class="fa-solid fa-plus align-left"></i></a>
+                {% endif %}
+            </p>
+            <form action="{{ path('catalogue_showAll') }}" method="post">
+                <p style="flex-wrap : wrap;" class="text-center justify-content-center">
+                    <input type="text" id="name" name="name" placeholder="Nom"/>
+                    <input  type="text" id="categorie" name="categorie" placeholder="categorie"/>
+                    <input  type="text" id="opg" name="opg" placeholder="OPG"/>
+                    <input  type="text" id="preRequis" name="preRequis" placeholder="Pré - Requis"/>
+                    <input  type="text" id="publicCible" name="publicCible" placeholder="Public cible"/>
+                    <input  type="text" id="badge" name="badge" placeholder="badge"/>
+                    durée minimum : <input type="time"  id="durationMin" name="durationMin" min="00:10" max="48:00"  />
+                    durée maximum : <input type="time"  id="durationMax" name="durationMax" min="00:15" max="48:00"  />
+                    <button class="btn btn-primary" type="submit" >Rechercher</button>
+                </p>
+            </form>
+
+            <table class="table table-striped">                   
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Durée</th>
+                        <th scope="col">Détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for formation in formations %} 
+                        <tr>
+                            <td>{{formation.getName()}}</td>
+                            <td>{{formation.getDescription()}}</td>
+                            <td>{% if formation.getDuration() is null %} 0 {% else %} {{formation.getDuration().format("H:i")}} {% endif %}</td>
+                            <td><a href="/catalogue/show/{{formation.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+         </div>
+    </div>
+{% endblock %}

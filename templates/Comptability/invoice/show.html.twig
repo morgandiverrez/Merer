@@ -1,0 +1,167 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}détails facture{% endblock %}
+
+
+{% block body %}
+
+  <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">Facture {{ invoice.code }}</p>
+            <div class=" d-flex justify-content-center text-center align-center">
+                <div class="card" style="width: 18rem;">
+                    <ul class="list-group list-group-flush">
+                       <li class="list-group-item">
+                            {% if invoice.comfirm == true %}
+                                <th>Fact-{{ invoice.code }}</th>
+                            {% else %}
+                                {% if invoice.category == "Fin Mois"%}
+                                    <th>Fact en  cours -{{ invoice.code }}</th>
+                                {% else %}
+                                    <th>Dev-{{ invoice.code }}</th>
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                        {% if is_granted('ROLE_TRESO') %}
+                            <li class="list-group-item">Client : <a href="/customer/show/{{ invoice.getCustomer().getId() }}" class="card-link"> {{invoice.getCustomer().getName()}} </a> </li>
+                            <li class="list-group-item">Transaction : {% if invoice.getTransaction() != null %}<a href="/transaction/show/{{ invoice.transaction.getId() }}" class="card-link"> {{invoice.getTransaction().getCode()}} </a>{% endif %}</li>
+                            <li class="list-group-item">{% if invoice.getCategory() != null %} catégorie :  {{invoice.getCategory()}}{% endif %}</li>  
+                        {% endif %}
+                        
+                    </ul>
+                    {% if is_granted('ROLE_TRESO') %}
+                        <div class="card-body">
+                            <a href="/invoice/pdf/{{ invoice.iD }}" class="card-link" target="_blank"><i class="fa-sharp fa-solid fa-file"></i></a>
+                            <a href="/invoice/edit/{{ invoice.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="/invoice/delete/{{ invoice.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>
+                            <a href="/invoice/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <table class="table table-striped">
+                <p class="display-6 no-wrap text-center mb-5">Ligne de facture</p>
+                <thead>
+                    <tr>
+                        <th scope="col">Service</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Montant HT</th>
+                        <th scope="col">taux TVA</th>
+                        <th scope="col">Montant TTC</th>
+                        <th scope="col">Réduction</th>
+                        <th scope="col">Description réduction</th>
+                        <th scope="col">Montant réduction</th>
+                        <th scope="col"> total</th>
+                         {% if is_granted('ROLE_TRESO') %}
+                            <th scope="col">edit</th>
+                            <th scope="col">delete</th>
+                        {% endif %}
+
+                    </tr>
+                </thead>
+
+                <tbody> 
+                {% set totalHT = 0 %}
+                {% set totalTTC = 0 %}
+                {% set totalTTCetReduc = 0 %}
+                {% set totalDiscount = 0 %}
+                {% set totaux = 0 %}
+                {% set montantHt = 0 %}
+                {% for invoiceLine in invoice.invoiceLines %} 
+                    <tr>
+                        {% set montantLine = 0 %}
+                        <td>{% if invoiceLine.catalogService %}{{invoiceLine.catalogService.name}} {% endif %}</td>
+                        <td>{{invoiceLine.quantity}} </td>
+                        <td>{% if invoiceLine.catalogService %}{{invoiceLine.catalogService.description}} - {{invoiceLine.quote}}{% endif %}</td>
+                        <td>{% if invoiceLine.catalogService %}{{invoiceLine.catalogService.amountHt}} €{% endif %}</td>
+                        {% if invoiceLine.catalogService %}{% set totalHT  = totalHT + invoiceLine.catalogService.amountHt %}{% endif %}
+                        <td>{% if invoiceLine.catalogService %}{{invoiceLine.catalogService.tvaRate}} %{% endif %}</td>
+                        <td>{% if invoiceLine.catalogService %}{{invoiceLine.catalogService.amountTtc}} €{% endif %}</td>
+                        {% if invoiceLine.catalogService %}{% set totalTTC = totalTTC + invoiceLine.catalogService.amountTtc %}{% endif %}
+                        {% set total = invoiceLine.quantity * montantHt %}
+                        
+                        <td>{% if invoiceLine.catalogDiscount %}{{invoiceLine.catalogDiscount.name}}{% endif %}</td>
+                        <td>{% if invoiceLine.catalogDiscount %}{{invoiceLine.catalogDiscount.description}}{% endif %}</td>
+                        <td>{{invoiceLine.discount}} € </td>
+                        <td>{{total}} €</td>
+                        {% set totaux = totaux + total %}
+                        {% set totalDiscount = totalDiscount + invoiceLine.discount %}
+                        {% set montantLine = (invoiceLine.quantity * invoiceLine.catalogService.amountTtc ) - invoiceLine.discount  %}
+                        <td>{{montantLine}} € </td>
+                        {% set totalTTCetReduc  = totalTTCetReduc + montantLine %}
+                        {% if is_granted('ROLE_TRESO') %}
+                            <td><a href="/invoiceLine/edit/{{ invoiceLine.getId()}}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><a href="/invoiceLine/delete/{{ invoiceLine.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr> 
+                        <th> </th>
+                        <th> </th>
+                        <th> </th>
+                        <th>{{ totalHT }} € </th>
+                        <th> </th>
+                         <th> </th>
+                        <th>{{ totalTTC }} €</th>
+                        <th> </th>
+                        <th> </th>
+                        <th>{{ totalDiscount }} € </th>
+                        <th>{{ totaux }}€</th>
+                        <th> </th>
+                         <th> </th>
+                    </tr>
+                </tfoot>
+            </table>
+            {% if is_granted('ROLE_TRESO') %}
+                <div class="text-center">
+                    <a href="/invoiceLine/new/{{ invoice.id }}"><button class="btn btn-success mt-3 mb-3" type="submit" name="show">{{ button_label|default('Ajouter une ligne ') }}<i class = "fa text-light fa-plus-square me-2"></i></button></a>
+                </div>
+             {% endif %}
+            <table class="table table-striped">
+                <p class="display-6 no-wrap text-center mb-5">Echéance de payment</p>
+                <thead>
+                    <tr>
+                        <th scope="col">Date prévue</th>
+                        <th scope="col">Montant prévu</th>
+                        <th scope="col">Moyen prévu</th>
+                         <th scope="col">Date réalisée</th>
+                        <th scope="col">Montant réalisé</th>
+                        <th scope="col">Moyen utilisé</th>
+                        {% if is_granted('ROLE_TRESO') %}
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for paymentDeadline in invoice.paymentDeadlines %} 
+                    <tr>
+                        <td>{% if paymentDeadline.expectedPaymentDate is  not null %}{{paymentDeadline.expectedPaymentDate.format('d/m/y')}} {% endif %} </td>
+                        <td>{{paymentDeadline.expectedAmount}} €</td>
+                        <td>{{paymentDeadline.expectedMeans}}</td>
+                        <td>{% if paymentDeadline.actualPaymentDate is not null %}{{paymentDeadline.actualPaymentDate.format('d/m/y')}} {% endif %}</td>
+                        <td>{{paymentDeadline.actualAmount}} €</td>
+                        <td>{{paymentDeadline.actualMeans}}</td>
+                         {% if is_granted('ROLE_TRESO') %}
+                            <td><a href="/paymentDeadline/edit/{{ paymentDeadline.getId()}}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><a href="/paymentDeadline/delete/{{ paymentDeadline.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+             {% if is_granted('ROLE_TRESO') %}
+                <div class="text-center">
+                    <a href="/paymentDeadline/new/{{ invoice.id }}"><button class="btn btn-success mt-3 mb-3" type="submit" name="show">{{ button_label|default('Ajouter une ligne ') }}<i class = "fa text-light fa-plus-square me-2"></i></button></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}
+

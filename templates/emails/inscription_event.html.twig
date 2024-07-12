@@ -1,0 +1,22 @@
+<p>Bonjour,</p>
+
+<p>Voici le récapitulatif de votre inscription à l'événement de formation {{evenement.getName()}}.</p>
+<p> L'événement aura lieu du {{evenement.getDateDebut().format("d/m/y à H:i")}} au {{evenement.getDateDebut().format("d/m/y à H:i")}}.
+le aura lieu à {{evenement.lieu.getName()}}, {{evenement.lieu.getSalle()}} {{evenement.lieu.getAdresse()}}{{evenement.lieu.getCodePostale()}}{{evenement.lieu.getVille()}}.</p>
+{% if evenement.isParcoursObligatoire() %}
+    <p> vous vous etes inscrit pour le parcours {{ posts['inscription']}}.</p>
+{% else %}
+    {% for seance in evenement.getSeances() %}
+        {% set text ='inscription_' ~ seance.getDatetime().format('d/m/y_H:i:s') %}
+        {% if posts[text]  and posts[text] == seance.getId() %} 
+            {% set attentes ='attentes_' ~ seance.getId() %}
+            <h3>{{seance.getName()}}</h3>
+            <p> La séance aura lieu le  {% if seance.getDateTime() is null %} - {% else %} {{seance.getDatetime().format("d/m/Y à H:i")}} {% endif %}.
+                Cette séance durera  {% if seance.formation.getDuration() is null %} - {% else %} {{seance.formation.getDuration().format("H:i")}} {% endif %}. 
+               voici les attentes dont vous avez fait part : {{posts[attentes]}}.
+            </p>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<p>Lien pour vous connecter à la plateforme Merer <a href="https://15.236.191.187/">Merer - ******</a>.</p>

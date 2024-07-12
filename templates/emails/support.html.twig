@@ -1,0 +1,14 @@
+{% extends 'base_email.html.twig' %}
+{% block body %}
+    <p>Bonjour,</p>
+
+    <p>Le support Merer a été solicité.</p>
+
+   <p> Nom du demandeur : {{posts['nom']}} {{posts['prenom']}} </p>
+    <p>Email du demandeur : {{posts['email']}} </p>
+    <p>Téléphone du demandeur : {{posts['telephone']}} </p>
+
+    <p>{{posts['commentaire']}} </p>
+
+    <p>Lien pour vous connecter à la plateforme Merer <a href="https://15.236.191.187/">Merer - ******</a>.</p>
+{% endblock %}

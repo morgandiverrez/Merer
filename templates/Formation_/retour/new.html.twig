@@ -1,0 +1,178 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Retour Formation{% endblock %}
+
+{% block body %}
+   <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Donner votre avis sur la formation {{retour.seance.getName()}} du {{retour.seance.getDatetime().format("Y-m-d")}}</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+
+                    <div class="note_contenu my-5">
+                        {{ form_label(form.note_contenu, 'Comment évaluez-vous le contenu de la formation (informations adaptées au public, compréhension, technicité) ? ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.note_contenu) }}
+                        {{ form_widget(form.note_contenu) }}
+                        {{ form_help(form.note_contenu) }}
+                    </div>
+
+
+                    <div class="remarque_contenu my-5">
+                        {{ form_label(form.remarque_contenu, 'remarque', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.remarque_contenu) }}
+                        {{ form_widget(form.remarque_contenu) }}
+                        {{ form_help(form.remarque_contenu) }}
+                    </div>
+
+                    <div class="note_animation my-5">
+                        {{ form_label(form.note_animation, 'Comment évaluez-vous l’animation [séquence, utilisation du matériel, débats] de la formation ? ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.note_animation) }}
+                        {{ form_widget(form.note_animation) }}
+                        {{ form_help(form.note_animation) }}
+                    </div>
+
+                    <div class="remarque_animation my-5">
+                        {{ form_label(form.remarque_animation, 'remarque', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.remarque_animation) }}
+                        {{ form_widget(form.remarque_animation) }}
+                        {{ form_help(form.remarque_animation) }}
+                    </div>
+
+                    <div class="note_implication my-5">
+                        {{ form_label(form.note_implication, 'Comment évaluez-vous l\'implication des participant.e.s à la formation ? ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.note_implication) }}
+                        {{ form_widget(form.note_implication) }}
+                        {{ form_help(form.note_implication) }}
+                    </div>
+
+                    <div class="remarque_implication my-5">
+                        {{ form_label(form.remarque_implication, 'remarque ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.remarque_implication) }}
+                        {{ form_widget(form.remarque_implication) }}
+                        {{ form_help(form.remarque_implication) }}
+                    </div>
+
+                    <div class="note_reponse_atente my-5">
+                        {{ form_label(form.note_reponse_atente, ' Cette formation a t-elle répondu à vos attentes ?  ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.note_reponse_atente) }}
+                        {{ form_widget(form.note_reponse_atente) }}
+                        {{ form_help(form.note_reponse_atente) }}
+                    </div>
+
+
+
+                    <div class="remarque_reponse_attente my-5">
+                        {{ form_label(form.remarque_reponse_attente, 'remarque ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.remarque_reponse_attente) }}
+                        {{ form_widget(form.remarque_reponse_attente) }}
+                        {{ form_help(form.remarque_reponse_attente) }}
+                    </div>
+
+                    <div class="note_niv_competence my-5">
+                        {{ form_label(form.note_niv_competence, 'Comment évaluez-vous le niveau de compétences techniques (connaissances du sujet, exposé) et pédagogiques (débit de parole, charisme, échange) des formateurices ? ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.note_niv_competence) }}
+                        {{ form_widget(form.note_niv_competence) }}
+                        {{ form_help(form.note_niv_competence) }}
+                    </div>
+
+                    <div class="remarque_niv_competence my-5">
+                        {{ form_label(form.remarque_niv_competence, 'remarque', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.remarque_niv_competence) }}
+                        {{ form_widget(form.remarque_niv_competence) }}
+                        {{ form_help(form.remarque_niv_competence) }}
+                    </div>
+
+                    <div class="note_utilite my-5">
+                        {{ form_label(form.note_utilite, 'Pensez-vous que les compétences acquises durant cette formation seront utiles dans votre parcours de associatif ? ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.note_utilite) }}
+                        {{ form_widget(form.note_utilite) }}
+                        {{ form_help(form.note_utilite) }}
+                    </div>
+
+                    <div class="remarque_utilite my-5">
+                        {{ form_label(form.remarque_utilite, 'remarque', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.remarque_utilite) }}
+                        {{ form_widget(form.remarque_utilite) }}
+                        {{ form_help(form.remarque_utilite) }}
+                    </div>
+
+                    <div class="note_generale my-5">
+                        {{ form_label(form.note_generale, 'Satisfaction générale vis-a-vis de la formation : ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.note_generale) }}
+                        {{ form_widget(form.note_generale) }}
+                        {{ form_help(form.note_generale) }}
+                    </div>
+
+                    <div class="remarque_generale my-5">
+                        {{ form_label(form.remarque_generale, 'remarque', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.remarque_generale) }}
+                        {{ form_widget(form.remarque_generale) }}
+                        {{ form_help(form.remarque_generale) }}
+                    </div>
+
+                    <div class="apport_generale my-5">
+                        {{ form_label(form.apport_generale, 'Cette formation : ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.apport_generale) }}
+                        {{ form_widget(form.apport_generale) }}
+                        {{ form_help(form.apport_generale) }}
+                    </div>
+
+                    <div class="plus_aimer my-5">
+                        {{ form_label(form.plus_aimer, 'Qu\'est-ce que tu as aimé ?  ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.plus_aimer) }}
+                        {{ form_widget(form.plus_aimer) }}
+                        {{ form_help(form.plus_aimer) }}
+                    </div>
+
+                    <div class="moins_aimer my-5">
+                        {{ form_label(form.moins_aimer, 'Qu\'est-ce que tu as moins aimé ? ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.moins_aimer) }}
+                        {{ form_widget(form.moins_aimer) }}
+                        {{ form_help(form.moins_aimer) }}
+                    </div>
+
+                    <div class="aimer_voir my-5">
+                        {{ form_label(form.aimer_voir, 'Qu\'est-ce que tu aurais aimé voir dans cette formation ? ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.aimer_voir) }}
+                        {{ form_widget(form.aimer_voir) }}
+                        {{ form_help(form.aimer_voir) }}
+                    </div>
+
+                    <div class="mot_fin my-5">
+                        {{ form_label(form.mot_fin, 'Mot de la fin : ', {'label_attr': {'class': 'foo'}}) }}
+                        <br>
+                        {{ form_errors(form.mot_fin) }}
+                        {{ form_widget(form.mot_fin) }}
+                        {{ form_help(form.mot_fin) }}
+                    </div>
+
+                    
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div> 
+    </div>
+
+{% endblock %}
+

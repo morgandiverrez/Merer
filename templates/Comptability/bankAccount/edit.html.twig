@@ -1,0 +1,90 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier Compte banque {% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Modifier le compte bancaire</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+
+                    <div class="accountNumber my-5">
+                        {{ form_label(form.accountNumber, 'Numéro compte ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.accountNumber) }}
+                        {{ form_widget(form.accountNumber) }}
+                        {{ form_help(form.accountNumber) }}
+                    </div>
+
+                    <div class="ribBankCode my-5">
+                        {{ form_label(form.ribBankCode, 'RIB code Banque', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.ribBankCode) }}
+                        {{ form_widget(form.ribBankCode) }}
+                        {{ form_help(form.ribBankCode) }}
+                    </div>
+
+                    <div class="ribBranchCode my-5">
+                        {{ form_label(form.ribBranchCode, 'RIB numéro branche ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.ribBranchCode) }}
+                        {{ form_widget(form.ribBranchCode) }}
+                        {{ form_help(form.ribBranchCode) }}
+                    </div>
+
+                    <div class="ribAccountNumber my-5">
+                        {{ form_label(form.ribAccountNumber, 'RIB numéro compte ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.ribAccountNumber) }}
+                        {{ form_widget(form.ribAccountNumber) }}
+                        {{ form_help(form.ribAccountNumber) }}
+                    </div>
+                    
+                    <div class="ribKey my-5">
+                        {{ form_label(form.ribKey, 'RIB clé ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.ribKey) }}
+                        {{ form_widget(form.ribKey) }}
+                        {{ form_help(form.ribKey) }}
+                    </div>
+
+                    <div class="iban my-5">
+                        {{ form_label(form.iban, ' IBAN', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.iban) }}
+                        {{ form_widget(form.iban) }}
+                        {{ form_help(form.iban) }}
+                    </div>
+
+                    <div class="bic my-5">
+                        {{ form_label(form.bic, 'BIC ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.bic) }}
+                        {{ form_widget(form.bic) }}
+                        {{ form_help(form.bic) }}
+                    </div>
+
+                    <div class="lastCountDate my-5">
+                        {{ form_label(form.lastCountDate, 'dernier jour comptage ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.lastCountDate) }}
+                        {{ form_widget(form.lastCountDate) }}
+                        {{ form_help(form.lastCountDate) }}
+                    </div>
+
+               
+
+                    <div class="location my-5">
+                        {{ form_label(form.location, 'Lieux ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.location) }}
+                        {{ form_widget(form.location) }}
+                        {{ form_help(form.location) }}
+                         <a href="/location/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+
+
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,257 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Nouvel Evènement{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Programmer un nouvel évènement</p>
+               <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom de l\'évènement', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="description my-5">
+                        {{ form_label(form.description, 'Description de l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_help(form.description) }}
+                    </div>
+
+                    <div class="dateDebut my-5">
+                        {{ form_label(form.dateDebut, 'Date de début de de l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.dateDebut) }}
+                        {{ form_widget(form.dateDebut) }}
+                        {{ form_help(form.dateDebut) }}
+                    </div>
+
+                    <div class="dateFin my-5">
+                        {{ form_label(form.dateFin, 'Date de fin de de l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.dateFin) }}
+                        {{ form_widget(form.dateFin) }}
+                        {{ form_help(form.dateFin) }}
+                    </div>
+                    <div class="dateFinInscription my-5">
+                        {{ form_label(form.dateFinInscription, 'date de fin des inscriptions pour l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.dateFinInscription) }}
+                        {{ form_widget(form.dateFinInscription) }}
+                        {{ form_help(form.dateFinInscription) }}
+                    </div>
+
+                    <div class="URL my-5">
+                        {{ form_label(form.URL, ' URL de redirection (s\'il y a un formulaire complémentaire) ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.URL) }}
+                        {{ form_widget(form.URL) }}
+                        {{ form_help(form.URL) }}
+                    </div>
+
+                    
+
+                    <div class="autorisationPhoto my-5">
+                        {{ form_label(form.autorisationPhoto, ' il y a t\'il besoin de demander l\'autorisation de prendre des photos durant l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.autorisationPhoto) }}
+                        {{ form_widget(form.autorisationPhoto) }}
+                        {{ form_help(form.autorisationPhoto) }}
+                    </div>
+
+                
+
+                    <div class="modePaiement my-5">
+                        {{ form_label(form.modePaiement, 'mode de paiement disponible pour l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.modePaiement) }}
+                        {{ form_widget(form.modePaiement) }}
+                        {{ form_help(form.modePaiement) }}
+                    </div>
+
+                    <div class="parcours my-5">
+                        {{ form_label(form.parcours, 'parcours de l\'évènement  (séparer par une virgule (,))', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.parcours) }}
+                        {{ form_widget(form.parcours) }}
+                        {{ form_help(form.parcours) }}
+                    </div>
+
+                    <div class="covoiturage my-5">
+                        {{ form_label(form.covoiturage, ' il y a t\'il un covoiturage de prévu pour l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.covoiturage) }}
+                        {{ form_widget(form.covoiturage) }}
+                        {{ form_help(form.covoiturage) }}
+                    </div>
+                    
+                      <div class="nombrePlace my-5">
+                        {{ form_label(form.nombrePlace, 'nombre de place maximum', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.nombrePlace) }}
+                        {{ form_widget(form.nombrePlace) }}
+                        {{ form_help(form.nombrePlace) }}
+                    </div>
+
+                    <div class="parcoursObligatoire my-5">
+                        {{ form_label(form.parcoursObligatoire, ' est-il obligatoire de choisir un parcours pour l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.parcoursObligatoire) }}
+                        {{ form_widget(form.parcoursObligatoire) }}
+                        {{ form_help(form.parcoursObligatoire) }}
+                    </div>
+
+                    
+
+                    <div class="lieu my-5">
+                        {{ form_label(form.lieu, ' ou aura lieu l\'évènement ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.lieu) }}
+                        {{ form_widget(form.lieu) }}
+                        {{ form_help(form.lieu) }}
+                         <a href="/lieux/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+
+
+                      {% set n = 1 %}
+            {% for seance in form.seances %}
+                <div class="seance my-5">
+                <h1> Formation {{n}}</h1>
+                {% set n = n + 1 %}
+                   <div class="name my-5">
+                        {{ form_label(seance.name, 'Nom de la Seance ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(seance.name) }}
+                        {{ form_widget(seance.name) }}
+                        {{ form_help(seance.name) }}
+                    </div>
+
+                    <div class="datetime my-5">
+                        {{ form_label(seance.datetime, 'Date et Horaire de début ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(seance.datetime) }}
+                        {{ form_widget(seance.datetime) }}
+                        {{ form_help(seance.datetime) }}
+                    </div>
+
+                 
+
+                    <div class="nombreplace my-5">
+                        {{ form_label(seance.nombreplace, 'Nombre de place maximum ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(seance.nombreplace) }}
+                        {{ form_widget(seance.nombreplace) }}
+                        {{ form_help(seance.nombreplace) }}
+                    </div>
+
+                    <div class="formation my-5">
+                        {{ form_label(seance.formation, ' Formation ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(seance.formation) }}
+                        {{ form_widget(seance.formation) }}
+                        {{ form_help(seance.formation) }}
+                         <a href="/catalogue/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+
+                    <div class="lieux my-5">
+                        {{ form_label(seance.lieux, ' Lieu ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(seance.lieux) }}
+                        {{ form_widget(seance.lieux) }}
+                        {{ form_help(seance.lieux) }}
+                        <a href="/lieux/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+
+                    <div class="parcours my-5">
+                        {{ form_label(seance.parcours, ' Parcours ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(seance.parcours) }}
+                        {{ form_widget(seance.parcours) }}
+                        {{ form_help(seance.parcours) }}
+                        
+                    </div>
+                   
+                    <div class="profil my-5">
+                        {{ form_label(seance.profil, ' Formateurice ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(seance.profil) }}
+                        {{ form_widget(seance.profil) }}
+                        {{ form_help(seance.profil) }}
+                        <a href="/account/role" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="seances my-5" data-prototype="{{ form_widget(form.seances.vars.prototype)|e('html_attr') }}">
+            </div>
+            
+            <button type="button" class="btn btn-success add_item_link" data-collection-holder-class="seances">Ajouter une ligne</button>
+
+            <br>
+
+    
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      
+        jQuery(document).ready(
+        function() {
+
+            // Get the ul that holds the collection of tags
+            var $transactionLinesCollectionHolder = $('ul.transactionLine');
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $transactionLinesCollectionHolder.data('index', $transactionLinesCollectionHolder.find('input').length);
+
+            $('body').on('click', '.add_item_link', function(e) {
+                var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+                // add a new tag form (see next code block)
+                addFormToCollection($collectionHolderClass);
+            })
+        });
+
+        function addFormToCollection($collectionHolderClass) {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder = $('.' + $collectionHolderClass);
+
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newLabel = $("<h3  class='my-3'>Nouvelle  séance de l'événement</h3>");
+            $collectionHolder.append($newLabel)
+            var $newForm = $('<div></div>').append(newForm);
+            // Add the new form at the end of the list
+            $collectionHolder.append($newForm)
+            addTagFormDeleteLink($newForm,$newLabel);
+        }
+
+        function addTagFormDeleteLink($newForm,$newLabel) {
+            var $removeFormButton = $('<button type="button" class="btn btn-danger">Retirer cette ligne</button>');
+            $newForm.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the tag form
+                $newForm.remove();
+                $newLabel.remove();
+            });
+        }
+
+
+     
+    </script>
+{% endblock %}
+

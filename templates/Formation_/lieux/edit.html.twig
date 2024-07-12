@@ -1,0 +1,57 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier Lieux{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Modifier  le lieu {{lieu.getName()}}</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="salle my-5">
+                        {{ form_label(form.salle, ' Salle ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.salle) }}
+                        {{ form_widget(form.salle) }}
+                        {{ form_help(form.salle) }}
+                    </div>
+
+                    <div class="adresse my-5">
+                        {{ form_label(form.adresse, 'Adresse ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.adresse) }}
+                        {{ form_widget(form.adresse) }}
+                        {{ form_help(form.adresse) }}
+                    </div>
+
+                    <div class="code postale my-5">
+                        {{ form_label(form.code_postale, ' Code Postale ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.code_postale) }}
+                        {{ form_widget(form.code_postale) }}
+                        {{ form_help(form.code_postale) }}
+                    </div>
+
+                    <div class="ville my-5">
+                        {{ form_label(form.ville, ' Ville ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.ville) }}
+                        {{ form_widget(form.ville) }}
+                        {{ form_help(form.ville) }}
+                    </div>
+
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

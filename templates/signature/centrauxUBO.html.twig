@@ -3,198 +3,231 @@
 {% block title %}Signature Centraux UBO{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <p  class="display-6 no-wrap text-center">Générateur de signature mail des élu.e.s Bouge Ton Campus</p>
-        <form>
-            
-            <div class="form-group">
-                <label for="conseil">Genre : </label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="genre" id="homme" value="h">
-                    <label class="form-check-label" for="homme">Homme</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="genre" id="femme" value="f">
-                    <label class="form-check-label" for="femme">Femme</label>
-                </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="genre" id="non-genre" value="n">
-                    <label class="form-check-label" for="non-genre">Non-genré</label>
-                </div>
+  <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <div class="container">
+                <p  class="display-6 no-wrap text-center">Générateur de signature mail des élu.e.s Bouge Ton Campus</p>
+                <form>
+                    
+                    <fieldset >
+                        <legend >Quel est votre genre : </legend>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genre" id="homme" value="h">
+                            <label class="form-check-label" for="homme">Homme</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genre" id="femme" value="f">
+                            <label class="form-check-label" for="femme">Femme</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="genre" id="non-genre" value="n">
+                            <label class="form-check-label" for="non-genre">Non-genré</label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <legend >Quel est votre conseil : </legend>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="conseil" id="CA" value="CA">
+                            <label class="form-check-label" for="CA">CA</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="conseil" id="CFVU" value="CFVU">
+                            <label class="form-check-label" for="CFVU">CFVU</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="conseil" id="CR" value="CR">
+                            <label class="form-check-label" for="CR">CR</label>
+                        </div>
+                    </fieldset>
+                    <fieldset >
+                        <legend >Quel est votre poste : </legend>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="poste" id="tit" value="tit" required>
+                            <label class="form-check-label" for="tit">Titulaire</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="poste" id="sup" value="sup">
+                            <label class="form-check-label" for="sup">Suppléant(e)</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="poste" id="membre" value="membre">
+                            <label class="form-check-label" for="sup">Membre de la liste</label>
+                        </div>
+                    </div>
+                    <div >
+                        <label for="filliere">Fillière</label>
+                        <input class="form-control" id="filliere" name="filliere" type="text" placeholder="Fillière">
+                    </div>
+                    <div class="form-group">
+                        <label for="fillierebzh">Fillière Breton (traduction en dessous)</label>
+                        <input class="form-control" id="fillierebzh" name="fillierebzh" type="text" placeholder="Fillière Breton">
+                    </div>
+                    
+                </form>
+                <button onclick="generate()" class="btn btn-primary">Générer</button>
             </div>
-            <div class="form-group">
-                <label for="conseil">Conseil : </label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="conseil" id="CA" value="CA">
-                    <label class="form-check-label" for="CA">CA</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="conseil" id="CFVU" value="CFVU">
-                    <label class="form-check-label" for="CFVU">CFVU</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="conseil" id="CR" value="CR">
-                    <label class="form-check-label" for="CR">CR</label>
-                </div>
+            <div class="container">
+                <h3>Signature à copier</h3>
+                <div id="res"></div>
             </div>
-            <div class="form-group">
-                <label for="conseil">Poste : </label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="poste" id="tit" value="tit">
-                    <label class="form-check-label" for="tit">Titulaire</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="poste" id="sup" value="sup">
-                    <label class="form-check-label" for="sup">Suppléant(e)</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="filliere">Fillière</label>
-                <input class="form-control" id="filliere" type="text" placeholder="Fillière">
-            </div>
-            <div class="form-group">
-                <label for="fillierebzh">Fillière Breton (traduction en dessous)</label>
-                <input class="form-control" id="fillierebzh" type="text" placeholder="Fillière Breton">
-            </div>
-            
-        </form>
-        <button onclick="generate()" class="btn btn-primary">Générer</button>
-    </div>
-    <div class="container">
-        <h3>Signature à copier</h3>
-        <div id="res"></div>
-    </div>
 
-    <div class="container">
-        <h2>Liste des traductions breton</h2>
-        <table class="table-striped">
-            <tr><td>AES</td><td>MAS</td></tr>
-            <tr><td>Anglais</td><td>Saozneg</td></tr>
-            <tr><td>Biologie</td><td>Bevoniezh</td></tr>
-            <tr><td>Droit</td><td>Gwir</td></tr>
-            <tr><td>Économie-Gestion</td><td>Armerzh-Mererezh</td></tr>
-            <tr><td>GEA</td><td>MEM</td></tr>
-            <tr><td>GE2I</td><td>IEUG</td></tr>
-            <tr><td>Kinésithérapeute</td><td>Leuñvour</td></tr>
-            <tr><td>LLCER</td><td>YLSER</td></tr>
-            <tr><td>L3S</td><td>ASYS</td></tr>
-            <tr><td>Médecine</td><td>Medisinerezh </td></tr>
-            <tr><td>Physique marine</td><td>Fizik ar mor</td></tr>
-            <tr><td>Psychologie</td><td>Psikologiezh</td></tr>
-            <tr><td>Sciences de l'éducation</td><td>Skiantoù ar deskadurezh</td></tr>
-            <tr><td>STAPS</td><td>STEKS</td></tr>
-            <tr><td>Licence</td><td>Aotreegezh</td></tr>
-            <tr><td>Master</td><td>Master</td></tr>
-        </table>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>
-        function generate(){
+            <div class="container">
+                <h2>Liste des traductions breton</h2>
+                <table class="table-striped">
+                    <tr><td>AES</td><td>MAS</td></tr>
+                    <tr><td>Anglais</td><td>Saozneg</td></tr>
+                    <tr><td>Biologie</td><td>Bevoniezh</td></tr>
+                    <tr><td>Droit</td><td>Gwir</td></tr>
+                    <tr><td>Économie-Gestion</td><td>Armerzh-Mererezh</td></tr>
+                    <tr><td>GEA</td><td>MEM</td></tr>
+                    <tr><td>GE2I</td><td>IEUG</td></tr>
+                    <tr><td>Kinésithérapeute</td><td>Leuñvour</td></tr>
+                    <tr><td>LLCER</td><td>YLSER</td></tr>
+                    <tr><td>L3S</td><td>ASYS</td></tr>
+                    <tr><td>Médecine</td><td>Medisinerezh </td></tr>
+                    <tr><td>Physique marine</td><td>Fizik ar mor</td></tr>
+                    <tr><td>Psychologie</td><td>Psikologiezh</td></tr>
+                    <tr><td>Sciences de l'éducation</td><td>Skiantoù ar deskadurezh</td></tr>
+                    <tr><td>STAPS</td><td>STEKS</td></tr>
+                    <tr><td>Licence</td><td>Aotreegezh</td></tr>
+                    <tr><td>Master</td><td>Master</td></tr>
+                </table>
+            </div>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script>
+                function generate(){
 
-            var radioGenre = document.getElementsByName('genre');
-            var radioConseil = document.getElementsByName('conseil');
-            var radioPoste = document.getElementsByName('poste');
+                    var radioGenre = document.getElementsByName('genre');
+                    var radioConseil = document.getElementsByName('conseil');
+                    var radioPoste = document.getElementsByName('poste');
 
-            for (var i = 0 ; i < 3 ; i++) {
-                if (radioGenre[i].checked)
-                    genre = i;
-                if (radioConseil[i].checked)
-                    conseil = i;
-            }
-            for (var i=0; i< 2 ; i++){
-               if (radioPoste[i].checked)
-                    poste = i;
-            }
-
-            if (genre == 0){                //homme
-                if (conseil == 0){          //CA
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élu titulaire au Conseil d'Administration"
-                        posteBZH = "Dilennad entitled e Kuzul-merañ"
-                    }else{                  //suppléant
-                        posteFR = "Élu suppléant au Conseil d'Administration"
-                        posteBZH = "Dilennad erlec'hier e Kuzul-merañ"
+                    for (var i = 0 ; i < 3 ; i++) {
+                        if (radioGenre[i].checked)
+                            genre = i;
+                        if (radioConseil[i].checked)
+                            conseil = i;
+                    if (radioPoste[i].checked)
+                            poste = i;
                     }
-                }else if(conseil == 1){                      //CFVU
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élu titulaire à la Commission de la Formation et de la Vie Universitaire"
-                        posteBZH = "Dilennad entitled e Bodad Stummerezh hag ar Vuhez Skol-veur"
-                    }else{                  //suppléant
-                        posteFR = "Élu suppléant à la Commission de la Formation et de la Vie Universitaire"
-                        posteBZH = "Dilennad erlec'hier e Bodad Stummerezh hag ar Vuhez Skol-veur"
+
+                    if (genre == 0){                //homme
+                        if (conseil == 0){          //CA
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élu titulaire au Conseil d'Administration"
+                                posteBZH = "Dilennad entitled e Kuzul-merañ"
+                            }else if( poste == 1){                  //suppléant
+                                posteFR = "Élu suppléant au Conseil d'Administration"
+                                posteBZH = "Dilennad erlec'hier e Kuzul-merañ"
+                            }else{//non-elu
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }else if(conseil == 1){                      //CFVU
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élu titulaire à la Commission de la Formation et de la Vie Universitaire"
+                                posteBZH = "Dilennad entitled e Bodad Stummerezh hag ar Vuhez Skol-veur"
+                            }else if( poste == 1){                  //suppléant
+                                posteFR = "Élu suppléant à la Commission de la Formation et de la Vie Universitaire"
+                                posteBZH = "Dilennad erlec'hier e Bodad Stummerezh hag ar Vuhez Skol-veur"
+                            }else{//non-elu
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }else{                      //CR
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élu titulaire à la Commission Recherche"
+                                posteBZH = "Dilennad entitled e Bodad Bodad Enklask"
+                            }else if( poste == 1){                  //suppléant
+                                posteFR = "Élu suppléant à la Commission Recherche"
+                                posteBZH = "Dilennad erlec'hier e Bodad Enklask"
+                            }else{//non-elue
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }
+                    }else if(genre==1){                          //femme
+                        if (conseil == 0){          //CA
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élue titulaire au Conseil d'Administration"
+                                posteBZH = "Dilennad.idi entitled.dlidi e Kuzul-merañ"
+                            }else if( poste == 1){                  //suppléante
+                                posteFR = "Élue suppléante au Conseil d'Administration"
+                                posteBZH = "Dilennad.idi eilerien e Kuzul-merañ"
+                            }else{//non-elue 
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }else if(conseil==1){                      //CFVU
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élue titulaire à la Commission de la Formation et de la Vie Universitaire"
+                                posteBZH = "Dilennad.idi entitled.dlidi e Bodad Stummerezh hag ar Vuhez Skol-veur"
+                            }else if( poste == 1){                  //suppléante
+                                posteFR = "Élue suppléante à la Commission de la Formation et de la Vie Universitaire"
+                                posteBZH = "Dilennad.idi eilerien e Bodad Stummerezh hag ar Vuhez Skol-veur"
+                            }else{//non-elue
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }else{                      //CR
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élue titulaire à la Commission Recherche"
+                                posteBZH = "Dilennad.idi entitled.dlidi e Bodad Enklask"
+                            }else if( poste == 1){                  //suppléante
+                                posteFR = "Élue suppléante à la Commission Recherche"
+                                posteBZH = "Dilennad.idi eilerien e Bodad Enklask"
+                            }else{//non-elue 
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }
+                    }else{                          //non-genré
+                        if (conseil == 0){          //CA
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élu.e titulaire au Conseil d'Administration"
+                                posteBZH = "Dilennad.idi entidlidi e Kuzul-merañ"
+                            }else if( poste == 1){                  //suppléant.e
+                                posteFR = "Élu.e suppléant.e au Conseil d'Administration"
+                                posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                            }else{//non-elue 
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }else if(conseil==1){                      //CFVU
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élu.e titulaire à la Commission de la Formation et de la Vie Universitaire"
+                                posteBZH = "Dilennidi entidlidi e Bodad Stummerezh hag ar Vuhez Skol-veur"
+                            }else if( poste == 1){                  //suppléant.e
+                                posteFR = "Élu.e suppléant.e à la Commission de la Formation et de la Vie Universitaire"
+                                posteBZH = "Dilennidi erlec'hier/eilerien e Bodad Stummerezh hag ar Vuhez Skol-veur"
+                            }else{//non-elue 
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }else{                      //CR
+                            if (poste == 0){        //titulaire
+                                posteFR = "Élu.e titulaire à la Commission Recherche"
+                                posteBZH = "Dilennidi erlec'hier/entidlidi e Bodad Enklask"
+                            }else if( poste == 1){                  //suppléante
+                                posteFR = "Élu.e suppléant.e à la Commission Recherche"
+                                posteBZH = "Dilennidi erlec'hier/eilerien e Bodad Enklask"
+                            }else{//non-elue 
+                            posteFR = "Membre de l'équipe Bouge Ton CAMPUS"
+                            posteBZH = "ezel ar skipailh BOUGE TON CAMPUS"
+                        }
+                        }
                     }
-                }else{                      //CR
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élu titulaire à la Commission Recherche"
-                        posteBZH = "Dilennad entitled e Bodad Bodad Enklask"
-                    }else{                  //suppléant
-                        posteFR = "Élu suppléant à la Commission Recherche"
-                        posteBZH = "Dilennad erlec'hier e Bodad Enklask"
-                    }
+                    let signature = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><title>générateur de signature mail *****</title><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link rel="icon" type="image/png" href="https://******.net/wp-content/uploads/2018/03/******-Logo.png" /></head><body><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td width="150" style="vertical-align: middle;"> <span class="sc-TOsTZ kjYrri" style="margin-right: 20px; display: block;"><img width="130" src="https://******.net/wp-content/uploads/2020/03/pp-mail.png" role="presentation" class="sc-kjoXOD hpTAeq"></span></td><td style="vertical-align: middle;"><h3 color="#000000" class="sc-jhAzac hmXDXQ" style="margin: 0px; font-size: 16px; color: rgb(0, 0, 0);"><span>{{app.user.profil.getName()}}</span><span>&nbsp;</span><span>{{app.user.profil.getLastName()}}</span></h3><p color="#000000" font-size="small" class="sc-fBuWsC eeihxG" style="margin: 0px; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;"><span>@@POSTE@@</span></p><p color="#000000" font-size="small" class="sc-fMiknA bxZCMx" style="margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;"><span>@@POSTEBRETON@@</span></p><p color="#000000" font-size="small" class="sc-fBuWsC eeihxG" style="margin: 0px; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;"><span>@@FILLIERE@@</span></p><p color="#000000" font-size="small" class="sc-fMiknA bxZCMx" style="margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;"><span>@@FILLIEREBRETON@@</span></p></td><td width="30"><div style="width: 30px;"></div></td><td width="1" color="#F0AD42" direction="vertical" class="sc-hzDkRC kpsoyz" style="width: 1px; border-bottom-style: none; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(240, 173, 66);"></td><td width="30"><div style="width: 30px;"></div></td><td style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"><span width="11" color="#009ec8" class="sc-iRbamj blSEcj" style="display: block; background-color: rgb(0, 158, 200);"><img width="13" src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png" color="#009ec8" class="sc-gPEVay eQYmiW" style="display: block; background-color: rgb(0, 158, 200);"></span></td></tr></tbody></table></td><td style="padding: 0px; color: rgb(0, 0, 0);"><a href="tel:(+33) 2 98 01 29 36" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>(+33) 2 98 01 29 36</span></a> | <a href="tel:{{app.user.profil.getTelephone()}}" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>{{app.user.profil.getTelephone()}}</span></a></td></tr><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"><span width="11" color="#009ec8" class="sc-iRbamj blSEcj" style="display: block; background-color: rgb(0, 158, 200);"><img width="13" src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png" color="#009ec8" class="sc-gPEVay eQYmiW" style="display: block; background-color: rgb(0, 158, 200);"></span></td></tr></tbody></table></td><td style="padding: 0px;"> <a href="mailto:elus@*****.net" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>elus@*****.net</span></a> | <a href="mailto:{{app.user.getEmail()}}" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>{{app.user.getEmail()}}</span></a></td></tr><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"><span width="11" color="#009ec8" class="sc-iRbamj blSEcj" style="display: block; background-color: rgb(0, 158, 200);"><img width="13" src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png" color="#009ec8" class="sc-gPEVay eQYmiW" style="display: block; background-color: rgb(0, 158, 200);"></span></td></tr></tbody></table></td><td style="padding: 0px;"><a href="https://******.net/btc-ubo" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>******.net/btc-ubo</span></a></td></tr><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"><span width="11" color="#009ec8" class="sc-iRbamj blSEcj" style="display: block; background-color: rgb(0, 158, 200);"><img width="13" src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png" color="#009ec8" class="sc-gPEVay eQYmiW" style="display: block; background-color: rgb(0, 158, 200);"></span></td></tr></tbody></table></td><td style="padding: 0px;"><span color="#000000" class="sc-gipzik iyhjGb" style="font-size: 12px; color: rgb(0, 0, 0);"><span>6, avenue Victor le Gorgeu , CS 93837 , 29238 Brest Cedex 3</span></span></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></body></html>';
+                    signature = signature.replace("@@POSTE@@", posteFR);
+                    signature = signature.replace("@@POSTEBRETON@@", posteBZH);
+                    signature = signature.replace("@@FILLIERE@@", document.getElementById("filliere").value);
+                    signature = signature.replace("@@FILLIEREBRETON@@", document.getElementById("fillierebzh").value);
+                    
+                    document.getElementById("res").innerHTML = signature;
                 }
-            }else if(genre==1){                          //femme
-                if (conseil == 0){          //CA
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élue titulaire au Conseil d'Administration"
-                        posteBZH = "Dilennad.idi entitled.dlidi e Kuzul-merañ"
-                    }else{                  //suppléante
-                        posteFR = "Élue suppléante au Conseil d'Administration"
-                        posteBZH = "Dilennad.idi eilerien e Kuzul-merañ"
-                    }
-                }else if(conseil==1){                      //CFVU
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élue titulaire à la Commission de la Formation et de la Vie Universitaire"
-                        posteBZH = "Dilennad.idi entitled.dlidi e Bodad Stummerezh hag ar Vuhez Skol-veur"
-                    }else{                  //suppléante
-                        posteFR = "Élue suppléante à la Commission de la Formation et de la Vie Universitaire"
-                        posteBZH = "Dilennad.idi eilerien e Bodad Stummerezh hag ar Vuhez Skol-veur"
-                    }
-                }else{                      //CR
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élue titulaire à la Commission Recherche"
-                        posteBZH = "Dilennad.idi entitled.dlidi e Bodad Enklask"
-                    }else{                  //suppléante
-                        posteFR = "Élue suppléante à la Commission Recherche"
-                        posteBZH = "Dilennad.idi eilerien e Bodad Enklask"
-                    }
-                }
-            }else{                          //non-genré
-                if (conseil == 0){          //CA
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élu.e titulaire au Conseil d'Administration"
-                        posteBZH = "Dilennad.idi entidlidi e Kuzul-merañ"
-                    }else{                  //suppléant.e
-                        posteFR = "Élu.e suppléant.e au Conseil d'Administration"
-                        posteBZH = "Dilennad.idi erlec'hier/eilerien e Kuzul-merañ"
-                    }
-                }else if(conseil==1){                      //CFVU
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élu.e titulaire à la Commission de la Formation et de la Vie Universitaire"
-                        posteBZH = "Dilennidi entidlidi e Bodad Stummerezh hag ar Vuhez Skol-veur"
-                    }else{                  //suppléant.e
-                        posteFR = "Élu.e suppléant.e à la Commission de la Formation et de la Vie Universitaire"
-                        posteBZH = "Dilennidi erlec'hier/eilerien e Bodad Stummerezh hag ar Vuhez Skol-veur"
-                    }
-                }else{                      //CR
-                    if (poste == 0){        //titulaire
-                        posteFR = "Élu.e titulaire à la Commission Recherche"
-                        posteBZH = "Dilennidi erlec'hier/entidlidi e Bodad Enklask"
-                    }else{                  //suppléante
-                        posteFR = "Élu.e suppléant.e à la Commission Recherche"
-                        posteBZH = "Dilennidi erlec'hier/eilerien e Bodad Enklask"
-                    }
-                }
-            }
-            let signature = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"><title>générateur de signature mail FédéB</title><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link rel="icon" type="image/png" href="https://fedeb.net/wp-content/uploads/2018/03/FEDEB-Logo.png" /></head><body><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td width="150" style="vertical-align: middle;"> <span class="sc-TOsTZ kjYrri" style="margin-right: 20px; display: block;"><img width="130" src="https://fedeb.net/wp-content/uploads/2020/03/pp-mail.png" role="presentation" class="sc-kjoXOD hpTAeq"></span></td><td style="vertical-align: middle;"><h3 color="#000000" class="sc-jhAzac hmXDXQ" style="margin: 0px; font-size: 16px; color: rgb(0, 0, 0);"><span>{{app.user.profil.getName()}}</span><span>&nbsp;</span><span>{{app.user.profil.getLastName()}}</span></h3><p color="#000000" font-size="small" class="sc-fBuWsC eeihxG" style="margin: 0px; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;"><span>@@POSTE@@</span></p><p color="#000000" font-size="small" class="sc-fMiknA bxZCMx" style="margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;"><span>@@POSTEBRETON@@</span></p><p color="#000000" font-size="small" class="sc-fBuWsC eeihxG" style="margin: 0px; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;"><span>@@FILLIERE@@</span></p><p color="#000000" font-size="small" class="sc-fMiknA bxZCMx" style="margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 12px; line-height: 20px;"><span>@@FILLIEREBRETON@@</span></p></td><td width="30"><div style="width: 30px;"></div></td><td width="1" color="#F0AD42" direction="vertical" class="sc-hzDkRC kpsoyz" style="width: 1px; border-bottom-style: none; border-left-width: 1px; border-left-style: solid; border-left-color: rgb(240, 173, 66);"></td><td width="30"><div style="width: 30px;"></div></td><td style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"><span width="11" color="#009ec8" class="sc-iRbamj blSEcj" style="display: block; background-color: rgb(0, 158, 200);"><img width="13" src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png" color="#009ec8" class="sc-gPEVay eQYmiW" style="display: block; background-color: rgb(0, 158, 200);"></span></td></tr></tbody></table></td><td style="padding: 0px; color: rgb(0, 0, 0);"><a href="tel:(+33) 2 98 01 29 36" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>(+33) 2 98 01 29 36</span></a> | <a href="tel:{{app.user.profil.getTelephone()}}" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>{{app.user.profil.getTelephone()}}</span></a></td></tr><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"><span width="11" color="#009ec8" class="sc-iRbamj blSEcj" style="display: block; background-color: rgb(0, 158, 200);"><img width="13" src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png" color="#009ec8" class="sc-gPEVay eQYmiW" style="display: block; background-color: rgb(0, 158, 200);"></span></td></tr></tbody></table></td><td style="padding: 0px;"> <a href="mailto:elus@fedeb.net" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>elus@fedeb.net</span></a> | <a href="mailto:{{app.user.getEmail()}}" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>{{app.user.getEmail()}}</span></a></td></tr><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"><span width="11" color="#009ec8" class="sc-iRbamj blSEcj" style="display: block; background-color: rgb(0, 158, 200);"><img width="13" src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png" color="#009ec8" class="sc-gPEVay eQYmiW" style="display: block; background-color: rgb(0, 158, 200);"></span></td></tr></tbody></table></td><td style="padding: 0px;"><a href="https://fedeb.net/btc-ubo" color="#000000" class="sc-jlyJG bbyJzT" style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>fedeb.net/btc-ubo</span></a></td></tr><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-jDwBTQ dWtMUn" style="vertical-align: -webkit-baseline-middle; font-size: small; font-family: Arial;"><tbody><tr><td style="vertical-align: bottom;"><span width="11" color="#009ec8" class="sc-iRbamj blSEcj" style="display: block; background-color: rgb(0, 158, 200);"><img width="13" src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png" color="#009ec8" class="sc-gPEVay eQYmiW" style="display: block; background-color: rgb(0, 158, 200);"></span></td></tr></tbody></table></td><td style="padding: 0px;"><span color="#000000" class="sc-gipzik iyhjGb" style="font-size: 12px; color: rgb(0, 0, 0);"><span>6, avenue Victor le Gorgeu , CS 93837 , 29238 Brest Cedex 3</span></span></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></body></html>';
-            signature = signature.replace("@@POSTE@@", posteFR);
-            signature = signature.replace("@@POSTEBRETON@@", posteBZH);
-            signature = signature.replace("@@FILLIERE@@", document.getElementById("filliere").value);
-            signature = signature.replace("@@FILLIEREBRETON@@", document.getElementById("fillierebzh").value);
-            
-            document.getElementById("res").innerHTML = signature;
-        }
-    </script>
+            </script>
+        </div>
+    </div>
 
 {% endblock %}

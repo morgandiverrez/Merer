@@ -1,0 +1,83 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %} Détails ligne financement{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">Détails lignes financements 
+            <div class=" d-flex justify-content-center text-center align-center">
+                <div class="card" style="width: 18rem;">
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{financementLine.getLibellee()}}</h5>
+                        <p class="card-title">{{financementLine.description}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Montant prévu : {{financementLine.getAmount()}} €</li>  
+                        <li class="list-group-item">Repport : {{financementLine.getReporter()}} €</li>  
+                        <li class="list-group-item">Total utilisé : {{total}} €</li>  
+                    </ul>
+                    <div class="card-body">
+                        <a href="/financementLine/edit/{{ financementLine.financement.getId() }}/{{financementLine.getId()}}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/financementLine/delete/{{ financementLine.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>
+                        <a href="/financement/show/{{financementLine.financement.getId()}}" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+            <p class="display-6 no-wrap text-center">Liste des transactions de cette Ligne de financement </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Cloturé</th>
+                        <th scope="col">Commentaire</th>        
+                        <th scope="col">Montant</th>
+                        <th scope="col">Détails</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in financementLine.getTransactions() %} 
+                        <tr>
+                            <td>{{transaction.code}}</td>
+                            {% if transaction.closure == true %}
+                                <td>Oui</td>
+                            {% else %}
+                                <td>Non</td>
+                            {% endif %}
+                            <td>{{totalsTransactions[transaction.id()]}}</th>
+                            <td>{{transaction.quote}}</td>
+                            <td><a href="/transaction/show/{{ transaction.id }}"><i class = "fa-solid fa-eye"></i></a></td>
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p class="display-6 no-wrap text-center">Liste des évènements de cette Ligne de financement </p>
+             <table class="table table-striped">                   
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Montant</th>
+                    <th scope="col">Total dépensé</th>
+                    <th scope="col">Reste</th>
+                    <th scope="col">Détails</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for event in financementLine.getEvents() %} 
+                        <tr>
+                            <td>{{event.getName()}}</td> 
+                            <td>{{event.amount}} €</td>
+                            <td>{{totalsEvents[event.id]}} €</td>
+                            {% set reste = event.amount - totalsEvents[event.id] %}
+                            <td>{{reste}} €</td>
+                            <td><a href="/event/show/{{event.getId()}}"><i class="fa-solid fa-eye"></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

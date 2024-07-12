@@ -1,0 +1,73 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails editeur {% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">Détails de l'éditeur {{editor.getName()}}</p>
+            <div class="d-flex justify-content-center text-center align-center">
+                <div class="card" style="width: 18rem;">
+                    <div class=" card-body ">
+                         {% if editor.getLogo() is not null %}<img class="card-img-top" src="{{asset(editor.getLogo())}}" alt="{{editor.getName()}}" >{% endif %}
+                        <p class="card-text">{{editor.getName()}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Description : {{editor.getDescription()}}</li>
+                        <li class="list-group-item">Mail : {{editor.getMail()}}</li>
+                        <li class="list-group-item">Adresse : {{editor.getAdress()}}</li>
+                        <li class="list-group-item">Description : {{editor.getInstagram()}}</li>
+                        <li class="list-group-item">Facebook : {{editor.getFacebook()}}</li> 
+                         {% if editor.getUser()  is null %}
+                            <li class="list-group-item">créer les accès au compte <a href="/reset-password/createNewUserProfileForEditor/{{editor.getId()}}" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></a></li>                   
+                         {% endif %}       
+                    </ul>
+                    <div class="card-body">
+                        <a href="/editor/edit/{{ editor.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/editor/delete/{{ editor.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>
+                        <a href="/editor/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+            <p class="display-6 no-wrap text-center">Liste des postes de cet editeur </p>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Visible</th>
+                    <th scope="col">Fin diffusion</th>
+                    <th scope="col">Détails</th>       
+                </tr>
+                </thead>
+                <tbody>
+                    {% for post in editor.getPosts() %} 
+                        <tr>
+                            <td>{{post.getTitre()}}</td>
+                            <td>{{post.getDescription()}}</td>
+                            <td>
+                                {% if post.visible == FALSE %}
+                                    <a href="/post/visible/{{ post.getId() }}" >
+                                        <i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;" ></i>
+                                    </a>
+                                {% else %}
+                                    <a href="/post/unvisible/{{ post.getId() }}" >
+                                        <i class="fa-sharp fa-solid fa-circle-check" style="color: green;"></i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td>{% if post.getEndDate() is null %} - {% else %}{{post.getEndDate().format('d/m/Y H:i')}}{% endif %}</td>
+                            
+                            <td><a href="/post/show/{{post.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>               
+            
+        </div>
+    </div>
+
+
+{% endblock %}

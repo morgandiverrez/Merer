@@ -1,0 +1,73 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails ChequeBox {% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div  style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center align-center mb-5"> Détails de la boite de chèque {{chequeBox.getName()}}</p>
+            
+            <div class=" d-flex text-center justify-content-evenly">
+                <div class="card justify-content-start" style="width: 18rem;">
+            
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{chequeBox.getName()}}</h5>
+                        <p class="card-text">{{chequeBox.getDescription()}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">                       
+                        <li class="list-group-item">Montant totale : {{total}} €</li>
+                        <li class="list-group-item">Localisation :   {{chequeBox.getLocation().getName()}}</li>
+                        <li class="list-group-item">Compte associé :  {{chequeBox.getChartOfAccounts().getName()}} | {{chequeBox.getChartOfAccounts().getCode()}}</li>                    
+                    </ul>
+                    <div class="card-body">             
+                        <a href="/chequeBox/edit/{{ chequeBox.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>       
+                        <a href="/chequeBox/delete/{{ chequeBox.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>   
+                        <a href="/chequeBox/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    </div>
+                </div>
+            </div>
+             <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+                <p class="display-6 no-wrap text-center">Liste des chèques de la boite </p>
+        
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">date de réception</th>
+                            <th scope="col">Montant</th>
+                            <th scope="col">Commentaire</th>
+                            <th scope="col">Modifier</th>
+                            <th scope="col">Supprimer</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cheque in chequeBox.getCheques() %} 
+                        <tr>
+                            <td> 
+                                {% if cheque.getDateOfCollection() is  null %} - {% else %} {{cheque.getDateOfCollection().format('d/m/y')}} {% endif %}   
+                            </td>
+                              <td>{{cheque.getAmount()}}€</td>
+                            <td>{{cheque.getQuote()}}</td>
+                            <td><a href="/cheque/edit/{{cheque.getId()}}"><i class="fa-solid fa-pen-to-square"></i></a></td> 
+                            <td><a href="/cheque/delete/{{cheque.getId()}}"><i class="fa-solid fa-trash-can"></a></td> 
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>{{total}} €</th>
+                            <th></th>
+                             <th></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="text-center">
+                <a href="/cheque/new/{{ chequeBox.id }}"><button class="btn btn-success mt-3 mb-3" type="submit" name="show">{{ button_label|default('Ajouter une ligne ') }}<i class = "fa text-light fa-plus-square me-2"></i></button></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

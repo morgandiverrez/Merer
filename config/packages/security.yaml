@@ -17,6 +17,8 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            
+            login_throttling: null
 
             form_login:
                 # "login" is the name of the route created previously
@@ -37,11 +39,16 @@ security:
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
+              
+
+
     role_hierarchy:
         ROLE_FORMATEURICE: ROLE_USER
         ROLE_BF: ROLE_FORMATEURICE
-        ROLE_COORDINATEURICE: ROLE_BF
-        ROLE_ADMIN:       ROLE_COORDINATEURICE
+        ROLE_TRESO: ROLE_BF
+        ROLE_FORMA: ROLE_BF
+        ROLE_COM: ROLE_BF
+        ROLE_ADMIN: [ROLE_FORMA, ROLE_TRESO, ROLE_COM]
 
 
     # ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
@@ -49,8 +56,8 @@ security:
     
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        #  - { path: ^/api, roles: ROLE_ADMIN }
+        # - { path: ^/gestionBDD, roles: ROLE_ADMIN }
 
 when@test:
     security:

@@ -1,0 +1,158 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Nouvelle Boite Chèque{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Création du boite de chèque</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="description my-5">
+                        {{ form_label(form.description, 'Description ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_help(form.description) }}
+                    </div>
+
+                    <div class="lastCountDate my-5">
+                        {{ form_label(form.lastCountDate, 'Dernier Comptage ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.lastCountDate) }}
+                        {{ form_widget(form.lastCountDate) }}
+                        {{ form_help(form.lastCountDate) }}
+                    </div>
+
+                    <div class="location my-5">
+                        {{ form_label(form.location, 'lieu de stockage ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.location) }}
+                        {{ form_widget(form.location) }}
+                        {{ form_help(form.location) }}
+                         <a href="/location/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+
+                        {% set compteur = 0 %}
+                        {% for cheque in form.cheques %}
+                            <div class="cheque my-5">
+                                <p class="display-5 no-wrap text-center"> Ligne {{compteur}} </p>
+                                    <div class="amount my-5">
+                                    {{ form_label(cheque.amount, 'Montant (en euros) ', {'label_attr': {'class': 'foo'}}) }}
+                                    {{ form_errors(cheque.amount) }}
+                                    {{ form_widget(cheque.amount) }}
+                                    {{ form_help(cheque.amount) }}
+                                </div>
+
+                                <div class="quote my-5">
+                                    {{ form_label(cheque.quote, 'Commentaire ', {'label_attr': {'class': 'foo'}}) }}
+                                    {{ form_errors(cheque.quote) }}
+                                    {{ form_widget(cheque.quote) }}
+                                    {{ form_help(cheque.quote) }}
+                                </div>
+                               
+                                <div class="dateOfCollection my-5">
+                                    {{ form_label(cheque.dateOfCollection, 'Date de récéption ', {'label_attr': {'class': 'foo'}}) }}
+                                    {{ form_errors(cheque.dateOfCollection) }}
+                                    {{ form_widget(cheque.dateOfCollection) }}
+                                    {{ form_help(cheque.dateOfCollection) }}
+                                </div>
+
+                                
+                            </div>
+                            {% set compteur = compteur + 1 %}
+                        {% endfor %}
+
+                            
+                     <div class="cheque2 my-5" data-prototype="{{ form_widget(form.cheques.vars.prototype)|e('html_attr') }}">
+                    </div>
+                    
+                    <button type="button" class="btn btn-success add_item_link" data-collection-holder-class="cheque2">Ajouter une ligne</button>
+
+                    <br>
+
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      
+        jQuery(document).ready(
+        function() {
+
+            // Get the ul that holds the collection of tags
+            var $chequesCollectionHolder = $('ul.cheque2');
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $chequesCollectionHolder.data('index', $chequesCollectionHolder.find('input').length);
+
+            $('body').on('click', '.add_item_link', function(e) {
+                var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+                // add a new tag form (see next code block)
+                addFormToCollection($collectionHolderClass);
+            })
+        });
+
+        function addFormToCollection($collectionHolderClass) {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder = $('.' + $collectionHolderClass);
+
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+             newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newLabel = $("<h3  class='my-3'>Nouveau Chèque</h3>");
+            $collectionHolder.append($newLabel)
+            var $newForm = $('<div></div>').append(newForm);
+            // Add the new form at the end of the list
+            $collectionHolder.append($newForm)
+            addTagFormDeleteLink($newForm,$newLabel);
+        }
+
+        function addTagFormDeleteLink($newForm,$newLabel) {
+            var $removeFormButton = $('<button type="button" class="btn btn-danger">Retirer cette ligne</button>');
+            $newForm.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the tag form
+                $newForm.remove();
+                $newLabel.remove();
+            });
+        }
+
+
+     
+    </script>
+{% endblock %}
+

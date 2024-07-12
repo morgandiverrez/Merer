@@ -1,0 +1,175 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}détails NDF{% endblock %}
+
+
+{% block body %}
+
+  <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5">NDF {{ expenseReport.code }}</p>
+            <div class=" d-flex justify-content-center text-center align-center">
+                <div class="card" style="width: 18rem;">
+                    <ul class="list-group list-group-flush">
+                    <li  class="list-group-item">Motif :{{ expenseReport.motif }}</li>
+                       <li class="list-group-item"> Statut :
+                            {% if expenseReport.comfirm == FALSE %}
+                             Pas confirmé
+                                {% if is_granted('ROLE_TRESO') %}
+                                    <a href="/expenseReport/comfirm/{{ expenseReport.iD }}" >
+                                {% endif %}
+                                        <i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;" ></i>
+                                {% if is_granted('ROLE_TRESO') %}
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                Confirmé <i class="fa-sharp fa-solid fa-circle-check" style="color: green;"></i>
+                            {% endif %} 
+                        </li>
+                        <li class="list-group-item"> {{expenseReport.getDate().format('d/m/y h:i')}}  </li>
+                        {% if is_granted('ROLE_TRESO') %}
+                            <li class="list-group-item">Fournisseur : <a href="/supplier/show/{{ expenseReport.getSupplier().getId() }}" class="card-link"> {{expenseReport.getSupplier().getName()}} </a> </li>
+                             <li class="list-group-item">Customer : <a href="/customer/show/{{ expenseReport.getSupplier().getCustomer().getId() }}" class="card-link"> {{expenseReport.getSupplier().getCustomer().getName()}} </a> </li>
+                            <li class="list-group-item">Transaction : {% if expenseReport.getTransaction() != null %}<a href="/transaction/show/{{ expenseReport.transaction.getId() }}" class="card-link"> {{expenseReport.getTransaction().getCode()}} </a>{% endif %}</li>
+                       {% endif %}
+                      
+                    </ul>
+                    <div class="card-body">
+                     {% if  expenseReport.comfirm == false  %}
+                        <a href="/expenseReport/edit/{{ expenseReport.getId()}}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="/expenseReport/delete/{{ expenseReport.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>
+                     {% else %}
+                        <a href="/expenseReport/pdf/{{ expenseReport.id }}" class="card-link" target="_blank"><i class="fa-sharp fa-solid fa-file"></i></a>
+                    {% endif %}
+                    {% if is_granted('ROLE_TRESO') %}
+                            <a href="/expenseReport/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                    {% endif %}
+                    
+                                
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <p class="display-6 no-wrap text-center mb-5">Ligne des trajets</p>
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Ville 1</th>
+                        <th scope="col">Ville 2</th>
+                        <th scope="col">Nombre personne</th>
+                          <th scope="col">Moyen de transport</th>
+                         <th scope="col">Qualité</th>
+                        <th scope="col">Montant</th>
+                        {% if  expenseReport.comfirm == false  %}
+                            <th scope="col">Modifié</th>
+                            <th scope="col">Supprimé</th>
+                        {% endif %}
+
+                    </tr>
+                </thead>
+
+                <tbody> 
+                    {% set totalAmount = 0 %}
+                    {% for expenseReportRouteLine in expenseReport.expenseReportRouteLines %} 
+                        <tr>
+                            <td>{{expenseReportRouteLine.date.format('d/m/y hh:ii')}} </td>
+                            <td> {% if expenseReportRouteLine.repayGrid %} {{expenseReportRouteLine.repayGrid.start }} {% else %} {{expenseReportRouteLine.start}} {% endif %}</td>
+                            <td> {% if expenseReportRouteLine.repayGrid %} {{expenseReportRouteLine.repayGrid.end }} {% else %} {{expenseReportRouteLine.end}} {% endif %}</td>
+                            <td> {% if expenseReportRouteLine.repayGrid %} {{expenseReportRouteLine.repayGrid.numberPeople }}  {% endif %}</td>
+                            <td> {% if expenseReportRouteLine.repayGrid %} {{expenseReportRouteLine.repayGrid.travelMean }} {% else %} {{expenseReportRouteLine.travelMean}} {% endif %}</td>
+                            <td> {% if expenseReportRouteLine.repayGrid %} {{expenseReportRouteLine.repayGrid.caracteristique }}  {% endif %}</td>
+                            <td> {% if expenseReportRouteLine.repayGrid %} {{expenseReportRouteLine.repayGrid.amount }} € {% else %} {{expenseReportRouteLine.amount}} €{% endif %}</td>
+                           
+                            {% if expenseReportRouteLine.repayGrid %} {% set totalAmount = totalAmount + expenseReportRouteLine.repayGrid.amount %} {% else %}  {% set totalAmount = totalAmount + expenseReportRouteLine.amount %}  {% endif %}
+                            {% if  expenseReport.comfirm == false  %}
+                            <td><a href="/expenseReportRouteLine/edit/{{expenseReport.id}}/{{ expenseReportRouteLine.getId()}}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><a href="/expenseReportRouteLine/delete/{{ expenseReportRouteLine.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr> 
+                        <th> </th>
+                        
+                        <th> </th>
+                        <th> </th>
+                        <th> </th>
+                        <th> </th>
+                        <th></th>
+                        <th>{{ totalAmount }} € </th>
+                        {% if  expenseReport.comfirm == false  %}
+                            <th> </th>
+
+                            <th> </th>
+                         {% endif %}
+                    </tr>
+                </tfoot>
+            </table>
+            
+            {% if  expenseReport.comfirm == false  %}
+                <div class="text-center">
+                    <a href="/expenseReportRouteLine/new/{{ expenseReport.id }}" ><button class="btn btn-success mt-3 mb-3" type="submit" name="show">{{ button_label|default('Ajouter une ligne ') }}<i class = "fa text-light fa-plus-square me-2"></i></button></a>
+                </div>
+            {% endif %}
+            <table class="table table-striped">
+                <p class="display-6 no-wrap text-center mb-5">Ligne de frais</p>
+                <thead>
+                    <tr>
+                        <th scope="col">Date </th>
+                        <th scope="col">Objet</th>
+                         <th scope="col">Montant</th>
+                        <th scope="col">Document</th>
+                        {% if  expenseReport.comfirm == false  %}
+                            <th scope="col">Modifié</th>
+                            <th scope="col">Supprimé</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% set totalAmount = 0 %}
+                {% for expenseReportLine in expenseReport.expenseReportLines %} 
+                    <tr>
+                        <td>{% if expenseReportLine.date is  not null %}{{expenseReportLine.date.format('d/m/y')}} {% endif %} </td>
+                        <td>{{expenseReportLine.object}} </td>
+                        <td>{{expenseReportLine.amount}} €</td>
+                        {% set totalAmount = totalAmount + expenseReportLine.amount %}
+                        {% if expenseReportLine.getDocument() is not null %}
+                            <td><a href="/expenseReportLine/download/{{ expenseReportLine.getId()}}" target="_blank" class="card-link"><i class="fa-sharp fa-solid fa-file"></i></a></td>
+                        {% else %}
+                             <td>pas de document</td>
+                        {% endif %}
+                        {% if  expenseReport.comfirm == false  %}
+                            <td><a href="/expenseReportLine/edit/{{expenseReport.id}}/{{ expenseReportLine.getId()}}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                            <td><a href="/expenseReportLine/delete/{{ expenseReportLine.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+                 <tfoot>
+                    <tr> 
+                        <th> </th>
+                        <th> </th>
+                        <th>{{ totalAmount }} € </th>
+                        <th> </th>
+                        {% if  expenseReport.comfirm == false  %}
+                            <th> </th>
+
+                            <th> </th>
+                         {% endif %}
+                    </tr>
+                </tfoot>
+            </table>
+            {% if  expenseReport.comfirm == false  %}
+                <div class="text-center">
+                    <a href="/expenseReportLine/new/{{ expenseReport.id }}"><button class="btn btn-success mt-3 mb-3" type="submit" name="show">{{ button_label|default('Ajouter une ligne ') }}<i class = "fa text-light fa-plus-square me-2"></i></button></a>
+                </div>
+            {% endif %}
+           
+        </div>
+    </div>
+    
+
+{% endblock %}
+

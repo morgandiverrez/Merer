@@ -1,0 +1,82 @@
+{% extends 'base_user.html.twig' %}
+
+
+{% block title %}Détails Séance{% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5"> Détails de la Seance </p>
+            <div class=" d-flex text-center justify-content-evenly">
+                <div class="card justify-content-start" style="width: 18rem;">
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{seance.getName()}}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                    {% if seance.getEvenement() is not null %}
+                        <li class="list-group-item">Evènement : {{seance.getEvenement()}}</li>
+                    {% endif %}
+                        <li class="list-group-item">Date et Heure : {% if seance.getDateTime() is null %} - {% else %} {{seance.getDatetime().format("d/m/Y H:i")}} {% endif %}</li>
+                        <li class="list-group-item">Nombre de Place Maximum : {{seance.getNombrePlace()}}</li>   
+                    </ul>  
+                </div>
+            </div>
+            <br>
+            {# début information formation #}
+            {% if seance.formation %}
+                <div class=" d-flex text-center justify-content-evenly">
+                    <div class="card justify-content-start" style="width: 18rem;">
+                        <div class=" card-body ">
+                            <p class="card-text">{{seance.formation.getDescription()}}</p>
+                            <p class="card-text">OPG :{{seance.formation.getOpg()}}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Pré-requis : {{seance.formation.getPreRequis()}}</li>
+                            <li class="list-group-item">Durée : {% if seance.formation.getDuration() is null %} 0 {% else %} {{seance.formation.getDuration().format("H:i")}} {% endif %} </li>
+                            <li class="list-group-item">Public Cible : {{seance.formation.getPublicCible()}}</li>
+                            {% if seance.getDateTime() >= dateActuelle %}
+                                {% if  app.user.profil.getId() in inscrits   %}
+                                    Vous etes déjà inscrit.e <li class="list-group-item"><a class="btn btn-primary" href="/inscription/{{seance.getId()}}">Modifier mon inscription</a> </li>
+                                {% else %}
+                                    <li class="list-group-item"><a class="btn btn-primary" href="/inscription/{{seance.getId()}}">s'inscrire </a> </li>   
+                                {% endif %}
+                            {% else %}
+                                {% if app.user.profil.getId() in inscrits and not app.user.profil.getId()  in retours %}
+                                    <li class="list-group-item">La formation est passée </li>
+                                {% else %}
+                                    <li class="list-group-item"><a class="btn btn-primary" href="/retour/new/{{seance.getId()}}"> formulaire de retour </a> </li>                         
+                                {% endif %}
+                            {% endif %}
+                            {% if is_granted('ROLE_FORMATEURICE') %}
+                                <li class="list-group-item"><a class="btn btn-primary" href="/seance/showForFormateurice/{{seance.getId()}}"> côté Formateurice </a> </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                 {% endif %}
+            </div>  {# fin information formation #}
+            <br>
+                {% for lieu in seance.getLieux() %}
+                {# début information lieux #}
+                    <div class=" d-flex text-center justify-content-evenly">
+                        <div class="card justify-content-start" style="width: 18rem;">
+                            <div class=" card-body ">
+                                <h5 class="card-title">{{lieu.getName()}}</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Salle : {{lieu.getSalle()}}</li>
+                                <li class="list-group-item">Adresse : {{lieu.getAdresse()}}</li>
+                                <li class="list-group-item">Code Postale : {{lieu.getCodePostale()}}</li>
+                                <li class="list-group-item">Ville : {{lieu.getVille()}}</li>                          
+                            </ul>
+                        </div>
+                    </div>{# fin information lieux #}
+                {% endfor %}
+        </div>
+    </div> 
+    </div>
+ 
+
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste Evenement{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Liste des Evènements
+                {% if is_granted('ROLE_BF')%}
+                    <a href="/evenement/new"><i class="fa-solid fa-plus align-right"></i></a>
+                {% endif %}
+            </p>
+             <form action="{{ path('evenement_showAll') }}" method="post">
+                <p class="text-center">
+                    <input type="text" id="name" name="name" placeholder="Nom"/>
+                    <input type="text" id="description" name="description" placeholder="Description"/>
+                    <button class="btn btn-primary" type="submit" >Rechercher</button>
+                </p>
+            </form>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date début</th>
+                     <th scope="col">Date fin</th>
+                     {% if is_granted('ROLE_BF')%}
+                        <th scope="col">Visible</th>
+                    {% endif %}
+                    <th scope="col">Détails</th>        
+                 </tr>
+                </thead>
+                <tbody>
+                {% set verif= false %}
+                    {% for evenement in evenements %} 
+                        {% if evenement.getDateFin() <= date() and verif == false %}
+                            <tr>
+                                {% if is_granted('ROLE_BF')%}
+                                    <td colspan="6" align="center"> Evénement passé </td>
+                                {% else %}
+                                    <td colspan="5" align="center"> Evénement passé </td>
+                                {% endif %}
+                                
+                            <tr>
+                            {% set verif = true %}
+                        {% endif %}
+                        <tr>
+                            <td>{{evenement.getName()}}</td>
+                            <td>{{evenement.getDescription()}}</td>
+                            <td>{% if evenement.getDateDebut() is null %} - {% else %} {{evenement.getDateDebut().format('d/m/Y H:i')}} {% endif %}</td>
+                            <td>{% if evenement.getDateFin() is null %} - {% else %}{{evenement.getDateFin().format('d/m/Y H:i')}}{% endif %}</td>
+                            {% if is_granted('ROLE_BF')%}
+                                <td>
+                                    {% if evenement.visible == FALSE %}
+                                        <a href="/evenement/visible/{{ evenement.getId() }}" >
+                                            <i class="fa-sharp fa-solid fa-circle-xmark" style="color: red;" ></i>
+                                        </a>
+                                    {% else %}
+                                        <a href="/evenement/unvisible/{{ evenement.getId() }}" >
+                                            <i class="fa-sharp fa-solid fa-circle-check" style="color: green;"></i>
+                                        </a>
+                                    {% endif %}
+                                </td>
+                            {% endif %}
+                           <td><a href="/evenement/show/{{evenement.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

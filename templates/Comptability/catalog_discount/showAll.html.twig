@@ -1,0 +1,51 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Liste réduction{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Liste des réductions
+                    <a href="/discount/new"><i class="fa-solid fa-plus align-right"></i></a>
+        
+            </p>
+            <form action="{{ path('discount_showAll') }}" method="post">
+                <p class="text-center">
+                    <input type="text" id="code" name="code" placeholder="Code"/>
+                    <input type="text" id="name" name="name" placeholder="Nom"/>
+                    <input type="text" id="description" name="description" placeholder="Description"/>
+                    <button class="btn btn-primary" type="submit" >Rechercher</button>
+                </p>
+            </form>
+            <table class="table table-striped">
+                
+                
+                <thead>
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Détails</th>
+                    
+                 </tr>
+                </thead>
+
+                <tbody>
+                {% for discount in discounts %} 
+                    <tr>
+                        
+                        <td>{{discount.getCode()}}</td> 
+                        <td>{{discount.getName()}}</td>   
+                        <td>{{discount.getDescription()}}</td>
+                        <td><a href="/discount/show/{{discount.getId()}}"><i class="fa-solid fa-eye"></i></a></td> 
+                     </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+{% endblock %}

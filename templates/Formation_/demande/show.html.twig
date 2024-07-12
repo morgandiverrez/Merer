@@ -1,0 +1,62 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails demande{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center  mb-5"> Détails de la demande </p>
+            <div class="d-flex justify-content-center text-center align-center">
+                <div class="card justify-content-start" style="width: 18rem;">
+                    <div class=" card-body ">
+                        <h5 class="card-title">{{demande.getName()}}</h5>
+                        <p class="card-text">Date de début : {% if demande.getDateDebut() is not null %}{{demande.getDateDebut().format('d/m/y H:i')}}{% else %} - {% endif %}</p>
+                        <p class="card-text">Date de Fin : {% if demande.getDateFin() is not null %} {{demande.getDateFin().format('d/m/y H:i')}}{% else %} - {% endif %}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Equipe Elu.e.s : {% for equipeElu in demande.getEquipeElu() %}{{equipeElu.getName()}}<br> {% endfor %} </li>
+                            <li class="list-group-item">Association :  {% for association in  demande.getAssociation() %} {{association.getName()}}<br> {%  endfor %}</li>
+                            <li class="list-group-item">Demandeur : {{demande.getProfil().getName()}} {{demande.getProfil().getLastName()}} </li>
+                            <li class="list-group-item">Nombre de personne estimés : {{demande.getNombrePersonne()}}</li>
+                            <li class="list-group-item">Double maillage : {% if demande.isDoubleMaillage() %} oui {% else %} non {% endif %}</li>
+                            <li class="list-group-item">Planning : {% if demande.getPlanning() is not null %} <a href="/demande/downloadPlanning/{{demande.getId()}}" target="_blank" class ="card-link">Télécharger</a> {% else %} pas de planning  {% endif %}</li>                     
+                    </ul>
+                    <div class="card-body">
+                        {% if is_granted('ROLE_FORMATEURICE') %}
+                             {% if is_granted('ROLE_ADMIN') %}
+                                <a href="/demande/delete/{{ demande.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>
+                            {% endif %}
+                            <a href="/equipeElu/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">détails</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                    {% if demande.getFormation() is null %} 
+                            Aucun formation choisit dans le catalogue 
+                    {% else %} 
+                        {% for formation in demande.getFormation() %}
+                            <tr>
+                                <td>{{formation.getName()}}</td>
+                                <td> {% if formation.getDuration() is null %} - {% else %} {{formation.getDuration().format("H:i")}} {% endif %} </td>
+                                <td><a href="/catalogue/show/{{formation.getId()}}"><i class="fa-solid fa-eye"></i></a></td> 
+                                
+                            </tr> 
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

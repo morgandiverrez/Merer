@@ -1,0 +1,87 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Détails association{% endblock %}
+
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center mb-5"> Détails de l'association {{association.name}}</p>
+            <div class=" d-flex text-center justify-content-evenly">
+                <div class="card justify-content-start" style="width: 28rem;">
+                    <div class=" card-body ">
+                        {% if association.getImage() is not null %} <img class="card-img-top rounded-circle" src="{{asset(association.getImage())}}}}" alt="image du association : {{association.getSigle()}}"> {% else %} <i class="fa-solid fa-image"></i> {% endif %}
+                        <p class="card-text">{{association.getName()}}</p>
+                        <p class="card-text">{{association.getSigle()}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item">Description : {{association.getDescription()}}</li>
+                        <li class="list-group-item">Fédération de fillière : {{association.getFedeFilliere()}}</li>
+                        <li class="list-group-item">Fédération de territoire : {{association.getFedeTerritoire()}}</li>
+                        <li class="list-group-item">Local : {{association.getLocal()}}</li>
+                        <li class="list-group-item">Adresse mail : {{association.getAdresseMail()}}</li>
+                        <li class="list-group-item"> Date de la dernière AGO :  {% if association.getDateElection() is not null %} {{association.getDateElection().format('d/m/y')}} {% endif %}</li>
+                    </ul>
+                    <div class="card-body">
+                        {% if is_granted('ROLE_FORMATEURICE') %}
+                            {% if is_granted('ROLE_BF') %}
+                                <a href="/association/edit/{{ association.getId() }}" class="card-link"><i class="fa-solid fa-pen-to-square"></i></a>
+                                 {% if is_granted('ROLE_FORMA') %}
+                                     <a href="/association/delete/{{ association.getId()}}" class="card-link"><i class="fa-solid fa-trash-can"></i></a>
+                                {% endif %}
+                            {% endif %}
+                                <a href="/association/" class="card-link"><i class="fa-solid fa-list"></i></a>
+                        {% endif %}
+                                
+                    </div>
+                </div>
+            </div>
+            
+            <div >
+                <table class="table table-striped  ">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Equipe.s d'élu.e.s</th>
+                        <th scope="col">Adresse mail</th>
+                        <th scope="col">Profil</th>
+                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% if association.getProfil() is null %} 
+                                Aucun membre inscrit sur la plateforme
+                        {% else %} 
+                            {% for profil in association.getProfil() %}
+                                <tr>
+                                    <td>{{profil.getName()}}</td>
+                                    <td>{{profil.getLastName()}}</td>
+                                    <td> 
+                                    {% for equipeElu in profil.getEquipeElu() %}
+                                        {{equipeElu.getName()}}
+                                    {% endfor %}
+                                    </td>
+                                        {% if is_granted('ROLE_FORMATEURICE') %}
+                                        <td> {{profil.user.getEMail()}} </td>
+                                        <td><a href="/account/show/{{profil.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td> 
+                                    {% endif %}
+                                </tr> 
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <tfoot>
+                            <td></td>
+                            <td></td>
+                            <td> <a class="btn btn-primary" href="/association/remove/{{ association.getId() }}">vider l'association</a> </td>
+                            <td></td>
+                            <td></td>
+                        </tfoot>
+                    {% endif %}
+                </table>
+            </div>      
+        </div>
+    </div>
+{% endblock %}

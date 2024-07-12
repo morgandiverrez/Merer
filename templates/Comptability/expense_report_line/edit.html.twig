@@ -1,0 +1,51 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier ligne  NDF{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="form-control form-control-lg mx-auto corps text-center">
+            {{ form_start(form) }}
+            <p class="display-4 no-wrap text-center mt-3">Modifier ligne NDF </p>
+                <a href="/expenseReport/download/modalitéfinanciereremboursement">modalité financière de remboursement 2023-2025 </a>
+                <div class="date my-5">
+                    {{ form_label(form.date, 'date ', {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(form.date) }}
+                    {{ form_widget(form.date)}}
+                    {{ form_help(form.date) }}
+                </div>
+
+                <div class="object my-5">
+                    {{ form_label(form.object,  'objet' , {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(form.object) }}
+                    {{ form_widget(form.object)}}
+                    {{ form_help(form.object) }}
+                </div>
+
+                <div class="amount my-5">
+                    {{ form_label(form.amount, 'Montant TTC ', {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(form.amount) }}
+                    {{ form_widget(form.amount)}}
+                    {{ form_help(form.amount) }}
+                </div>
+
+                <div class="document my-5">
+                    {{ form_label(form.document, 'document justificatif (facture par exemple) ', {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(form.document) }}
+                    {{ form_widget(form.document)}}
+                    {{ form_help(form.document) }}
+                </div>
+
+
+            <br>
+            <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+

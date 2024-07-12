@@ -1,0 +1,65 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier Trajet NDF{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="form-control form-control-lg mx-auto corps text-center">
+            {{ form_start(form) }}
+            <p class="display-4 no-wrap text-center mt-3">Modifier trajet NDF </p>
+            <a href="/expenseReport/download/modalitéfinanciereremboursement">modalité financière de remboursement 2023-2025 </a>
+            <div class="date my-5">
+                {{ form_label(form.date, 'date ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.date) }}
+                {{ form_widget(form.date)}}
+                {{ form_help(form.date) }}
+            </div>
+
+            <div class="repayGrid my-5">
+                {{ form_label(form.repayGrid,  'selectionner un trajet habituel', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.repayGrid) }}
+                {{ form_widget(form.repayGrid)}}
+                {{ form_help(form.repayGrid) }}
+            </div>
+
+            <div class="start my-5">
+                {{ form_label(form.start, 'point de départ ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.start) }}
+                {{ form_widget(form.start)}}
+                {{ form_help(form.start) }}
+            </div>
+
+            <div class="end my-5">
+                {{ form_label(form.end, 'point arrivé ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.end) }}
+                {{ form_widget(form.end)}}
+                {{ form_help(form.end) }}
+            </div>
+
+            <div class="distance my-5">
+                {{ form_label(form.distance, 'distance (en km) ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.distance) }}
+                {{ form_widget(form.distance)}}
+                {{ form_help(form.distance) }}
+            </div>
+
+                <div class="travelMean my-5">
+                {{ form_label(form.travelMean, 'moyen de déplacement ', {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.travelMean) }}
+                {{ form_widget(form.travelMean)}}
+                {{ form_help(form.travelMean) }}
+            </div>
+
+
+            <br>
+            <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+

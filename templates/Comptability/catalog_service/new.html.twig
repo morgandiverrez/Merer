@@ -1,0 +1,50 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Nouveau service{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Ajouter un nouveau service</p>
+            <div class="form-control form-control-lg mx-auto corps text-center">
+                {{ form_start(form) }}
+                <div class="mx-auto mt-5 mb-5">
+
+              
+                    <div class="name my-5">
+                        {{ form_label(form.name, 'Nom ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                        {{ form_help(form.name) }}
+                    </div>
+
+                    <div class="description my-5">
+                        {{ form_label(form.description, 'Description ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.description) }}
+                        {{ form_widget(form.description) }}
+                        {{ form_help(form.description) }}
+                    </div>
+
+                        <div class="amountHt my-5">
+                        {{ form_label(form.amountHt, 'montant Hors Taxe (€) ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.amountHt) }}
+                        {{ form_widget(form.amountHt) }}
+                        {{ form_help(form.amountHt) }}
+                    </div>
+
+                    <div class="tvaRate my-5">
+                        {{ form_label(form.tvaRate, ' taux de TVA (%)', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(form.tvaRate) }}
+                        {{ form_widget(form.tvaRate) }}
+                        {{ form_help(form.tvaRate) }}
+                    </div>
+                
+                    <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

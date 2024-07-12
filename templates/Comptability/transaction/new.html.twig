@@ -1,0 +1,186 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Nouvelle Transaction{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+        <div class="form-control form-control-lg mx-auto corps text-center">
+            {{ form_start(form) }}
+            <p class="display-4 no-wrap text-center mt-3">Nouvelle Transaction </p>
+                
+                <div class="exercice my-5">
+                    {{ form_label(form.exercice, 'Exercice affecté ', {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(form.exercice) }}
+                    {{ form_widget(form.exercice) }}
+                    {{ form_help(form.exercice) }}
+                </div>
+          
+            <div class="closure my-5">
+                {{ form_label(form.closure, "Cloturer" , {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.closure) }}
+                {{ form_widget(form.closure) }}
+                {{ form_help(form.closure) }}
+            </div>
+
+
+            <div class="quote my-5">
+                {{ form_label(form.quote, "Commentaire" , {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.quote) }}
+                {{ form_widget(form.quote) }}
+                {{ form_help(form.quote) }}
+            </div>
+
+             <div class="event my-5">
+                {{ form_label(form.event, "Projet lié" , {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.event) }}
+                {{ form_widget(form.event) }}
+                {{ form_help(form.event) }}
+                 <a href="/event/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+            </div>
+
+            <div class="bp my-5">
+                {{ form_label(form.bp, "ligne du budget" , {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.bp) }}
+                {{ form_widget(form.bp) }}
+                {{ form_help(form.bp) }}
+                 <a href="/bp/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+            </div>
+
+             <div class="financementLine my-5">
+                {{ form_label(form.financementLine, "Financement flechée " , {'label_attr': {'class': 'foo'}}) }}
+                {{ form_errors(form.financementLine) }}
+                {{ form_widget(form.financementLine) }}
+                {{ form_help(form.financementLine) }}
+            </div>
+
+            {% for transactionLine in transaction.transactionLines %}
+                <div class="transactionLine my-5">
+
+                    <div class="label">
+                        {{ form_label(transactionLine.label, 'Label ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(transactionLine.label) }}
+                        {{ form_widget(transactionLine.label)}}
+                        {{ form_help(transactionLine.label) }}
+                    </div>
+
+                    <div class="date">
+                        {{ form_label(transactionLine.date, 'Date ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(transactionLine.date) }}
+                        {{ form_widget(transactionLine.date)}}
+                        {{ form_help(transactionLine.date) }}
+                    </div>
+
+                    <div class="amount">
+                        {{ form_label(transactionLine.amount, 'Montant ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(transactionLine.amount) }}
+                        {{ form_widget(transactionLine.amount)}}
+                        {{ form_help(transactionLine.amount) }}
+                    </div>
+
+                    <div class="urlProof">
+                        {{ form_label(transactionLine.urlProof, 'urlProof ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(transactionLine.urlProof) }}
+                        {{ form_widget(transactionLine.urlProof)}}
+                        {{ form_help(transactionLine.urlProof) }}
+                    </div>
+
+                    <div class="quote">
+                        {{ form_label(transactionLine.quote, 'Commentaire ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(transactionLine.quote) }}
+                        {{ form_widget(transactionLine.quote)}}
+                        {{ form_help(transactionLine.quote) }}
+                    </div>
+
+                    <div class="chartOfAccounts">
+                        {{ form_label(transactionLine.chartOfAccounts, 'PCG ', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_errors(transactionLine.chartOfAccounts) }}
+                        {{ form_widget(transactionLine.chartOfAccounts)}}
+                        {{ form_help(transactionLine.chartOfAccounts) }}
+                         <a href="/chartOfAccounts/new" target="_blank"><i class="fa-sharp fa-solid fa-circle-plus"></i></button></a>
+                    </div>
+
+                </div>
+            {% endfor %}
+
+            <div class="paymentdeadlines my-5" data-prototype="{{ form_widget(form.transactionLines.vars.prototype)|e('html_attr') }}">
+            </div>
+
+            <button type="button" class="btn btn-success add_item_link" data-collection-holder-class="paymentdeadlines">Ajouter une ligne</button>
+
+            <br>
+            <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      
+        jQuery(document).ready(
+        function() {
+
+            // Get the ul that holds the collection of tags
+            var $transactionLinesCollectionHolder = $('ul.transactionLine');
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $transactionLinesCollectionHolder.data('index', $transactionLinesCollectionHolder.find('input').length);
+
+            $('body').on('click', '.add_item_link', function(e) {
+                var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+                // add a new tag form (see next code block)
+                addFormToCollection($collectionHolderClass);
+            })
+        });
+
+        function addFormToCollection($collectionHolderClass) {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder = $('.' + $collectionHolderClass);
+
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newLabel = $("<h3  class='my-3'>Nouvelle Ligne de transaction</h3>");
+            $collectionHolder.append($newLabel)
+            var $newForm = $('<div></div>').append(newForm);
+            // Add the new form at the end of the list
+            $collectionHolder.append($newForm)
+            addTagFormDeleteLink($newForm,$newLabel);
+        }
+
+        function addTagFormDeleteLink($newForm,$newLabel) {
+            var $removeFormButton = $('<button type="button" class="btn btn-danger">Retirer cette ligne</button>');
+            $newForm.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the tag form
+                $newForm.remove();
+                $newLabel.remove();
+            });
+        }
+
+
+     
+    </script>
+{% endblock %}
+
+ 

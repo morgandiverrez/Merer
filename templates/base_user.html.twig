@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-    <head>
+    <head style="margin: 0; padding: 0;">
         <meta charset="UTF-8">
-        <title>{% block title %} Welcome!{% endblock %}</title>
         {# favicon du site#}
-        <link rel="icon" type="png" height="auto" sizes="16x16" href="{{asset('build/images/logo_FEDEB.png')}}">
+        <title>{% block title %} Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/png" height="auto" sizes="16x16" href="{{asset('build/images/****.png')}}">
 
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         <script src="https://kit.fontawesome.com/ffbea23889.js" crossorigin="anonymous"></script>
@@ -33,163 +33,224 @@
 
     </head>
 
-    <body style="height: 100%">
+    <body style="  position: relative;
+  min-height: 100vh;">
         {% block header %}
-            <header>
-                <nav height="60" style="background-color:#2B9D7D ;" class="navbar navbar-expand-lg ">
+            <header >
+                <nav height="60" style="background-color:#F0AD42 ;" class="navbar navbar-expand-lg">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="https://fedeb.net/"><img src="{{asset('build/images/logo_FEDEB.png')}}" height="60" alt="logo Fédé B"></a>
-
-
+                        <a class="navbar-brand" href="/account/">
+				            <img src="{{asset('build/images/logo_MERER.svg')}}" height="60" alt="logo Merer">
+					        <span class="align-middle mr-2 ml-2">X</span>
+                           <img src="{{asset('build/images/logo_Noir.svg')}}" height="60" alt="logo ******">
+			            </a>
+                        
                         {% if is_granted('ROLE_USER') %}
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"  >
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                    {% if is_granted('ROLE_ADMIN')%}
-
-                                    {% else %}
-                                        <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="/account/">Mon Profil</a>
-                                        </li>
-                                    {% endif %}
-
+                                {% if app.user.profil is not  null and not is_granted('ROLE_FORMATEURICE')   %}
                                     <li class="nav-item">
                                         <a class="nav-link" href="/seance/">Séance</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="/catalogue/">Catalogue de formation </a>
                                     </li>
-                                    
-                                    
-                                    {% if is_granted('ROLE_FORMATEURICE') %}
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Espace Formateurice </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/account/showAll">Liste des profils</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/association/">Liste des associations</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/equipeElu/">Liste des equipes d'élu.e.s</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/lieux/">Liste des Lieux </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/seance/showAllForFormateurice"> Liste des séances </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/badge/">Liste des badges</a>
-                                                </li>
-                                            
-                                            </ul>
-                                        </li>
-                                    {% endif %}
-
-                                    {% if is_granted('ROLE_FORMATEURICE') %}
+                                     <li class="nav-item">
+                                        <a class="nav-link" href="/demande/new">Demander une formation </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_FORMATEURICE') %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/seance/">Séance</a>
+                                    </li>
                                     <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Espace BF </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/account/showFormateurice">Liste des Formateurices</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/signature/BF">signature de mail BF</a>
-                                                </li>
-                                                <li><hr class="dropdown-divider">Espace admin</li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/account/roles">gestionnaire des rôles</a>
-                                                </li>
+                                        <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Espace Formateurice </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/seance/archivage"> Liste des séances </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/evenement/"> Liste des évènements </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/account/showAll">Liste des profils <i class="fa-solid fa-user"></i></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/association/">Liste des associations</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/equipeElu/">Liste des équipes d'élu.e.s <i class="fa-solid fa-screen-users"></i></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/lieux/">Liste des Lieux  <i class="fa-solid fa-location-dot"></i></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/badge/">Liste des badges <i class="fa-sharp fa-solid fa-badge-check"></i></a>
+                                            </li> 
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/demande/new">Demander une formation </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/catalogue/">Catalogue de formation</a>
+                                            </li>
+                                        
+                                        </ul>
+                                    </li>
+                                {% endif %}
 
-                                            </ul>
-                                        </li>
-                                    {% endif %}
-                                    
+                                {% if is_granted('ROLE_BF') %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"  id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Espace BF </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                        
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/account/showFormateurice">Liste des Formateurices</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/demande/">Liste des demandes de formation</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/signature/BF">Signature de mail BF</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/expenseReport/new"> Demande de NDF </a>
+                                            </li>
+                                            {# {% if is_granted('ROLE_FORMA') %}
+                                                <li><hr class="dropdown-divider"> Espace Tortue </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" target="_blank" href="/retour/sdf">Générer le fichier SDF </a>
+                                                </li>
+                                            {% endif %} #}
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <li><hr class="dropdown-divider">Espace Admin </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/account/roles">Gestionnaire des rôles</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                  {% if is_granted('ROLE_COM') %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"  id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Espace Com </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                        
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/editor/">Liste des Editeurs</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/group/">Liste des groupes de diffusion</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/post/">Liste des postes</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_TRESO') %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle"  id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Espace Trésorerie </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/transaction/">transactions <i class="fa-solid fa-arrow-right-arrow-left"></i> </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/impression/">impressions <i class="fa-solid fa-print"></i> </a>
+                                            </li>
+                                                <li class="nav-item">
+                                                <a class="nav-link" href="/expenseReport/">NDF <i class="fa-solid fa-rectangle-list"></i></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/invoice/">Factures <i class="fa-sharp fa-solid fa-file-invoice"></i></a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/discount/">Liste des réductions</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/service/">Liste des services </a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/event/">Suivi Projet </a>
+                                            </li>
+                                                <li class="nav-item">
+                                                <a class="nav-link" href="/financement/">Suivi Subvention </a>
+                                            </li>
+                                                <li class="nav-item">
+                                                <a class="nav-link" href="/bp/">Suivi BP </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/chartOfAccounts/">Plan Comptable </a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/chequeBox/">Chèques  <i class="fa-solid fa-money-check-dollar"></i></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/fundBox/">Caisses <i class="fa-solid fa-cash-register"></i></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/bankAccount/">Compte Bancaire <i class="fa-solid fa-building-columns"></i></a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/customer/">Liste des clients </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/supplier/">Liste des fournisseurs  </a>
+                                            </li> 
+                                        </ul>
+                                    </li>
+                                {% endif %}
+
+                                {% if app.user.getProfil() is not null %}
                                     {% if app.user.profil.getEquipeElu() is not empty %}
-                                        {% for equipeElu in app.user.profil.getEquipeElu() %}
-                                            {% if equipeElu == 'Centraux UBO' or equipeElu == 'CROUS Rennes-Bretagne' or is_granted('ROLE_BF') %}
+                                        {% if 'Centraux UBO' in app.user.profil.getEquipeElu() or 'CROUS Rennes-Bretagne' in app.user.profil.getEquipeElu() or is_granted('ROLE_BF') %}   
                                             <li class="nav-item dropdown">
                                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 Signature </a>
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    {% if equipeElu == 'Centraux UBO' or is_granted('ROLE_BF') %}
+                                                    {% if'Centraux UBO' in app.user.profil.getEquipeElu() or is_granted('ROLE_BF') %}
                                                         <li >
                                                             <a class="dropdown-item" href="/signature/centrauxUBO">Signature Centraux UBO </a>
                                                         </li>
                                                     {% endif %}
-                                                    {% if equipeElu == 'CROUS Rennes-Bretagne' or is_granted('ROLE_BF') %}
+                                                    {% if 'CROUS Rennes-Bretagne' in app.user.profil.getEquipeElu() or is_granted('ROLE_BF') %}
                                                         <li >
-                                                            <a class="dropdown-item" href="/signature/CROUS">Signature CROUS  BZH</a>
+                                                            <a class="dropdown-item" href="/signature/CROUS">Signature CROUS BZH</a>
                                                         </li>
                                                     {% endif %}
                                                 </ul>
                                             </li>
-                                            {% endif %}
-                                        {% endfor %}
+                                        {% endif %}
                                     {% endif %}
-                                    
-
-                                </ul>
-                        
-
-                        {# deuxième partie de la navbar #}
-
+                                {% endif %}
+                              
+                            </ul>
+                        </div>
+                        <br><br><br>
+                    {% endif %}
                         <div class="d-flex justify-content-end">
-                                {% if  app.user.profil.getEquipeElu() is not empty %}
-                                        <table>
-                                            <thead>
-                                                <tr><th>Equipe d'élu </th></tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for equipeElu in app.user.profil.getEquipeElu() %}
-                                                <tr><td> {{equipeElu.getName()}}</td></tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                {% endif %}
-                                {% if  app.user.profil.getAssociation() is not empty %}
-
-                                    <div class="d-flex flex-row-reverse">
-                                        {% for association in app.user.profil.getAssociation() %}
-                                            <div class="p-2">
-                                            {% if association.getImage() is null %}
-                                                {{association.getSigle()}}
-                                            {% else %}
-                                                <a><img src="{{asset(association.getImage())}}" height="60" class="rounded-circle" alt="{{association.getSigle()}}"> </a>
-                                            {% endif %}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
-
-                                
-                                
-                        {% endif %}
-                         <div class="d-flex justify-content-end">
                            {% if is_granted('ROLE_USER')%}
-                                 {% if is_granted('ROLE_FORMATEURICE')%}
-                                    <ul>
-                                        <li><a class="nav-link " href="https://drive.google.com/drive/folders/0APJ8vkXug6tXUk9PVA9"><i color="dark" height="80" class="fa-brands fa-google-drive"></i></a></li>
-                                    </ul>
-                                {% endif %}
                                 <ul>
-                                      <li><a class="nav-link " href=" https://discord.gg/6PR3h3mtp9"> <i class="fa-brands fa-discord"></i></a> </li>
+                                      <li><a class="nav-link" target="_blank" href=" https://discord.gg/6PR3h3mtp9"> <i class="fa-brands fa-discord"></i></a> </li>
                                 </ul>
                             {% endif %}
                              <ul>
-                                <li>{% if app.user is null %} <a class="nav-link " href="/register/"> s'inscrire </a> {% else %} {{app.user.getUserIdentifier()}} {% endif %}</a></li>
+                                <li>{% if app.user is null %} <a class="nav-link " href="/register/"> s'inscrire </a> {% else %}<a class="nav-link " href="/account/">  {{app.user.getUserIdentifier()}}</a> {% endif %}</li>
                             </ul>
                              <ul >
                                 <li><a class="nav-link " href="/logout/"><i color="dark" height="140" class="fa-solid fa-power-off"></i></a></li>
                             </ul>
                         </div>
-
-
                     </div>
                 </nav>
              </header>
@@ -199,28 +260,24 @@
         {% endblock %}
 
         {% block footer %}
-        <br>
-        <br><br><br><br><br><br><br><br>
-            <footer  height="60" style="background-color:#2B9D7D ;">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-4 mt-2 mb-2">
-                            <p class="text-light justify-content-center">Logiciel de gestion des formations et de suivie des formé.e.s de la Fédé B</p>
-                            <p class="text-light justify-content-center"></p>
-
-                        </div>
-                        <div class="col-lg-4 mt-2 mb-2">
-                            <p class="text-light justify-content-center"></p>
-                            <p class="text-light justify-content-center"></p>
-                        </div>
-
-                        <div class="col-lg-4 mt-2 mb-2 justify-content-end">
-                            <img src="{{asset('build/images/logo_FAGE.png')}}"  height="60" class="d-inline-block " alt="logo FAGE">
-                            <img src="{{asset('build/images/logo_FEDEB.png')}}"  height="60" class="d-inline-block " alt="logo Fédé B">
-                        </div>
+        <br><br>
+            <footer class="sticky-footer"  style="  position: absolute;
+  bottom: 0; 
+  width: 100%;    background-color:#F0AD42 ;">
+                <div class="container">
+                    <div class=" text-center mobile-size" style=" display: flex; justify-content: space-between;">
+                        <small>© 
+                           <a  href="/mentionlegale">Merer</a> {{ "now"|date("Y") }} V1.0
+                           <a  href="/mentionlegale">mention légale</a>
+                        </small>
+                    {% if is_granted('ROLE_USER') %}
+                        <small >
+                           <a  href="/support">support <i class="fa-sharp fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </small>
+                    {% endif %}
                     </div>
                 </div>
-            </footer>
-        {% endblock %}
+            </footer> 
+        {% endblock %} 
     </body>
 </html>

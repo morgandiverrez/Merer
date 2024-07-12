@@ -1,0 +1,275 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Modifier NDF{% endblock %}
+
+{% block body %}
+       <div class="container-fluid">
+            <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+                 <p class="display-6 no-wrap text-center">Modifier NDF</p>
+                <div class="form-control form-control-lg mx-auto corps text-center">
+                    {{ form_start(form) }}
+                    <div class="mx-auto mt-5 mb-5">
+                            <a href="/expenseReport/download/modalitéfinanciereremboursement">modalité financière de remboursement 2023-2025 </a>
+                            <div class="exercice my-5">
+                                {{ form_label(form.exercice, 'Exercice ', {'label_attr': {'class': 'foo'}}) }}
+                                {{ form_errors(form.exercice) }}
+                                {{ form_widget(form.exercice)}}
+                                {{ form_help(form.exercice) }}
+                            </div>
+                             <div class="motif my-5">
+                                {{ form_label(form.motif, 'motif ', {'label_attr': {'class': 'foo'}}) }}
+                                {{ form_errors(form.motif) }}
+                                {{ form_widget(form.motif)}}
+                                {{ form_help(form.motif) }}
+                            </div>
+                    
+
+                           
+                            {% set compteur = 0 %}
+                            {% for expenseReportRouteLine in form.expenseReportRouteLines %}
+                                <div class="expenseReportRouteLine my-5">
+                                <p class="display-5 no-wrap text-center"> trajet {{compteur}} </p>
+                                    <div class="date my-5">
+                                        {{ form_label(expenseReportRouteLine.date, 'date ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportRouteLine.date) }}
+                                        {{ form_widget(expenseReportRouteLine.date)}}
+                                        {{ form_help(expenseReportRouteLine.date) }}
+                                    </div>
+
+                                    <div class="repayGrid my-5">
+                                        {{ form_label(expenseReportRouteLine.repayGrid,  'selectionner un trajet habituel', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportRouteLine.repayGrid) }}
+                                        {{ form_widget(expenseReportRouteLine.repayGrid)}}
+                                        {{ form_help(expenseReportRouteLine.repayGrid) }}
+                                    </div>
+
+                                    <div class="start my-5">
+                                        {{ form_label(expenseReportRouteLine.start, 'point de départ ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportRouteLine.start) }}
+                                        {{ form_widget(expenseReportRouteLine.start)}}
+                                        {{ form_help(expenseReportRouteLine.start) }}
+                                    </div>
+
+                                    <div class="end my-5">
+                                        {{ form_label(expenseReportRouteLine.end, 'point arrivé ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportRouteLine.end) }}
+                                        {{ form_widget(expenseReportRouteLine.end)}}
+                                        {{ form_help(expenseReportRouteLine.end) }}
+                                    </div>
+
+                                    <div class="distance my-5">
+                                        {{ form_label(expenseReportRouteLine.distance, 'distance (en km) ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportRouteLine.distance) }}
+                                        {{ form_widget(expenseReportRouteLine.distance)}}
+                                        {{ form_help(expenseReportRouteLine.distance) }}
+                                    </div>
+
+                                      <div class="travelMean my-5">
+                                        {{ form_label(expenseReportRouteLine.travelMean, 'moyen de déplacement ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportRouteLine.travelMean) }}
+                                        {{ form_widget(expenseReportRouteLine.travelMean)}}
+                                        {{ form_help(expenseReportRouteLine.travelMean) }}
+                                    </div>
+                                </div>
+                                {% set compteur = compteur + 1 %}
+                            {% endfor %}
+
+                     <div class="expenseReportRouteLine2 my-5" data-prototype="{{ form_widget(form.expenseReportRouteLines.vars.prototype)|e('html_attr') }}">
+                    </div>
+                    
+                    <button type="button" class="btn btn-success add_item_link" data-collection-holder-class="expenseReportRouteLine2">Ajouter un trajet</button>
+
+                    <br>
+
+
+
+                     {% set compteur = 0 %}
+                            {% for expenseReportLine in form.expenseReportLines %}
+                                <div class="expenseReportLine my-5">
+                                <p class="display-5 no-wrap text-center"> trajet {{compteur}} </p>
+                                    <div class="date my-5">
+                                        {{ form_label(expenseReportLine.date, 'date ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportLine.date) }}
+                                        {{ form_widget(expenseReportLine.date)}}
+                                        {{ form_help(expenseReportLine.date) }}
+                                    </div>
+
+                                    <div class="object my-5">
+                                        {{ form_label(expenseReportLine.object,  'objet' , {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportLine.object) }}
+                                        {{ form_widget(expenseReportLine.object)}}
+                                        {{ form_help(expenseReportLine.object) }}
+                                    </div>
+
+                                    <div class="amount my-5">
+                                        {{ form_label(expenseReportLine.amount, 'Montant TTC ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportLine.amount) }}
+                                        {{ form_widget(expenseReportLine.amount)}}
+                                        {{ form_help(expenseReportLine.amount) }}
+                                    </div>
+
+                                    <div class="document my-5">
+                                        {{ form_label(expenseReportLine.document, 'document justificatif (facture par exemple) ', {'label_attr': {'class': 'foo'}}) }}
+                                        {{ form_errors(expenseReportLine.document) }}
+                                        {{ form_widget(expenseReportLine.document)}}
+                                        {{ form_help(expenseReportLine.document) }}
+                                    </div>
+
+                                  
+                                </div>
+                                {% set compteur = compteur + 1 %}
+                            {% endfor %}
+
+                     <div class="expenseReportLines2 my-5" data-prototype="{{ form_widget(form.expenseReportLines.vars.prototype)|e('html_attr') }}">
+                    </div>
+                    
+                    <button type="button" class="btn btn-success add_item_link" data-collection-holder-class="expenseReportLines2">Ajouter un ligne de frais</button>
+
+                    <br>
+                        <button class="btn btn-success mt-3 mb-3">{{ button_label|default('Valider ') }}<i class = "fa text-light fa-save me-2"></i></button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+      
+        jQuery(document).ready(
+        function() {
+
+            // Get the ul that holds the collection of tags
+            var $expenseReportRouteLinesCollectionHolder = $('ul.expenseReportRouteLine2');
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $expenseReportRouteLinesCollectionHolder.data('index', $expenseReportRouteLinesCollectionHolder.find('input').length);
+
+            $('body').on('click', '.add_item_link', function(e) {
+                var $collectionHolderClass = $(e.currentTarget).data('collectionHolderClass');
+                // add a new tag form (see next code block)
+                addFormToCollection2($collectionHolderClass);
+            })
+        });
+
+        function addFormToCollection2($collectionHolderClass) {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder = $('.' + $collectionHolderClass);
+
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+           // newForm = newForm.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            newForm = newForm.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newLabel = $("<h3  class='my-3'>Nouveau trajet</h3>");
+            $collectionHolder.append($newLabel)
+            var $newForm = $('<div></div>').append(newForm);
+            // Add the new form at the end of the list
+            $collectionHolder.append($newForm)
+            addTagFormDeleteLink2($newForm,$newLabel);
+        }
+
+        function addTagFormDeleteLink2($newForm,$newLabel) {
+            var $removeFormButton = $('<button type="button" class="btn btn-danger">Retirer ce trajet </button>');
+            $newForm.append($removeFormButton);
+
+            $removeFormButton.on('click', function(e) {
+                // remove the li for the tag form
+                $newForm.remove();
+                $newLabel.remove();
+            });
+        }
+
+
+     
+    </script>
+
+
+
+
+    <script>
+      
+        jQuery(document).ready(
+        function() {
+
+            // Get the ul that holds the collection of tags
+            var $expenseReportLinesCollectionHolder = $('ul.expenseReportLine2');
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $expenseReportLinesCollectionHolder.data('index', $expenseReportLinesCollectionHolder.find('input').length);
+
+            $('body').on('click', '.add_item_link', function(e) {
+                var $collectionHolderClass2 = $(e.currentTarget).data('collectionHolderClass');
+                // add a new tag form (see next code block)
+                addFormToCollection($collectionHolderClass2);
+            })
+        });
+
+        function addFormToCollection($collectionHolderClass2) {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder2 = $('.' + $collectionHolderClass2);
+
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder2.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder2.data('index');
+
+            var newForm2 = prototype;
+            // You need this only if you didn't set 'label' => false in your tags field in TaskType
+            // Replace '__name__label__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            //newForm2 = newForm2.replace(/__name__label__/g, index);
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+             //newForm2 = newForm2.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder2.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newLabel2 = $("<h3  class='my-3'>Nouvelle ligne de frais</h3>");
+            $collectionHolder2.append($newLabel2)
+            var $newForm2 = $('<div></div>').append(newForm2);
+            // Add the new form at the end of the list
+            $collectionHolder2.append($newForm2)
+            addTagFormDeleteLink($newForm2,$newLabel2);
+        }
+
+        function addTagFormDeleteLink($newForm2,$newLabel2) {
+            var $removeFormButton2 = $('<button type="button" class="btn btn-danger">Retirer cette ligne de frais </button>');
+            $newForm2.append($removeFormButton2);
+
+            $removeFormButton2.on('click', function(e) {
+                // remove the li for the tag form
+                $newForm2.remove();
+                $newLabel2.remove();
+            });
+        }
+
+
+     
+    </script>
+{% endblock %}
+
+

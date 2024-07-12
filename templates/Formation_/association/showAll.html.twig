@@ -1,0 +1,48 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}liste des associations{% endblock %}
+
+
+{% block body %}
+   <div class="container-fluid">
+        <div style = "margin-left: auto ; margin-right: auto ; max-width : 900px;">
+            <p class="display-6 no-wrap text-center">Liste des associations
+            {% if is_granted('ROLE_BF')%}
+                 <a href="/association/new"><i class="fa-solid fa-plus align-right"></i></a>
+            {% endif %}
+            </p>
+            <form action="{{ path('association_showAll') }}" method="post">
+                <p class="text-center ">
+                    <input type="text" id="name" name="name" placeholder="Nom"/>
+                    <input type="text" id="fedefi" name="fedefi" placeholder="fede fi"/>
+                    <button class="btn btn-primary" type="submit" >Rechercher</button>
+                </p>
+            </form>
+             
+            
+            
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Sigle</th>
+                    <th scope="col">Fédération fillière</th>
+                    <th scope="col">Adresse mail</th>
+                    <th scope="col">Détails</th>
+                    
+                 </tr>
+                </thead>
+
+                <tbody>
+                    {% for association in associations %} 
+                        <tr>
+                            <td>{{association.getSigle()}}</td>
+                            <td>{{association.getFedeFilliere()}}</td>
+                            <td>{{association.getAdresseMail()}}</td>
+                            <td><a href="/association/show/{{association.getId()}}"><i class="fa-solid fa-eye"></i></i></a></td> 
+                        </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

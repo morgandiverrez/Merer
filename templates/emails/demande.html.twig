@@ -1,0 +1,10 @@
+{% extends 'base_email.html.twig' %}
+{% block body %}
+<p>Bonjour,</p>
+
+<p>Une nouvelle demande de formation vient d'être reçue.</p>
+<p>Vous pouvez la consulter via ce <a href="https://15.236.191.187/demande/show/{{demande.getId()}}">lien</a>.</p>
+
+
+<p>Lien pour vous connecter à la plateforme Merer <a href="https://15.236.191.187/">Merer - ******</a>.</p>
+{% endblock %}

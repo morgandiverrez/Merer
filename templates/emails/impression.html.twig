@@ -1,0 +1,30 @@
+{% extends 'base_email.html.twig' %}
+{% block body %}
+    <p>Bonjour,</p>
+
+    <p>Une nouvelle impression a été faite.</p>
+
+    <table style="border: 1px solid;">
+        <thead>
+            <tr style="border: 1px solid;">
+                <th scope="col" style="border: 1px solid;">Horrodataire</th>
+                <th scope="col" style="border: 1px solid;">imprimeur.euse</th>
+                <th scope="col" style="border: 1px solid;">Format</th>
+                <th scope="col" style="border: 1px solid;">Quantitée</th>
+                 <th scope="col" style="border: 1px solid;">status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr  style="border: 1px solid;">
+                <td  style="border: 1px solid;">{{impression.getDatetime().format("d/m/Y H:i")}}</td> 
+                <td  style="border: 1px solid;">{{impression.getName()}}</td>
+                <td  style="border: 1px solid;">{{impression.getFormat()}}{% if impression.isRectoVerso() %} RV {% endif %} {% if impression.isCouleur() %} Couleur {% else %} NB {% endif %} </td>
+                <td  style="border: 1px solid;">{{impression.getQuantite()}}</td>
+                 <td  style="border: 1px solid;">{% if impression.isFactureFinDuMois() %} Facture en fin de mois {% else %} Facture direct {% endif %} </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Lien pour vous connecter à la plateforme Merer <a href="https://15.236.191.187/">Merer - ******</a>.</p>
+{% endblock %}
